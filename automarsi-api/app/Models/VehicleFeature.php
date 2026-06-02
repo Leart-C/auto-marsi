@@ -2,14 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class VehicleFeature extends Model
 {
-    protected $guarded = [];
+    use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'slug',
+    ];
 
     public function listings()
     {
-        return $this->belongsToMany(Listing::class, 'listing_feature');
+        return $this->belongsToMany(Listing::class, 'listing_feature')
+            ->withTimestamps();
     }
 }

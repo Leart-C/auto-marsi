@@ -15,6 +15,8 @@ class Inquiry extends Model
         'email',
         'phone',
         'message',
+        'source',
+        'status',
     ];
 
     public function listing()

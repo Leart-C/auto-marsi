@@ -12,6 +12,7 @@ class CarModel extends Model
     protected $fillable = [
         'make_id',
         'name',
+        'slug',
     ];
 
     public function make()

@@ -2,25 +2,52 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Listing extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'make_id',
         'car_model_id',
+        'created_by',
         'title',
+        'slug',
         'description',
-        'price',
         'year',
+        'price',
+        'currency',
         'kilometers',
         'fuel_type',
         'transmission',
+        'body_type',
+        'color',
+        'engine_size',
+        'horsepower',
+        'vin',
+        'registration_until',
+        'condition',
+        'status',
+        'is_featured',
         'location',
+        'published_at',
+        'sold_at',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'price' => 'decimal:2',
+            'engine_size' => 'decimal:1',
+            'is_featured' => 'boolean',
+            'registration_until' => 'date',
+            'published_at' => 'datetime',
+            'sold_at' => 'datetime',
+        ];
+    }
 
     public function make()
     {
@@ -32,9 +59,19 @@ class Listing extends Model
         return $this->belongsTo(CarModel::class);
     }
 
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
     public function images()
     {
-        return $this->hasMany(ListingImage::class);
+        return $this->hasMany(ListingImage::class)->orderBy('sort_order');
+    }
+
+    public function primaryImage()
+    {
+        return $this->hasOne(ListingImage::class)->where('is_primary', true);
     }
 
     public function inquiries()
@@ -49,6 +86,7 @@ class Listing extends Model
 
     public function features()
     {
-        return $this->belongsToMany(VehicleFeature::class, 'listing_feature');
+        return $this->belongsToMany(VehicleFeature::class, 'listing_feature')
+            ->withTimestamps();
     }
 }
