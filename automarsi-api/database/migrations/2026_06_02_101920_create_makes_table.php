@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('makes', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->string('logo_url')->nullable();
             $table->timestamps();
         });
