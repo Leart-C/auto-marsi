@@ -11,6 +11,7 @@ class Make extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'logo_url',
     ];
 
