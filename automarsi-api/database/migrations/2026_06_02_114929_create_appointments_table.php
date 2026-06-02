@@ -11,19 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('inquiries', function (Blueprint $table) {
+        Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('listing_id')->nullable()->constrained()->nullOnDelete();
             $table->string('name');
-            $table->string('email')->nullable();
             $table->string('phone');
+            $table->string('email')->nullable();
+            $table->timestamp('preferred_at');
             $table->text('message')->nullable();
-            $table->string('source', 50)->nullable();
-            $table->string('status', 30)->default('new');
+            $table->string('status', 30)->default('pending');
             $table->timestamps();
 
             $table->index('status');
-            $table->index('source');
+            $table->index('preferred_at');
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('inquiries');
+        Schema::dropIfExists('appointments');
     }
 };

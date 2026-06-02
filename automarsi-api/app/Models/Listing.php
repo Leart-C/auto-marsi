@@ -41,4 +41,14 @@ class Listing extends Model
     {
         return $this->hasMany(Inquiry::class);
     }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
+    public function features()
+    {
+        return $this->belongsToMany(VehicleFeature::class, 'listing_feature');
+    }
 }
