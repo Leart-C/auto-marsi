@@ -11,10 +11,12 @@ Route::apiResource('makes', AdminMakeController::class);
 Route::apiResource('car-models', AdminCarModelController::class);
 Route::apiResource('vehicle-features', AdminVehicleFeatureController::class);
 
-Route::get('listings/{listing}/images', [AdminListingImageController::class, 'index']);
-Route::post('listings/{listing}/images', [AdminListingImageController::class, 'store']);
-Route::patch('listing-images/{listingImage}', [AdminListingImageController::class, 'update']);
-Route::delete('listing-images/{listingImage}', [AdminListingImageController::class, 'destroy']);
-Route::post('listing-images/{listingImage}/primary', [AdminListingImageController::class, 'primary']);
+Route::prefix('listings/{listing}')->scopeBindings()->group(function () {
+    Route::get('images', [AdminListingImageController::class, 'index']);
+    Route::post('images', [AdminListingImageController::class, 'store']);
+    Route::patch('images/{listingImage}', [AdminListingImageController::class, 'update']);
+    Route::delete('images/{listingImage}', [AdminListingImageController::class, 'destroy']);
+    Route::post('images/{listingImage}/primary', [AdminListingImageController::class, 'primary']);
+});
 
 Route::apiResource('listings', AdminListingController::class);

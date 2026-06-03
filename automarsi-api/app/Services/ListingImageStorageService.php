@@ -13,6 +13,10 @@ class ListingImageStorageService
         $disk = 'public';
         $path = $file->store("listings/{$listingId}", $disk);
 
+        if (! $path) {
+            throw new \RuntimeException('Failed to store uploaded listing image.');
+        }
+
         /** @var FilesystemAdapter $storage */
         $storage = Storage::disk($disk);
 

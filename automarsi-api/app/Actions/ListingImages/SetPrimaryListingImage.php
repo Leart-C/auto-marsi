@@ -16,7 +16,7 @@ class SetPrimaryListingImage
 
             $listingImage->update(['is_primary' => true]);
 
-            return $listingImage->fresh();
+            return $listingImage->refresh();
         });
     }
 }

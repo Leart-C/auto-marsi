@@ -10,6 +10,6 @@ class UpdateListingImage
     {
         $listingImage->update($data);
 
-        return $listingImage->fresh();
+        return $listingImage->refresh();
     }
 }

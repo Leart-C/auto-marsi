@@ -14,6 +14,7 @@ use App\Models\Listing;
 use App\Models\ListingImage;
 use App\Queries\AdminListingImageQuery;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class AdminListingImageController extends Controller
@@ -43,6 +44,7 @@ class AdminListingImageController extends Controller
 
     public function update(
         UpdateListingImageRequest $request,
+        Listing $listing,
         ListingImage $listingImage,
         UpdateListingImage $updateListingImage
     ): ListingImageResource {
@@ -52,15 +54,17 @@ class AdminListingImageController extends Controller
     }
 
     public function destroy(
+        Listing $listing,
         ListingImage $listingImage,
         DeleteListingImage $deleteListingImage
-    ): JsonResponse {
+    ): Response {
         $deleteListingImage->handle($listingImage);
 
-        return response()->json(status: 204);
+        return response()->noContent();
     }
 
     public function primary(
+        Listing $listing,
         ListingImage $listingImage,
         SetPrimaryListingImage $setPrimaryListingImage
     ): ListingImageResource {

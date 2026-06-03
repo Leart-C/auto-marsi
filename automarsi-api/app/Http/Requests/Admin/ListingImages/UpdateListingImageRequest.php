@@ -15,7 +15,7 @@ class UpdateListingImageRequest extends FormRequest
     {
         return [
             'alt_text' => ['sometimes', 'nullable', 'string', 'max:255'],
-            'sort_order' => ['sometimes', 'integer', 'min:0'],
+            'sort_order' => ['sometimes', 'nullable', 'integer', 'min:0'],
         ];
     }
 }
