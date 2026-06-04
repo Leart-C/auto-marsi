@@ -14,9 +14,9 @@ Route::apiResource('vehicle-features', AdminVehicleFeatureController::class);
 Route::prefix('listings/{listing}')->scopeBindings()->group(function () {
     Route::get('images', [AdminListingImageController::class, 'index']);
     Route::post('images', [AdminListingImageController::class, 'store']);
-    Route::patch('images/{listingImage}', [AdminListingImageController::class, 'update']);
-    Route::delete('images/{listingImage}', [AdminListingImageController::class, 'destroy']);
-    Route::post('images/{listingImage}/primary', [AdminListingImageController::class, 'primary']);
+    Route::patch('images/{image}', [AdminListingImageController::class, 'update']);
+    Route::delete('images/{image}', [AdminListingImageController::class, 'destroy']);
+    Route::post('images/{image}/primary', [AdminListingImageController::class, 'primary']);
 });
 
 Route::apiResource('listings', AdminListingController::class);

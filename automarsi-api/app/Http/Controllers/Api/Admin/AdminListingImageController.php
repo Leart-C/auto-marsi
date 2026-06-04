@@ -13,7 +13,6 @@ use App\Http\Resources\ListingImageResource;
 use App\Models\Listing;
 use App\Models\ListingImage;
 use App\Queries\AdminListingImageQuery;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -45,31 +44,31 @@ class AdminListingImageController extends Controller
     public function update(
         UpdateListingImageRequest $request,
         Listing $listing,
-        ListingImage $listingImage,
+        ListingImage $image,
         UpdateListingImage $updateListingImage
     ): ListingImageResource {
         return new ListingImageResource(
-            $updateListingImage->handle($listingImage, $request->validated())
+            $updateListingImage->handle($image, $request->validated())
         );
     }
 
     public function destroy(
         Listing $listing,
-        ListingImage $listingImage,
+        ListingImage $image,
         DeleteListingImage $deleteListingImage
     ): Response {
-        $deleteListingImage->handle($listingImage);
+        $deleteListingImage->handle($image);
 
         return response()->noContent();
     }
 
     public function primary(
         Listing $listing,
-        ListingImage $listingImage,
+        ListingImage $image,
         SetPrimaryListingImage $setPrimaryListingImage
     ): ListingImageResource {
         return new ListingImageResource(
-            $setPrimaryListingImage->handle($listingImage)
+            $setPrimaryListingImage->handle($image)
         );
     }
 }
