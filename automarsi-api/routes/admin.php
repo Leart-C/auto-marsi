@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\AdminAppointmentController;
 use App\Http\Controllers\Api\Admin\AdminCarModelController;
 use App\Http\Controllers\Api\Admin\AdminInquiryController;
 use App\Http\Controllers\Api\Admin\AdminListingController;
@@ -15,6 +16,10 @@ Route::apiResource('vehicle-features', AdminVehicleFeatureController::class);
 Route::get('inquiries', [AdminInquiryController::class, 'index']);
 Route::get('inquiries/{inquiry}', [AdminInquiryController::class, 'show']);
 Route::patch('inquiries/{inquiry}', [AdminInquiryController::class, 'update']);
+
+Route::get('appointments', [AdminAppointmentController::class, 'index']);
+Route::get('appointments/{appointment}', [AdminAppointmentController::class, 'show']);
+Route::patch('appointments/{appointment}', [AdminAppointmentController::class, 'update']);
 
 Route::prefix('listings/{listing}')->group(function () {
     Route::get('images', [AdminListingImageController::class, 'index']);
