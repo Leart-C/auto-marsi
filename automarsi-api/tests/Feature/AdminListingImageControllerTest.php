@@ -138,7 +138,7 @@ class AdminListingImageControllerTest extends TestCase
         ]);
 
         $response = $this->postJson(
-            "/api/admin/listings/{$listing->id}/images/{$secondImage->id}/primary"
+            "/api/admin/listing-images/{$secondImage->id}/primary"
         );
 
         $response
@@ -164,7 +164,7 @@ class AdminListingImageControllerTest extends TestCase
             'is_primary' => true,
         ]);
 
-        $response = $this->patchJson("/api/admin/listings/{$listing->id}/images/{$image->id}", [
+        $response = $this->patchJson("/api/admin/listing-images/{$image->id}", [
             'alt_text' => 'New alt',
             'sort_order' => 3,
         ]);
@@ -199,7 +199,7 @@ class AdminListingImageControllerTest extends TestCase
             'is_primary' => true,
         ]);
 
-        $response = $this->deleteJson("/api/admin/listings/{$listing->id}/images/{$image->id}");
+        $response = $this->deleteJson("/api/admin/listing-images/{$image->id}");
 
         $response->assertNoContent();
 

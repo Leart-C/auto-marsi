@@ -1,22 +1,28 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AdminCarModelController;
-use App\Http\Controllers\Api\Admin\AdminMakeController;
-use App\Http\Controllers\Api\Admin\AdminVehicleFeatureController;
+use App\Http\Controllers\Api\Admin\AdminInquiryController;
 use App\Http\Controllers\Api\Admin\AdminListingController;
 use App\Http\Controllers\Api\Admin\AdminListingImageController;
+use App\Http\Controllers\Api\Admin\AdminMakeController;
+use App\Http\Controllers\Api\Admin\AdminVehicleFeatureController;
 use Illuminate\Support\Facades\Route;
 
 Route::apiResource('makes', AdminMakeController::class);
 Route::apiResource('car-models', AdminCarModelController::class);
 Route::apiResource('vehicle-features', AdminVehicleFeatureController::class);
 
-Route::prefix('listings/{listing}')->scopeBindings()->group(function () {
+Route::get('inquiries', [AdminInquiryController::class, 'index']);
+Route::get('inquiries/{inquiry}', [AdminInquiryController::class, 'show']);
+Route::patch('inquiries/{inquiry}', [AdminInquiryController::class, 'update']);
+
+Route::prefix('listings/{listing}')->group(function () {
     Route::get('images', [AdminListingImageController::class, 'index']);
     Route::post('images', [AdminListingImageController::class, 'store']);
-    Route::patch('images/{image}', [AdminListingImageController::class, 'update']);
-    Route::delete('images/{image}', [AdminListingImageController::class, 'destroy']);
-    Route::post('images/{image}/primary', [AdminListingImageController::class, 'primary']);
 });
+
+Route::patch('listing-images/{listingImage}', [AdminListingImageController::class, 'update']);
+Route::delete('listing-images/{listingImage}', [AdminListingImageController::class, 'destroy']);
+Route::post('listing-images/{listingImage}/primary', [AdminListingImageController::class, 'primary']);
 
 Route::apiResource('listings', AdminListingController::class);
