@@ -43,32 +43,29 @@ class AdminListingImageController extends Controller
 
     public function update(
         UpdateListingImageRequest $request,
-        Listing $listing,
-        ListingImage $image,
+        ListingImage $listingImage,
         UpdateListingImage $updateListingImage
     ): ListingImageResource {
         return new ListingImageResource(
-            $updateListingImage->handle($image, $request->validated())
+            $updateListingImage->handle($listingImage, $request->validated())
         );
     }
 
     public function destroy(
-        Listing $listing,
-        ListingImage $image,
+        ListingImage $listingImage,
         DeleteListingImage $deleteListingImage
     ): Response {
-        $deleteListingImage->handle($image);
+        $deleteListingImage->handle($listingImage);
 
         return response()->noContent();
     }
 
     public function primary(
-        Listing $listing,
-        ListingImage $image,
+        ListingImage $listingImage,
         SetPrimaryListingImage $setPrimaryListingImage
     ): ListingImageResource {
         return new ListingImageResource(
-            $setPrimaryListingImage->handle($image)
+            $setPrimaryListingImage->handle($listingImage)
         );
     }
 }
