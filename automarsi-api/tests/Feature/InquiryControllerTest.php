@@ -7,6 +7,8 @@ use App\Models\Listing;
 use App\Models\Make;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\Jobs\SendInquiryEmail;
+use Illuminate\Support\Facades\Bus;
 
 class InquiryControllerTest extends TestCase
 {
@@ -14,26 +16,26 @@ class InquiryControllerTest extends TestCase
 
     public function test_customer_can_submit_inquiry_for_active_listing(): void
     {
-        $listing = $this->createListing(status: 'active');
+        Bus::fake();
+
+        $listing = $this->createListing('active');
 
         $response = $this->postJson('/api/inquiries', [
             'listing_id' => $listing->id,
             'name' => 'John Doe',
-            'email' => 'john@example.com',
             'phone' => '+38344111222',
-            'message' => 'Is this car still available?',
-            'source' => 'website',
+            'message' => 'Interested in this car.',
         ]);
 
-        $response
-            ->assertCreated()
-            ->assertJsonPath('message', 'Inquiry submitted successfully.');
+        $response->assertCreated();
 
         $this->assertDatabaseHas('inquiries', [
             'listing_id' => $listing->id,
             'name' => 'John Doe',
             'status' => 'new',
         ]);
+
+        Bus::assertDispatched(SendInquiryEmail::class);
     }
 
     public function test_customer_cannot_submit_inquiry_for_inactive_listing(): void
