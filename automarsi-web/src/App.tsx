@@ -44,12 +44,23 @@ function App() {
   return (
     <>
       <SignedOut>
-        <main className="auth-screen">
-          <section className="auth-panel">
-            <h1>AutoMarsi Admin</h1>
-            <p>Sign in to manage listings, inquiries, and appointments.</p>
+        <main className="grid min-h-screen place-items-center bg-muted/30 p-6">
+          <section className="grid w-full max-w-md gap-5 rounded-lg border bg-card p-8 text-card-foreground shadow-sm">
+            <div className="grid gap-2">
+              <p className="text-xs font-semibold uppercase text-muted-foreground">
+                AutoMarsi
+              </p>
+              <h1 className="text-2xl font-semibold">Admin</h1>
+              <p className="text-sm text-muted-foreground">
+                Sign in to manage listings, inquiries, and appointments.
+              </p>
+            </div>
+
             <SignInButton mode="modal">
-              <button type="button" className="primary-button">
+              <button
+                type="button"
+                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              >
                 Sign in
               </button>
             </SignInButton>
