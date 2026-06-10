@@ -6,6 +6,7 @@ import EmptyState from '../../components/admin/EmptyState'
 import LoadingState from '../../components/admin/LoadingState'
 import { Button } from '@/components/ui/button'
 import { getAdminListings } from '@/features/admin-listings/api/getAdminListings'
+import ListingCreatePanel from '@/features/admin-listings/components/ListingCreatePanel'
 import ListingsTable from '@/features/admin-listings/components/ListingsTable'
 import type { AdminListing } from '@/features/admin-listings/types'
 
@@ -13,6 +14,8 @@ function ListingsPage() {
   const { getToken, isLoaded, isSignedIn } = useAuth()
   const [listings, setListings] = useState<AdminListing[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isCreatePanelOpen, setIsCreatePanelOpen] = useState(false)
+  const [authToken, setAuthToken] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   async function loadListings() {
@@ -30,6 +33,8 @@ function ListingsPage() {
         throw new Error('Missing authentication token.')
       }
 
+      setAuthToken(token)
+
       const response = await getAdminListings({ token })
 
       setListings(response.data)
@@ -40,6 +45,25 @@ function ListingsPage() {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  async function handleListingCreated() {
+    setIsCreatePanelOpen(false)
+    await loadListings()
+  }
+
+  async function openCreatePanel() {
+    setErrorMessage(null)
+
+    const token = await getToken()
+
+    if (!token) {
+      setErrorMessage('Please sign in again before creating a listing.')
+      return
+    }
+
+    setAuthToken(token)
+    setIsCreatePanelOpen(true)
   }
 
   useEffect(() => {
@@ -69,36 +93,44 @@ function ListingsPage() {
             Refresh
           </Button>
 
-          <Button type="button">
+          <Button type="button" onClick={openCreatePanel}>
             <Plus />
             Add listing
           </Button>
         </div>
       </div>
 
-      <DataTableShell title="Car listings">
-        {isLoading ? (
-          <LoadingState label="Loading listings" />
-        ) : null}
+      {isCreatePanelOpen && authToken ? (
+        <ListingCreatePanel
+          token={authToken}
+          onCancel={() => setIsCreatePanelOpen(false)}
+          onCreated={handleListingCreated}
+        />
+      ) : (
+        <DataTableShell title="Car listings">
+          {isLoading ? (
+            <LoadingState label="Loading listings" />
+          ) : null}
 
-        {!isLoading && errorMessage ? (
-          <EmptyState
-            title="Could not load listings"
-            description={errorMessage}
-          />
-        ) : null}
+          {!isLoading && errorMessage ? (
+            <EmptyState
+              title="Could not load listings"
+              description={errorMessage}
+            />
+          ) : null}
 
-        {!isLoading && !errorMessage && !hasListings ? (
-          <EmptyState
-            title="No listings found"
-            description="Create the first listing from the admin panel or adjust your filters."
-          />
-        ) : null}
+          {!isLoading && !errorMessage && !hasListings ? (
+            <EmptyState
+              title="No listings found"
+              description="Create the first listing from the admin panel or adjust your filters."
+            />
+          ) : null}
 
-        {!isLoading && !errorMessage && hasListings ? (
-          <ListingsTable listings={listings} />
-        ) : null}
-      </DataTableShell>
+          {!isLoading && !errorMessage && hasListings ? (
+            <ListingsTable listings={listings} />
+          ) : null}
+        </DataTableShell>
+      )}
     </section>
   )
 }

@@ -1,3 +1,37 @@
+export type ListingMakeOption = {
+  id: number
+  name: string
+  slug: string
+}
+
+export type ListingCarModelOption = {
+  id: number
+  make_id: number
+  name: string
+  slug: string
+}
+
+export type CreateAdminListingPayload = {
+  make_id: number
+  car_model_id: number
+  title: string
+  year: number
+  price: number
+  currency: string
+  kilometers?: number | null
+  fuel_type: string
+  transmission: string
+  body_type?: string | null
+  color?: string | null
+  condition: string
+  status: string
+  location?: string | null
+  description?: string | null
+}
+
+export type CreateAdminListingResponse = {
+  data: AdminListing
+}
 export type AdminListingMake = {
   id: number
   name: string
