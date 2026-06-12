@@ -1,4 +1,4 @@
-import { MoreHorizontal } from 'lucide-react'
+import { Eye, Images, MoreHorizontal, Pencil } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -41,13 +41,16 @@ function ListingActionsMenu({ listing }: ListingActionsMenuProps) {
       />
 
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={handleView}>
+        <DropdownMenuItem onClick={handleView} className="gap-2">
+          <Eye className="size-4 text-muted-foreground" />
           View
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleEdit}>
+        <DropdownMenuItem onClick={handleEdit} className="gap-2">
+          <Pencil className="size-4 text-muted-foreground" />
           Edit
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleImages}>
+        <DropdownMenuItem onClick={handleImages} className="gap-2">
+          <Images className="size-4 text-muted-foreground" />
           Manage images
         </DropdownMenuItem>
       </DropdownMenuContent>

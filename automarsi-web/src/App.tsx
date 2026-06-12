@@ -1,5 +1,7 @@
 import { SignInButton, SignedIn, SignedOut } from '@clerk/clerk-react'
+import { LogIn, ShieldCheck } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { Button } from '@/components/ui/button'
 import AdminLayout from './layouts/AdminLayout'
 import AppointmentsPage from './pages/admin/AppointmentsPage'
 import InquiriesPage from './pages/admin/InquiriesPage'
@@ -47,6 +49,9 @@ function App() {
         <main className="grid min-h-screen place-items-center bg-muted/30 p-6">
           <section className="grid w-full max-w-md gap-5 rounded-lg border bg-card p-8 text-card-foreground shadow-sm">
             <div className="grid gap-2">
+              <div className="mb-2 grid size-10 place-items-center rounded-lg bg-primary text-primary-foreground">
+                <ShieldCheck className="size-5" />
+              </div>
               <p className="text-xs font-semibold uppercase text-muted-foreground">
                 AutoMarsi
               </p>
@@ -57,12 +62,10 @@ function App() {
             </div>
 
             <SignInButton mode="modal">
-              <button
-                type="button"
-                className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-              >
+              <Button type="button" size="lg">
+                <LogIn />
                 Sign in
-              </button>
+              </Button>
             </SignInButton>
           </section>
         </main>

@@ -49,13 +49,16 @@ function ListingsPage() {
   const hasListings = listings.length > 0
 
   return (
-    <section className="grid gap-5">
+    <section className="grid gap-4">
       <div className="flex items-center justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase text-muted-foreground">
             Inventory
           </p>
           <h2 className="text-2xl font-semibold">Listings</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Manage vehicle inventory, photos, status, and listing details.
+          </p>
         </div>
 
         <div className="flex items-center gap-2">
@@ -76,7 +79,10 @@ function ListingsPage() {
         </div>
       </div>
 
-      <DataTableShell title="Car listings">
+      <DataTableShell
+        title="Car listings"
+        description="A compact overview of the vehicles currently managed by the dealership."
+      >
         {isLoading ? (
           <LoadingState label="Loading listings" />
         ) : null}
