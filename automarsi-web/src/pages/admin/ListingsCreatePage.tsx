@@ -1,14 +1,44 @@
+import { useAuth } from '@clerk/clerk-react'
 import { ArrowLeft } from 'lucide-react'
-import DataTableShell from '@/components/admin/DataTableShell'
+import { useEffect, useState } from 'react'
 import EmptyState from '@/components/admin/EmptyState'
 import PageHeader from '@/components/admin/PageHeader'
 import { Button } from '@/components/ui/button'
+import ListingCreatePanel from '@/features/admin-listings/components/ListingCreatePanel'
 
 type ListingsCreatePageProps = {
   onNavigate: (path: string) => void
 }
 
 function ListingsCreatePage({ onNavigate }: ListingsCreatePageProps) {
+  const { getToken, isLoaded, isSignedIn } = useAuth()
+  const [token, setToken] = useState<string | null>(null)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function loadToken() {
+      if (!isLoaded) {
+        return
+      }
+
+      if (!isSignedIn) {
+        setErrorMessage('Please sign in before creating a listing.')
+        return
+      }
+
+      const nextToken = await getToken()
+
+      if (!nextToken) {
+        setErrorMessage('Please sign in again before creating a listing.')
+        return
+      }
+
+      setToken(nextToken)
+    }
+
+    void loadToken()
+  }, [getToken, isLoaded, isSignedIn])
+
   return (
     <section className="grid gap-4">
       <PageHeader
@@ -27,15 +57,20 @@ function ListingsCreatePage({ onNavigate }: ListingsCreatePageProps) {
         }
       />
 
-      <DataTableShell
-        title="Listing form"
-        description="The create form will use the admin makes, models, features, and listing endpoints."
-      >
+      {errorMessage ? (
         <EmptyState
-          title="Create form is the next implementation step"
-          description="This route is ready. Next we will add shadcn inputs, selects, validation, and submit to the Laravel admin listing API."
+          title="Could not prepare listing form"
+          description={errorMessage}
         />
-      </DataTableShell>
+      ) : null}
+
+      {!errorMessage && token ? (
+        <ListingCreatePanel
+          token={token}
+          onCancel={() => onNavigate('/admin/listings')}
+          onCreated={() => onNavigate('/admin/listings')}
+        />
+      ) : null}
     </section>
   )
 }
