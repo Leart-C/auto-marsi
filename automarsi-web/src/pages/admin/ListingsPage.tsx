@@ -6,6 +6,7 @@ import EmptyState from '../../components/admin/EmptyState'
 import LoadingState from '../../components/admin/LoadingState'
 import { Button } from '@/components/ui/button'
 import { getAdminListings } from '@/features/admin-listings/api/getAdminListings'
+import ListingCreatePanel from '@/features/admin-listings/components/ListingCreatePanel'
 import ListingsTable from '@/features/admin-listings/components/ListingsTable'
 import type { AdminListing } from '@/features/admin-listings/types'
 
@@ -17,6 +18,8 @@ function ListingsPage({ onNavigate }: ListingsPageProps) {
   const { getToken, isLoaded, isSignedIn } = useAuth()
   const [listings, setListings] = useState<AdminListing[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [isCreatePanelOpen, setIsCreatePanelOpen] = useState(false)
+  const [authToken, setAuthToken] = useState<string | null>(null)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
 
   async function loadListings() {
@@ -34,6 +37,8 @@ function ListingsPage({ onNavigate }: ListingsPageProps) {
         throw new Error('Missing authentication token.')
       }
 
+      setAuthToken(token)
+
       const response = await getAdminListings({ token })
 
       setListings(response.data)
@@ -44,6 +49,25 @@ function ListingsPage({ onNavigate }: ListingsPageProps) {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  async function handleListingCreated() {
+    setIsCreatePanelOpen(false)
+    await loadListings()
+  }
+
+  async function openCreatePanel() {
+    setErrorMessage(null)
+
+    const token = await getToken()
+
+    if (!token) {
+      setErrorMessage('Please sign in again before creating a listing.')
+      return
+    }
+
+    setAuthToken(token)
+    setIsCreatePanelOpen(true)
   }
 
   useEffect(() => {
@@ -91,19 +115,19 @@ function ListingsPage({ onNavigate }: ListingsPageProps) {
           <LoadingState label="Loading listings" />
         ) : null}
 
-        {!isLoading && errorMessage ? (
-          <EmptyState
-            title="Could not load listings"
-            description={errorMessage}
-          />
-        ) : null}
+          {!isLoading && errorMessage ? (
+            <EmptyState
+              title="Could not load listings"
+              description={errorMessage}
+            />
+          ) : null}
 
-        {!isLoading && !errorMessage && !hasListings ? (
-          <EmptyState
-            title="No listings found"
-            description="Create the first listing from the admin panel or adjust your filters."
-          />
-        ) : null}
+          {!isLoading && !errorMessage && !hasListings ? (
+            <EmptyState
+              title="No listings found"
+              description="Create the first listing from the admin panel or adjust your filters."
+            />
+          ) : null}
 
         {!isLoading && !errorMessage && hasListings ? (
           <ListingsTable listings={listings} onNavigate={onNavigate} />
