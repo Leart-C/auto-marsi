@@ -17,6 +17,7 @@ class MakeResource extends JsonResource
             'name' => $this->name,
             'slug' => $this->slug,
             'logo_url' => $this->logo_url,
+            'models_count' => $this->whenCounted('carModels'),
         ];
     }
 }
