@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\Admin\AdminInquiryController;
 use App\Http\Controllers\Api\Admin\AdminListingController;
 use App\Http\Controllers\Api\Admin\AdminListingImageController;
 use App\Http\Controllers\Api\Admin\AdminMakeController;
+use App\Http\Controllers\Api\Admin\AdminVehicleCatalogImportController;
 use App\Http\Controllers\Api\Admin\AdminVehicleFeatureController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,9 @@ Route::patch('inquiries/{inquiry}', [AdminInquiryController::class, 'update']);
 Route::get('appointments', [AdminAppointmentController::class, 'index']);
 Route::get('appointments/{appointment}', [AdminAppointmentController::class, 'show']);
 Route::patch('appointments/{appointment}', [AdminAppointmentController::class, 'update']);
+
+Route::get('catalog-import/models', [AdminVehicleCatalogImportController::class, 'models']);
+Route::post('catalog-import/models', [AdminVehicleCatalogImportController::class, 'importModels']);
 
 Route::prefix('listings/{listing}')->group(function () {
     Route::get('images', [AdminListingImageController::class, 'index']);
