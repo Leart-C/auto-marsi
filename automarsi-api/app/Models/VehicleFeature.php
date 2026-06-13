@@ -12,6 +12,7 @@ class VehicleFeature extends Model
     protected $fillable = [
         'name',
         'slug',
+        'icon',
     ];
 
     public function listings()

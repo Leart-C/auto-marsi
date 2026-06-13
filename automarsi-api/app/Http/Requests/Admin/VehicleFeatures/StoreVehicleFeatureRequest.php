@@ -15,6 +15,7 @@ class StoreVehicleFeatureRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255', 'unique:vehicle_features,name'],
+            'icon' => ['nullable', 'string', 'max:100'],
         ];
     }
 }
