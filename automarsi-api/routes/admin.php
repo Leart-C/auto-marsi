@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('makes', AdminMakeController::class);
 Route::apiResource('car-models', AdminCarModelController::class);
+
+Route::post('vehicle-features/defaults', [AdminVehicleFeatureController::class, 'installDefaults']);
 Route::apiResource('vehicle-features', AdminVehicleFeatureController::class);
 
 Route::get('inquiries', [AdminInquiryController::class, 'index']);

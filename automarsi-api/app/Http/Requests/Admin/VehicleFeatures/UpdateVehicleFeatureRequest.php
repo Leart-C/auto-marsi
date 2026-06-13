@@ -21,6 +21,7 @@ class UpdateVehicleFeatureRequest extends FormRequest
                 'sometimes',
                 'string',
                 'max:255',
+                'icon' => ['nullable', 'string', 'max:100'],
                 Rule::unique('vehicle_features', 'name')->ignore($vehicleFeature?->id),
             ],
         ];

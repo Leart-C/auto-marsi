@@ -11,8 +11,10 @@ use App\Http\Requests\Admin\VehicleFeatures\UpdateVehicleFeatureRequest;
 use App\Http\Resources\VehicleFeatureResource;
 use App\Models\VehicleFeature;
 use App\Queries\AdminVehicleFeatureQuery;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use App\Actions\VehicleFeatures\InstallDefaultVehicleFeatures;
+use Illuminate\Http\Response;
+
 
 class AdminVehicleFeatureController extends Controller
 {
@@ -48,9 +50,17 @@ class AdminVehicleFeatureController extends Controller
     public function destroy(
         VehicleFeature $vehicleFeature,
         DeleteVehicleFeature $deleteVehicleFeature
-    ): JsonResponse {
+    ): Response {
         $deleteVehicleFeature->handle($vehicleFeature);
 
-        return response()->json(status: 204);
+        return response()->noContent();
+    }
+
+    public function installDefaults(
+    InstallDefaultVehicleFeatures $installDefaultVehicleFeatures
+    ): AnonymousResourceCollection {
+        return VehicleFeatureResource::collection(
+            $installDefaultVehicleFeatures->handle()
+        );
     }
 }
