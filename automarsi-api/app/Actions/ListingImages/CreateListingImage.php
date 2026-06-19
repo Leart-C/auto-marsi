@@ -18,9 +18,12 @@ class CreateListingImage
 
         try {
             return DB::transaction(function () use ($listing, $data, $storedFile) {
-                $maxSortOrder = $listing->images()
+                Listing::query()
+                    ->whereKey($listing->id)
                     ->lockForUpdate()
-                    ->max('sort_order');
+                    ->firstOrFail();
+
+                $maxSortOrder = $listing->images()->max('sort_order');
 
                 $nextSortOrder = ($maxSortOrder ?? -1) + 1;
                 $isFirstImage = $maxSortOrder === null;

@@ -3,6 +3,7 @@
 namespace App\Actions\ListingImages;
 
 use App\Models\ListingImage;
+use App\Models\Listing;
 use Illuminate\Support\Facades\DB;
 
 class SetPrimaryListingImage
@@ -10,6 +11,11 @@ class SetPrimaryListingImage
     public function handle(ListingImage $listingImage): ListingImage
     {
         return DB::transaction(function () use ($listingImage) {
+            Listing::query()
+                ->whereKey($listingImage->listing_id)
+                ->lockForUpdate()
+                ->firstOrFail();
+
             $listingImage->listing
                 ->images()
                 ->update(['is_primary' => false]);

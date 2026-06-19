@@ -1,21 +1,23 @@
 import { useListingCreateForm } from '../hooks/useListingCreateForm'
-import ListingCreateForm from './ListingCreateForm'
+import ListingForm from './ListingForm'
 
 type ListingCreatePanelProps = {
-  token: string
   onCancel: () => void
   onCreated: () => void
 }
 
 function ListingCreatePanel({
-  token,
   onCancel,
   onCreated,
 }: ListingCreatePanelProps) {
-  const createForm = useListingCreateForm({ token, onCreated })
+  const createForm = useListingCreateForm({ onCreated })
 
   return (
-    <ListingCreateForm
+    <ListingForm
+      heading="Add listing"
+      description="Create a vehicle listing for the dealership inventory."
+      submitLabel="Create listing"
+      submittingLabel="Creating..."
       formState={createForm.formState}
       makes={createForm.makes}
       carModels={createForm.carModels}

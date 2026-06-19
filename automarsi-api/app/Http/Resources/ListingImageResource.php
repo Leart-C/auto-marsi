@@ -14,7 +14,9 @@ class ListingImageResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'image_url' => $this->image_url,
+            'image_url' => $this->disk === 'public' && $this->path
+                ? $request->getSchemeAndHttpHost().'/storage/'.ltrim($this->path, '/')
+                : $this->image_url,
             'alt_text' => $this->alt_text,
             'sort_order' => $this->sort_order,
             'is_primary' => $this->is_primary,

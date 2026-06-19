@@ -9,9 +9,13 @@ import {
   listingStatusOptions,
   transmissionOptions,
 } from '../form/listingOptions'
-import type { ListingFormState } from '../form/listingFormState'
+import {
+  formatPriceInput,
+  normalizePriceInput,
+  type ListingFormState,
+} from '../form/listingFormState'
 
-type ListingCreateFormProps = {
+type ListingFormProps = {
   formState: ListingFormState
   makes: ListingMakeOption[]
   carModels: ListingCarModelOption[]
@@ -19,13 +23,21 @@ type ListingCreateFormProps = {
   isLoadingOptions: boolean
   isSubmitting: boolean
   errorMessage: string | null
+  heading: string
+  description: string
+  submitLabel: string
+  submittingLabel: string
   onCancel: () => void
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
   onFieldChange: (field: keyof ListingFormState, value: string) => void
   onFeatureToggle: (featureId: number) => void
 }
 
-function ListingCreateForm({
+function ListingForm({
+  heading,
+  description,
+  submitLabel,
+  submittingLabel,
   formState,
   makes,
   carModels,
@@ -37,17 +49,15 @@ function ListingCreateForm({
   onSubmit,
   onFieldChange,
   onFeatureToggle,
-}: ListingCreateFormProps) {
+}: ListingFormProps) {
   return (
     <form
       onSubmit={onSubmit}
       className="grid gap-5 rounded-lg border bg-card p-5"
     >
       <div>
-        <h3 className="text-lg font-semibold">Add listing</h3>
-        <p className="text-sm text-muted-foreground">
-          Create a vehicle listing for the admin inventory.
-        </p>
+        <h3 className="text-lg font-semibold">{heading}</h3>
+        <p className="text-sm text-muted-foreground">{description}</p>
       </div>
 
       {errorMessage ? (
@@ -112,14 +122,26 @@ function ListingCreateForm({
         </FormField>
 
         <FormField label="Price">
-          <input
-            className="h-10 rounded-md border bg-background px-3 text-sm"
-            type="number"
-            min="0"
-            value={formState.price}
-            onChange={(event) => onFieldChange('price', event.target.value)}
-            required
-          />
+          <div className="relative">
+            <input
+              className="h-10 w-full rounded-md border bg-background px-3 pr-14 text-sm"
+              type="text"
+              inputMode="numeric"
+              value={formatPriceInput(formState.price)}
+              onChange={(event) =>
+                onFieldChange(
+                  'price',
+                  normalizePriceInput(event.target.value)
+                )
+              }
+              placeholder="35.000"
+              required
+            />
+
+            <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-muted-foreground">
+              {formState.currency}
+            </span>
+          </div>
         </FormField>
 
         <FormField label="Kilometers">
@@ -266,11 +288,11 @@ function ListingCreateForm({
           Cancel
         </Button>
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? 'Creating...' : 'Create listing'}
+          {isSubmitting ? submittingLabel : submitLabel}
         </Button>
       </div>
     </form>
   )
 }
 
-export default ListingCreateForm
+export default ListingForm

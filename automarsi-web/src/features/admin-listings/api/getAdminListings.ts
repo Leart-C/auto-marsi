@@ -26,12 +26,15 @@ export async function getAdminListings({
     queryParams.set('status', status)
   }
 
-  const response = await fetch(`${apiUrl}/admin/listings?${queryParams.toString()}`, {
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-  })
+  const response = await fetch(
+    `${apiUrl}/admin/listings?${queryParams.toString()}`,
+    {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
 
   if (!response.ok) {
     throw new Error('Failed to load admin listings.')

@@ -1,52 +1,79 @@
 import { ArrowLeft, Images } from 'lucide-react'
-import DataTableShell from '@/components/admin/DataTableShell'
 import EmptyState from '@/components/admin/EmptyState'
+import LoadingState from '@/components/admin/LoadingState'
 import PageHeader from '@/components/admin/PageHeader'
 import { Button } from '@/components/ui/button'
+import ListingEditPanel from '@/features/admin-listings/components/ListingEditPanel'
+import { useAdminListing } from '@/features/admin-listings/hooks/useAdminListing'
 
 type ListingEditPageProps = {
   listingId: string
   onNavigate: (path: string) => void
 }
 
-function ListingEditPage({ listingId, onNavigate }: ListingEditPageProps) {
+function ListingEditPage({
+  listingId,
+  onNavigate,
+}: ListingEditPageProps) {
+  const { listing, listingQuery, errorMessage } =
+    useAdminListing({ listingId })
+
   return (
     <section className="grid gap-4">
       <PageHeader
         eyebrow="Inventory"
-        title={`Edit listing #${listingId}`}
+        title={listing ? `Edit ${listing.title}` : `Edit listing #${listingId}`}
         description="Update vehicle details, pricing, publication status, and features."
         action={
-          <>
+          <div className="flex flex-wrap justify-end gap-2">
             <Button
               type="button"
               variant="outline"
-              onClick={() => onNavigate(`/admin/listings`)}
+              onClick={() =>
+                onNavigate(`/admin/listings/${listingId}`)
+              }
             >
               <ArrowLeft />
-              Back
+              Back to listing
             </Button>
+
             <Button
               type="button"
               variant="secondary"
-              onClick={() => onNavigate(`/admin/listings/${listingId}/images`)}
+              onClick={() =>
+                onNavigate(`/admin/listings/${listingId}/images`)
+              }
             >
               <Images />
-              Images
+              Manage images
             </Button>
-          </>
+          </div>
         }
       />
 
-      <DataTableShell
-        title="Edit form"
-        description="The edit route is ready for the real listing form."
-      >
+      {listingQuery.isLoading ? (
+        <LoadingState label="Loading listing" />
+      ) : null}
+
+      {!listingQuery.isLoading && errorMessage ? (
         <EmptyState
-          title="Edit form is the next implementation step"
-          description="Next we will reuse the create form, prefill the listing data, and submit updates to the Laravel admin listing API."
+          title="Could not load listing"
+          description={errorMessage}
         />
-      </DataTableShell>
+      ) : null}
+
+      {!listingQuery.isLoading && !errorMessage && listing ? (
+        <ListingEditPanel
+          key={listing.id}
+          listing={listing}
+          onCancel={() =>
+            onNavigate(`/admin/listings/${listingId}`)
+          }
+          onUpdated={() =>
+            onNavigate(`/admin/listings/${listingId}`)
+          }
+        />
+      ) : null}
     </section>
   )
 }

@@ -1,6 +1,6 @@
 import { useAuth } from '@clerk/clerk-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { createAdminMake } from '../api/createAdminMake'
 import { createAdminModel } from '../api/createAdminModel'
 import { deleteAdminMake } from '../api/deleteAdminMake'
@@ -46,17 +46,18 @@ export function useMakeModelCatalog() {
     },
   })
 
-  const makes = makesQuery.data ?? []
+  const makes = useMemo(() => makesQuery.data ?? [], [makesQuery.data])
+  const activeMakeId = selectedMakeId ?? makes[0]?.id ?? null
 
   const selectedMake = useMemo(() => {
-    return makes.find((make) => make.id === selectedMakeId) ?? null
-  }, [makes, selectedMakeId])
+    return makes.find((make) => make.id === activeMakeId) ?? null
+  }, [activeMakeId, makes])
 
   const modelsQuery = useQuery({
-    queryKey: ['admin', 'catalog', 'models', selectedMakeId],
-    enabled: isLoaded && isSignedIn && selectedMakeId !== null,
+    queryKey: ['admin', 'catalog', 'models', activeMakeId],
+    enabled: isLoaded && isSignedIn && activeMakeId !== null,
     queryFn: async () => {
-      if (selectedMakeId === null) {
+      if (activeMakeId === null) {
         return []
       }
 
@@ -64,7 +65,7 @@ export function useMakeModelCatalog() {
 
       return getAdminModels({
         token,
-        makeId: selectedMakeId,
+        makeId: activeMakeId,
       })
     },
   })
@@ -111,7 +112,7 @@ export function useMakeModelCatalog() {
 
   const createModelMutation = useMutation({
     mutationFn: async (payload: { name: string }) => {
-      if (selectedMakeId === null) {
+      if (activeMakeId === null) {
         throw new Error('Select a make before creating a model.')
       }
 
@@ -120,7 +121,7 @@ export function useMakeModelCatalog() {
       return createAdminModel({
         token,
         payload: {
-          make_id: selectedMakeId,
+          make_id: activeMakeId,
           name: payload.name,
         },
       })
@@ -130,7 +131,7 @@ export function useMakeModelCatalog() {
 
       await Promise.all([
         queryClient.invalidateQueries({
-          queryKey: ['admin', 'catalog', 'models', selectedMakeId],
+          queryKey: ['admin', 'catalog', 'models', activeMakeId],
         }),
         queryClient.invalidateQueries({
           queryKey: ['admin', 'catalog', 'makes'],
@@ -208,7 +209,7 @@ export function useMakeModelCatalog() {
       setEditingModel(null)
 
       await queryClient.invalidateQueries({
-        queryKey: ['admin', 'catalog', 'models', selectedMakeId],
+        queryKey: ['admin', 'catalog', 'models', activeMakeId],
       })
     },
   })
@@ -227,7 +228,7 @@ export function useMakeModelCatalog() {
     onSuccess: async () => {
       await Promise.all([
         queryClient.invalidateQueries({
-          queryKey: ['admin', 'catalog', 'models', selectedMakeId],
+          queryKey: ['admin', 'catalog', 'models', activeMakeId],
         }),
         queryClient.invalidateQueries({
           queryKey: ['admin', 'catalog', 'makes'],
@@ -241,7 +242,7 @@ export function useMakeModelCatalog() {
 
   const importModelsMutation = useMutation({
     mutationFn: async (modelNames: string[]) => {
-      if (selectedMakeId === null) {
+      if (activeMakeId === null) {
         throw new Error('Select a make before importing models.')
       }
 
@@ -250,7 +251,7 @@ export function useMakeModelCatalog() {
       return importCatalogModels({
         token,
         payload: {
-          make_id: selectedMakeId,
+          make_id: activeMakeId,
           models: modelNames,
         },
       })
@@ -260,7 +261,7 @@ export function useMakeModelCatalog() {
 
       await Promise.all([
         queryClient.invalidateQueries({
-          queryKey: ['admin', 'catalog', 'models', selectedMakeId],
+          queryKey: ['admin', 'catalog', 'models', activeMakeId],
         }),
         queryClient.invalidateQueries({
           queryKey: ['admin', 'catalog', 'makes'],
@@ -268,14 +269,6 @@ export function useMakeModelCatalog() {
       ])
     },
   })
-
-  useEffect(() => {
-    if (selectedMakeId !== null || makes.length === 0) {
-      return
-    }
-
-    setSelectedMakeId(makes[0].id)
-  }, [makes, selectedMakeId])
 
   const models = modelsQuery.data ?? []
 
@@ -296,7 +289,7 @@ export function useMakeModelCatalog() {
     makes,
     models,
     selectedMake,
-    selectedMakeId,
+    selectedMakeId: activeMakeId,
     isCreateMakeOpen,
     isCreateModelOpen,
     isImportModelsOpen,
