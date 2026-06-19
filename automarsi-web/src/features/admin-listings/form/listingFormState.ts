@@ -1,4 +1,7 @@
-import type { CreateAdminListingPayload } from '../types'
+import type {
+  AdminListing,
+  CreateAdminListingPayload,
+} from '../types'
 
 export type ListingFormState = {
   makeId: string
@@ -38,21 +41,47 @@ export const initialListingFormState: ListingFormState = {
   featureIds: [],
 }
 
+export function listingToFormState(
+  listing: AdminListing
+): ListingFormState {
+  return {
+    makeId: listing.make ? String(listing.make.id) : '',
+    carModelId: listing.car_model
+      ? String(listing.car_model.id)
+      : '',
+    title: listing.title,
+    year: String(listing.year),
+    price: String(Math.trunc(Number(listing.price))),
+    currency: listing.currency,
+    kilometers:
+      listing.kilometers === null
+        ? ''
+        : String(listing.kilometers),
+    fuelType: listing.fuel_type,
+    transmission: listing.transmission,
+    bodyType: listing.body_type ?? '',
+    color: listing.color ?? '',
+    condition: listing.condition,
+    status: listing.status,
+    location: listing.location ?? '',
+    description: listing.description ?? '',
+    featureIds: listing.features.map((feature) =>
+      String(feature.id)
+    ),
+  }
+}
+
 function nullableText(value: string): string | null {
   const trimmedValue = value.trim()
 
-  return trimmedValue.length > 0 ? trimmedValue : null
+  return trimmedValue ? trimmedValue : null
 }
 
 function nullableNumber(value: string): number | null {
-  if (!value) {
-    return null
-  }
-
-  return Number(value)
+  return value ? Number(value) : null
 }
 
-export function buildCreateListingPayload(
+export function buildListingPayload(
   formState: ListingFormState
 ): CreateAdminListingPayload {
   return {
@@ -73,4 +102,18 @@ export function buildCreateListingPayload(
     description: nullableText(formState.description),
     feature_ids: formState.featureIds.map(Number),
   }
+}
+
+export function normalizePriceInput(value: string): string {
+  return value
+    .replace(/\D/g, '')
+    .replace(/^0+(?=\d)/, '')
+}
+
+export function formatPriceInput(value: string): string {
+  if (!value) {
+    return ''
+  }
+
+  return new Intl.NumberFormat('de-DE').format(Number(value))
 }

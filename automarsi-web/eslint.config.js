@@ -18,5 +18,21 @@ export default defineConfig([
     languageOptions: {
       globals: globals.browser,
     },
+    rules: {
+      'react-refresh/only-export-components': [
+        'error',
+        { allowConstantExport: true },
+      ],
+    },
+  },
+  {
+    files: [
+      'src/components/ui/badge.tsx',
+      'src/components/ui/button.tsx',
+      'src/features/admin-catalog/features/components/VehicleFeatureIcon.tsx',
+    ],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
   },
 ])

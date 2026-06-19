@@ -54,6 +54,13 @@ export type AdminListingImage = {
   is_primary?: boolean
 }
 
+export type AdminListingFeature = {
+  id: number
+  name: string
+  slug?: string
+  icon?: string | null
+}
+
 export type AdminListing = {
   id: number
   make: AdminListingMake | null
@@ -87,6 +94,8 @@ export type AdminListing = {
   sold_at: string | null
 
   primary_image: AdminListingImage | null
+  images: AdminListingImage[]
+  features: AdminListingFeature[]
 }
 
 export type PaginationMeta = {

@@ -1,27 +1,32 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { getAdminVehicleFeatures } from '@/features/admin-catalog/features/api/getAdminVehicleFeatures'
 import { useAdminToken } from '@/hooks/useAdminToken'
-import { createAdminListing } from '../api/createAdminListing'
 import { getListingCarModels } from '../api/getListingCarModels'
 import { getListingMakes } from '../api/getListingMakes'
+import { updateAdminListing } from '../api/updateAdminListing'
 import {
   buildListingPayload,
-  initialListingFormState,
+  listingToFormState,
   type ListingFormState,
 } from '../form/listingFormState'
+import type { AdminListing } from '../types'
 
-type UseListingCreateFormParams = {
-  onCreated: () => void
+type UseListingEditFormParams = {
+  listing: AdminListing
+  onUpdated: () => void
 }
 
-export function useListingCreateForm({
-  onCreated,
-}: UseListingCreateFormParams) {
-  const { isAuthReady, getAdminToken } = useAdminToken()
-  const [formState, setFormState] = useState<ListingFormState>(
-    initialListingFormState
+export function useListingEditForm({
+  listing,
+  onUpdated,
+}: UseListingEditFormParams) {
+  const queryClient = useQueryClient()
+  const { getAdminToken } = useAdminToken()
+
+  const [formState, setFormState] = useState<ListingFormState>(() =>
+    listingToFormState(listing)
   )
 
   const selectedMakeId = Number(formState.makeId)
@@ -39,7 +44,6 @@ export function useListingCreateForm({
 
   const vehicleFeaturesQuery = useQuery({
     queryKey: ['admin', 'catalog', 'vehicle-features'],
-    enabled: isAuthReady,
     queryFn: async () => {
       const token = await getAdminToken()
 
@@ -47,41 +51,37 @@ export function useListingCreateForm({
     },
   })
 
-  const createListingMutation = useMutation({
+  const updateListingMutation = useMutation({
     mutationFn: async () => {
       const token = await getAdminToken()
 
-      return createAdminListing({
+      return updateAdminListing({
         token,
+        listingId: String(listing.id),
         payload: buildListingPayload(formState),
       })
     },
-    onSuccess: () => {
-      setFormState(initialListingFormState)
-      toast.success('Listing created successfully.')
-      onCreated()
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({
+          queryKey: ['admin', 'listings', String(listing.id)],
+        }),
+        queryClient.invalidateQueries({
+          queryKey: ['admin', 'listings'],
+        }),
+      ])
+
+      toast.success('Listing updated successfully.')
+      onUpdated()
     },
     onError: (error) => {
       toast.error(
-        error instanceof Error ? error.message : 'Failed to create listing.'
+        error instanceof Error
+          ? error.message
+          : 'Failed to update listing.'
       )
     },
   })
-
-  function toggleFeature(featureId: number) {
-    const featureIdValue = String(featureId)
-
-    setFormState((currentState) => {
-      const hasFeature = currentState.featureIds.includes(featureIdValue)
-
-      return {
-        ...currentState,
-        featureIds: hasFeature
-          ? currentState.featureIds.filter((id) => id !== featureIdValue)
-          : [...currentState.featureIds, featureIdValue],
-      }
-    })
-  }
 
   function updateField(field: keyof ListingFormState, value: string) {
     setFormState((currentState) => ({
@@ -91,10 +91,21 @@ export function useListingCreateForm({
     }))
   }
 
+  function toggleFeature(featureId: number) {
+    const value = String(featureId)
+
+    setFormState((currentState) => ({
+      ...currentState,
+      featureIds: currentState.featureIds.includes(value)
+        ? currentState.featureIds.filter((id) => id !== value)
+        : [...currentState.featureIds, value],
+    }))
+  }
+
   async function submit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    await createListingMutation.mutateAsync()
+    await updateListingMutation.mutateAsync()
   }
 
   const errorMessage =
@@ -104,8 +115,8 @@ export function useListingCreateForm({
         ? carModelsQuery.error.message
         : vehicleFeaturesQuery.error instanceof Error
           ? vehicleFeaturesQuery.error.message
-          : createListingMutation.error instanceof Error
-            ? createListingMutation.error.message
+          : updateListingMutation.error instanceof Error
+            ? updateListingMutation.error.message
             : null
 
   return {
@@ -113,12 +124,14 @@ export function useListingCreateForm({
     makes: makesQuery.data ?? [],
     carModels: carModelsQuery.data ?? [],
     vehicleFeatures: vehicleFeaturesQuery.data ?? [],
-    toggleFeature,
     isLoadingOptions:
-      !isAuthReady || makesQuery.isLoading || vehicleFeaturesQuery.isLoading,
-    isSubmitting: createListingMutation.isPending,
+      makesQuery.isLoading ||
+      carModelsQuery.isLoading ||
+      vehicleFeaturesQuery.isLoading,
+    isSubmitting: updateListingMutation.isPending,
     errorMessage,
     updateField,
+    toggleFeature,
     submit,
   }
 }

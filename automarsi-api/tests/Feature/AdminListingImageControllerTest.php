@@ -210,6 +210,34 @@ class AdminListingImageControllerTest extends TestCase
         $storage->assertMissing('listings/1/front.webp');
     }
 
+    public function test_deleting_primary_image_promotes_next_image(): void
+    {
+        $listing = $this->createListing();
+
+        $primaryImage = ListingImage::create([
+            'listing_id' => $listing->id,
+            'disk' => 'public',
+            'path' => 'listings/1/primary.webp',
+            'image_url' => '/storage/listings/1/primary.webp',
+            'sort_order' => 0,
+            'is_primary' => true,
+        ]);
+
+        $nextImage = ListingImage::create([
+            'listing_id' => $listing->id,
+            'disk' => 'public',
+            'path' => 'listings/1/next.webp',
+            'image_url' => '/storage/listings/1/next.webp',
+            'sort_order' => 1,
+            'is_primary' => false,
+        ]);
+
+        $this->deleteJson("/api/admin/listing-images/{$primaryImage->id}")
+            ->assertNoContent();
+
+        $this->assertTrue($nextImage->fresh()->is_primary);
+    }
+
     private function createListing(): Listing
     {
         $make = Make::create([

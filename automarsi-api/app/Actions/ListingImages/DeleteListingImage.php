@@ -17,8 +17,19 @@ class DeleteListingImage
         DB::transaction(function () use ($listingImage) {
             $disk = $listingImage->disk;
             $path = $listingImage->path;
+            $listingId = $listingImage->listing_id;
+            $wasPrimary = $listingImage->is_primary;
 
             $listingImage->delete();
+
+            if ($wasPrimary) {
+                ListingImage::query()
+                    ->where('listing_id', $listingId)
+                    ->orderBy('sort_order')
+                    ->orderBy('id')
+                    ->first()
+                    ?->update(['is_primary' => true]);
+            }
 
             $this->storage->delete($disk, $path);
         });
