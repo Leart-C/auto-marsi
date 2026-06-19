@@ -15,6 +15,20 @@ type UseListingEquipmentParams = {
   onSelectionChange: (featureIds: string[]) => void
 }
 
+export type ListingEquipmentFormProps = {
+  features: AdminVehicleFeature[]
+  suggestions: AdminVehicleFeature[]
+  isLoading: boolean
+  isCreating: boolean
+  catalogErrorMessage: string | null
+  presetErrorMessage: string | null
+  onToggle: (featureId: number) => void
+  onCreate: (
+    payload: CreateAdminVehicleFeaturePayload
+  ) => Promise<AdminVehicleFeature>
+  onRetry: () => void
+}
+
 const featuresQueryKey = [
   'admin',
   'catalog',
@@ -129,13 +143,23 @@ export function useListingEquipment({
     }
   }
 
-  return {
+  const retry = async () => {
+    await Promise.all([
+      featuresQuery.refetch(),
+      carModelId > 0
+        ? suggestionsQuery.refetch()
+        : Promise.resolve(),
+    ])
+  }
+
+  const formProps: ListingEquipmentFormProps = {
     features: featuresQuery.data ?? [],
     suggestions: suggestionsQuery.data ?? [],
     isLoading:
       !isAuthReady ||
       featuresQuery.isLoading ||
       (carModelId > 0 && suggestionsQuery.isLoading),
+    isCreating: createFeatureMutation.isPending,
     catalogErrorMessage:
       featuresQuery.error instanceof Error
         ? featuresQuery.error.message
@@ -144,16 +168,15 @@ export function useListingEquipment({
       suggestionsQuery.error instanceof Error
         ? suggestionsQuery.error.message
         : null,
-    toggleFeature,
-    getInheritedFeatureIds,
-    createFeatureMutation,
-    retry: async () => {
-      await Promise.all([
-        featuresQuery.refetch(),
-        carModelId > 0
-          ? suggestionsQuery.refetch()
-          : Promise.resolve(),
-      ])
+    onToggle: toggleFeature,
+    onCreate: (payload) => createFeatureMutation.mutateAsync(payload),
+    onRetry: () => {
+      void retry()
     },
+  }
+
+  return {
+    formProps,
+    getInheritedFeatureIds,
   }
 }
