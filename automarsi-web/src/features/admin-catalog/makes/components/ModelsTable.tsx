@@ -1,4 +1,4 @@
-import { Pencil, Trash2 } from 'lucide-react'
+import { ListChecks, Pencil, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Table,
@@ -13,6 +13,7 @@ import type { AdminModel } from '../types'
 type ModelsTableProps = {
   models: AdminModel[]
   isDeletingModelId: number | null
+  onManageFeatures: (model: AdminModel) => void
   onEditModel: (model: AdminModel) => void
   onDeleteModel: (model: AdminModel) => void
 }
@@ -20,6 +21,7 @@ type ModelsTableProps = {
 function ModelsTable({
   models,
   isDeletingModelId,
+  onManageFeatures,
   onEditModel,
   onDeleteModel,
 }: ModelsTableProps) {
@@ -43,6 +45,16 @@ function ModelsTable({
               </TableCell>
               <TableCell>
                 <div className="flex justify-end gap-1">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    aria-label={`Manage ${model.name} feature preset`}
+                    onClick={() => onManageFeatures(model)}
+                  >
+                    <ListChecks />
+                  </Button>
+
                   <Button
                     type="button"
                     variant="ghost"

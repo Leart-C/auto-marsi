@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import FormField from '@/components/admin/FormField'
 import { Button } from '@/components/ui/button'
-import VehicleFeatureIcon, { vehicleFeatureIconOptions } from './VehicleFeatureIcon'
+import { suggestVehicleFeatureIcon } from './VehicleFeatureIcon'
+import VehicleFeatureIconPicker from './VehicleFeatureIconPicker'
 
 type CreateVehicleFeatureFormProps = {
   isSubmitting: boolean
@@ -52,30 +53,18 @@ function CreateVehicleFeatureForm({
           <input
             className="h-9 rounded-md border bg-background px-3 text-sm"
             value={name}
-            onChange={(event) => setName(event.target.value)}
+            onChange={(event) => {
+              const nextName = event.target.value
+              setName(nextName)
+              setIcon(suggestVehicleFeatureIcon(nextName))
+            }}
             placeholder="Example: Heated seats"
             required
           />
         </FormField>
 
         <FormField label="Icon">
-          <div className="flex gap-2">
-            <span className="grid size-9 shrink-0 place-items-center rounded-md border bg-muted">
-              <VehicleFeatureIcon icon={icon} className="size-4" />
-            </span>
-
-            <select
-              className="h-9 min-w-0 flex-1 rounded-md border bg-background px-3 text-sm"
-              value={icon}
-              onChange={(event) => setIcon(event.target.value)}
-            >
-              {vehicleFeatureIconOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </div>
+          <VehicleFeatureIconPicker value={icon} onChange={setIcon} />
         </FormField>
       </div>
 

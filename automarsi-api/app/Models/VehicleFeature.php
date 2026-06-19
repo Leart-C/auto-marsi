@@ -20,4 +20,14 @@ class VehicleFeature extends Model
         return $this->belongsToMany(Listing::class, 'listing_feature')
             ->withTimestamps();
     }
+
+    public function carModels()
+    {
+        return $this->belongsToMany(
+            CarModel::class,
+            'car_model_feature'
+        )
+            ->withPivot('source')
+            ->withTimestamps();
+    }
 }
