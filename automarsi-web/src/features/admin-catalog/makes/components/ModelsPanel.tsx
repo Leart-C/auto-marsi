@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import CreateModelForm from './CreateModelForm'
 import EditModelForm from './EditModelForm'
 import ImportModelsPanel from './ImportModelsPanel'
+import ModelFeaturePresetPanel from './ModelFeaturePresetPanel'
 import ModelsTable from './ModelsTable'
 import type { useMakeModelCatalog } from '../hooks/useMakeModelCatalog'
 
@@ -33,6 +34,8 @@ function ModelsPanel({ catalog }: ModelsPanelProps) {
               onClick={() => {
                 catalog.setIsImportModelsOpen((isOpen) => !isOpen)
                 catalog.setIsCreateModelOpen(false)
+                catalog.setEditingModel(null)
+                catalog.setFeaturePresetModel(null)
               }}
             >
               <Download />
@@ -45,6 +48,8 @@ function ModelsPanel({ catalog }: ModelsPanelProps) {
               onClick={() => {
                 catalog.setIsCreateModelOpen((isOpen) => !isOpen)
                 catalog.setIsImportModelsOpen(false)
+                catalog.setEditingModel(null)
+                catalog.setFeaturePresetModel(null)
               }}
             >
               <Plus />
@@ -55,6 +60,13 @@ function ModelsPanel({ catalog }: ModelsPanelProps) {
       }
     >
       <div className="grid gap-4 p-4">
+        {catalog.featurePresetModel ? (
+          <ModelFeaturePresetPanel
+            model={catalog.featurePresetModel}
+            onClose={() => catalog.setFeaturePresetModel(null)}
+          />
+        ) : null}
+
         {catalog.editingModel ? (
           <EditModelForm
             model={catalog.editingModel}
@@ -144,8 +156,15 @@ function ModelsPanel({ catalog }: ModelsPanelProps) {
           <ModelsTable
             models={catalog.models}
             isDeletingModelId={catalog.deletingModelId}
+            onManageFeatures={(model) => {
+              catalog.setFeaturePresetModel(model)
+              catalog.setEditingModel(null)
+              catalog.setIsCreateModelOpen(false)
+              catalog.setIsImportModelsOpen(false)
+            }}
             onEditModel={(model) => {
               catalog.setEditingModel(model)
+              catalog.setFeaturePresetModel(null)
               catalog.setIsCreateModelOpen(false)
               catalog.setIsImportModelsOpen(false)
             }}

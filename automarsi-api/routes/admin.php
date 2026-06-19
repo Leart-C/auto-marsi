@@ -8,9 +8,19 @@ use App\Http\Controllers\Api\Admin\AdminListingImageController;
 use App\Http\Controllers\Api\Admin\AdminMakeController;
 use App\Http\Controllers\Api\Admin\AdminVehicleCatalogImportController;
 use App\Http\Controllers\Api\Admin\AdminVehicleFeatureController;
+use App\Http\Controllers\Api\Admin\CarModelFeatureSuggestionsController;
 use Illuminate\Support\Facades\Route;
 
 Route::apiResource('makes', AdminMakeController::class);
+
+Route::get(
+    'car-models/{carModel}/feature-suggestions',
+    [CarModelFeatureSuggestionsController::class, 'index']
+);
+Route::put(
+    'car-models/{carModel}/feature-suggestions',
+    [CarModelFeatureSuggestionsController::class, 'update']
+);
 Route::apiResource('car-models', AdminCarModelController::class);
 
 Route::post('vehicle-features/defaults', [AdminVehicleFeatureController::class, 'installDefaults']);

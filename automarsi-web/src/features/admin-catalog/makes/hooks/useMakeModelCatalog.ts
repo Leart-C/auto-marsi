@@ -23,6 +23,8 @@ export function useMakeModelCatalog() {
   const [isImportModelsOpen, setIsImportModelsOpen] = useState(false)
   const [editingMake, setEditingMake] = useState<AdminMake | null>(null)
   const [editingModel, setEditingModel] = useState<AdminModel | null>(null)
+  const [featurePresetModel, setFeaturePresetModel] =
+    useState<AdminModel | null>(null)
   const [deletingMakeId, setDeletingMakeId] = useState<number | null>(null)
   const [deletingModelId, setDeletingModelId] = useState<number | null>(null)
 
@@ -207,6 +209,7 @@ export function useMakeModelCatalog() {
     },
     onSuccess: async () => {
       setEditingModel(null)
+      setFeaturePresetModel(null)
 
       await queryClient.invalidateQueries({
         queryKey: ['admin', 'catalog', 'models', activeMakeId],
@@ -225,7 +228,11 @@ export function useMakeModelCatalog() {
         modelId: model.id,
       })
     },
-    onSuccess: async () => {
+    onSuccess: async (_, deletedModel) => {
+      if (featurePresetModel?.id === deletedModel.id) {
+        setFeaturePresetModel(null)
+      }
+
       await Promise.all([
         queryClient.invalidateQueries({
           queryKey: ['admin', 'catalog', 'models', activeMakeId],
@@ -295,6 +302,7 @@ export function useMakeModelCatalog() {
     isImportModelsOpen,
     editingMake,
     editingModel,
+    featurePresetModel,
     deletingMakeId,
     deletingModelId,
 
@@ -318,6 +326,7 @@ export function useMakeModelCatalog() {
     setIsImportModelsOpen,
     setEditingMake,
     setEditingModel,
+    setFeaturePresetModel,
 
     selectMake(makeId: number) {
       setSelectedMakeId(makeId)
@@ -325,6 +334,7 @@ export function useMakeModelCatalog() {
       setIsCreateModelOpen(false)
       setIsImportModelsOpen(false)
       setEditingModel(null)
+      setFeaturePresetModel(null)
     },
   }
 }

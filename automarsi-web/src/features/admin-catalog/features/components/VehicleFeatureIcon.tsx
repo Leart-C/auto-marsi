@@ -63,4 +63,33 @@ export const vehicleFeatureIconOptions = Object.keys(featureIconMap).map(
   })
 )
 
+export function suggestVehicleFeatureIcon(name: string): string {
+  const normalizedName = name.trim().toLowerCase()
+
+  const suggestions: Array<[string[], string]> = [
+    [['seat', 'massage', 'chair'], 'armchair'],
+    [['bluetooth'], 'bluetooth'],
+    [['camera'], 'camera'],
+    [['parking', 'sensor', 'radar'], 'radar'],
+    [['navigation', 'gps', 'map'], 'navigation'],
+    [['heated', 'heating', 'warm'], 'flame'],
+    [['ventilated', 'cooling', 'fan'], 'fan'],
+    [['air condition', 'climate', 'cold'], 'snowflake'],
+    [['keyless', 'key'], 'key-round'],
+    [['phone', 'carplay', 'android auto'], 'smartphone'],
+    [['light', 'led', 'headlight'], 'lightbulb'],
+    [['sunroof', 'panoramic'], 'sun'],
+    [['safety', 'assist', 'warning'], 'shield-check'],
+    [['display', 'head-up', 'hud'], 'eye'],
+    [['power', 'electric'], 'power'],
+    [['cruise', 'speed'], 'gauge'],
+  ]
+
+  return (
+    suggestions.find(([keywords]) =>
+      keywords.some((keyword) => normalizedName.includes(keyword))
+    )?.[1] ?? 'shield-check'
+  )
+}
+
 export default VehicleFeatureIcon
