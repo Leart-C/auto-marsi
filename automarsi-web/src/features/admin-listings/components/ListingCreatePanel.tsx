@@ -21,31 +21,17 @@ function ListingCreatePanel({
       submittingLabel="Saving..."
       showStatus={false}
       formState={createForm.formState}
+      isTitleAutomatic={createForm.isTitleAutomatic}
       makes={createForm.makes}
       carModels={createForm.carModels}
-      equipment={{
-        features: createForm.equipment.features,
-        suggestions: createForm.equipment.suggestions,
-        isLoading: createForm.equipment.isLoading,
-        isCreating:
-          createForm.equipment.createFeatureMutation.isPending,
-        catalogErrorMessage:
-          createForm.equipment.catalogErrorMessage,
-        presetErrorMessage:
-          createForm.equipment.presetErrorMessage,
-        onToggle: createForm.equipment.toggleFeature,
-        onCreate: async (payload) =>
-          createForm.equipment.createFeatureMutation.mutateAsync(payload),
-        onRetry: () => {
-          void createForm.equipment.retry()
-        },
-      }}
+      equipment={createForm.equipment.formProps}
       isLoadingOptions={createForm.isLoadingOptions}
       isSubmitting={createForm.isSubmitting}
       errorMessage={createForm.errorMessage}
       onCancel={onCancel}
       onSubmit={createForm.submit}
       onFieldChange={createForm.updateField}
+      onUseGeneratedTitle={createForm.useGeneratedTitle}
     />
   )
 }

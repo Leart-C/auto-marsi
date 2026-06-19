@@ -1,40 +1,23 @@
-import FormField from '@/components/admin/FormField'
+import { LoaderCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import type { ListingFormState } from '../form/listingFormState'
+import type { ListingEquipmentFormProps } from '../hooks/useListingEquipment'
 import type {
-  AdminVehicleFeature,
-  CreateAdminVehicleFeaturePayload,
-} from '@/features/admin-catalog/features/types'
-import ListingEquipmentPicker from './ListingEquipmentPicker'
-import type { ListingCarModelOption, ListingMakeOption } from '../types'
-import {
-  conditionOptions,
-  fuelTypeOptions,
-  listingStatusOptions,
-  transmissionOptions,
-} from '../form/listingOptions'
-import {
-  formatPriceInput,
-  normalizePriceInput,
-  type ListingFormState,
-} from '../form/listingFormState'
+  ListingCarModelOption,
+  ListingMakeOption,
+} from '../types'
+import ListingEquipmentFields from './form/ListingEquipmentFields'
+import ListingNotesFields from './form/ListingNotesFields'
+import ListingSaleFields from './form/ListingSaleFields'
+import ListingSpecificationFields from './form/ListingSpecificationFields'
+import ListingVehicleFields from './form/ListingVehicleFields'
 
 type ListingFormProps = {
   formState: ListingFormState
   makes: ListingMakeOption[]
   carModels: ListingCarModelOption[]
-  equipment: {
-    features: AdminVehicleFeature[]
-    suggestions: AdminVehicleFeature[]
-    isLoading: boolean
-    isCreating: boolean
-    catalogErrorMessage: string | null
-    presetErrorMessage: string | null
-    onToggle: (featureId: number) => void
-    onCreate: (
-      payload: CreateAdminVehicleFeaturePayload
-    ) => Promise<AdminVehicleFeature>
-    onRetry: () => void
-  }
+  equipment: ListingEquipmentFormProps
+  isTitleAutomatic: boolean
   isLoadingOptions: boolean
   isSubmitting: boolean
   errorMessage: string | null
@@ -44,6 +27,7 @@ type ListingFormProps = {
   submittingLabel: string
   showStatus?: boolean
   onCancel: () => void
+  onUseGeneratedTitle: () => void
   onSubmit: (event: React.FormEvent<HTMLFormElement>) => void
   onFieldChange: (
     field: keyof ListingFormState,
@@ -61,10 +45,12 @@ function ListingForm({
   makes,
   carModels,
   equipment,
+  isTitleAutomatic,
   isLoadingOptions,
   isSubmitting,
   errorMessage,
   onCancel,
+  onUseGeneratedTitle,
   onSubmit,
   onFieldChange,
 }: ListingFormProps) {
@@ -76,7 +62,7 @@ function ListingForm({
   return (
     <form
       onSubmit={onSubmit}
-      className="grid gap-5 rounded-lg border bg-card p-5"
+      className="grid gap-5 rounded-lg border bg-card p-4 sm:p-5"
     >
       <div>
         <h3 className="text-lg font-semibold">{heading}</h3>
@@ -89,220 +75,56 @@ function ListingForm({
         </div>
       ) : null}
 
-      <div className="grid gap-4 md:grid-cols-2">
-        <FormField label="Make">
-          <select
-            className="h-10 rounded-md border bg-background px-3 text-sm"
-            value={formState.makeId}
-            onChange={(event) => {
-              void onFieldChange('makeId', event.target.value)
-            }}
-            required
-            disabled={isLoadingOptions}
-          >
-            <option value="">Select make</option>
-            {makes.map((make) => (
-              <option key={make.id} value={make.id}>
-                {make.name}
-              </option>
-            ))}
-          </select>
-        </FormField>
+      <ListingVehicleFields
+        formState={formState}
+        makes={makes}
+        carModels={carModels}
+        isLoadingOptions={isLoadingOptions}
+        isTitleAutomatic={isTitleAutomatic}
+        onUseGeneratedTitle={onUseGeneratedTitle}
+        onFieldChange={onFieldChange}
+      />
 
-        <FormField label="Model">
-          <select
-            className="h-10 rounded-md border bg-background px-3 text-sm"
-            value={formState.carModelId}
-            onChange={(event) => {
-              void onFieldChange('carModelId', event.target.value)
-            }}
-            required
-            disabled={!formState.makeId}
-          >
-            <option value="">Select model</option>
-            {carModels.map((carModel) => (
-              <option key={carModel.id} value={carModel.id}>
-                {carModel.name}
-              </option>
-            ))}
-          </select>
-        </FormField>
+      <ListingSaleFields
+        formState={formState}
+        showStatus={showStatus}
+        onFieldChange={onFieldChange}
+      />
 
-        <FormField label="Title">
-          <input
-            className="h-10 rounded-md border bg-background px-3 text-sm"
-            value={formState.title}
-            onChange={(event) => onFieldChange('title', event.target.value)}
-            required
-          />
-        </FormField>
+      <ListingSpecificationFields
+        formState={formState}
+        onFieldChange={onFieldChange}
+      />
 
-        <FormField label="Year">
-          <input
-            className="h-10 rounded-md border bg-background px-3 text-sm"
-            type="number"
-            min="1900"
-            value={formState.year}
-            onChange={(event) => onFieldChange('year', event.target.value)}
-            required
-          />
-        </FormField>
+      <ListingEquipmentFields
+        modelName={selectedCarModel?.name ?? null}
+        formState={formState}
+        equipment={equipment}
+      />
 
-        <FormField label="Price">
-          <div className="relative">
-            <input
-              className="h-10 w-full rounded-md border bg-background px-3 pr-14 text-sm"
-              type="text"
-              inputMode="numeric"
-              value={formatPriceInput(formState.price)}
-              onChange={(event) =>
-                onFieldChange(
-                  'price',
-                  normalizePriceInput(event.target.value)
-                )
-              }
-              placeholder="35.000"
-              required
-            />
+      <ListingNotesFields
+        formState={formState}
+        onFieldChange={onFieldChange}
+      />
 
-            <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-xs text-muted-foreground">
-              {formState.currency}
-            </span>
-          </div>
-        </FormField>
-
-        <FormField label="Kilometers">
-          <input
-            className="h-10 rounded-md border bg-background px-3 text-sm"
-            type="number"
-            min="0"
-            value={formState.kilometers}
-            onChange={(event) => onFieldChange('kilometers', event.target.value)}
-          />
-        </FormField>
-
-        <FormField label="Fuel type">
-          <select
-            className="h-10 rounded-md border bg-background px-3 text-sm"
-            value={formState.fuelType}
-            onChange={(event) => onFieldChange('fuelType', event.target.value)}
-            required
-          >
-            {fuelTypeOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </FormField>
-
-        <FormField label="Transmission">
-          <select
-            className="h-10 rounded-md border bg-background px-3 text-sm"
-            value={formState.transmission}
-            onChange={(event) =>
-              onFieldChange('transmission', event.target.value)
-            }
-            required
-          >
-            {transmissionOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </FormField>
-
-        <FormField label="Body type">
-          <input
-            className="h-10 rounded-md border bg-background px-3 text-sm"
-            value={formState.bodyType}
-            onChange={(event) => onFieldChange('bodyType', event.target.value)}
-            placeholder="SUV"
-          />
-        </FormField>
-
-        <FormField label="Color">
-          <input
-            className="h-10 rounded-md border bg-background px-3 text-sm"
-            value={formState.color}
-            onChange={(event) => onFieldChange('color', event.target.value)}
-            placeholder="Black"
-          />
-        </FormField>
-
-        <FormField label="Condition">
-          <select
-            className="h-10 rounded-md border bg-background px-3 text-sm"
-            value={formState.condition}
-            onChange={(event) => onFieldChange('condition', event.target.value)}
-          >
-            {conditionOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </FormField>
-
-        {showStatus ? (
-          <FormField label="Status">
-            <select
-              className="h-10 rounded-md border bg-background px-3 text-sm"
-              value={formState.status}
-              onChange={(event) =>
-                onFieldChange('status', event.target.value)
-              }
-            >
-              {listingStatusOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
-          </FormField>
-        ) : null}
-
-        <FormField label="Location">
-          <input
-            className="h-10 rounded-md border bg-background px-3 text-sm"
-            value={formState.location}
-            onChange={(event) => onFieldChange('location', event.target.value)}
-            placeholder="Prishtina"
-          />
-        </FormField>
-      </div>
-
-      <FormField label="Description">
-        <textarea
-          className="min-h-24 rounded-md border bg-background px-3 py-2 text-sm"
-          value={formState.description}
-          onChange={(event) => onFieldChange('description', event.target.value)}
-        />
-      </FormField>
-
-      <FormField label="Equipment">
-        <ListingEquipmentPicker
-          modelName={selectedCarModel?.name ?? null}
-          features={equipment.features}
-          suggestions={equipment.suggestions}
-          selectedFeatureIds={formState.featureIds}
-          isLoading={equipment.isLoading}
-          isCreating={equipment.isCreating}
-          catalogErrorMessage={equipment.catalogErrorMessage}
-          presetErrorMessage={equipment.presetErrorMessage}
-          onToggle={equipment.onToggle}
-          onCreate={equipment.onCreate}
-          onRetry={equipment.onRetry}
-        />
-      </FormField>
-
-      <div className="flex justify-end gap-2">
-        <Button type="button" variant="outline" onClick={onCancel}>
+      <div className="sticky bottom-0 -mx-4 -mb-4 flex flex-wrap justify-end gap-2 border-t bg-card/95 px-4 py-3 backdrop-blur sm:-mx-5 sm:-mb-5 sm:px-5">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={onCancel}
+          disabled={isSubmitting}
+        >
           Cancel
         </Button>
         <Button type="submit" disabled={isSubmitting}>
-          {isSubmitting ? submittingLabel : submitLabel}
+          {isSubmitting ? (
+            <>
+              <LoaderCircle className="animate-spin" />
+              {submittingLabel}
+            </>
+          ) : (
+            submitLabel
+          )}
         </Button>
       </div>
     </form>

@@ -25,31 +25,17 @@ function ListingEditPanel({
       submitLabel="Save changes"
       submittingLabel="Saving..."
       formState={editForm.formState}
+      isTitleAutomatic={editForm.isTitleAutomatic}
       makes={editForm.makes}
       carModels={editForm.carModels}
-      equipment={{
-        features: editForm.equipment.features,
-        suggestions: editForm.equipment.suggestions,
-        isLoading: editForm.equipment.isLoading,
-        isCreating:
-          editForm.equipment.createFeatureMutation.isPending,
-        catalogErrorMessage:
-          editForm.equipment.catalogErrorMessage,
-        presetErrorMessage:
-          editForm.equipment.presetErrorMessage,
-        onToggle: editForm.equipment.toggleFeature,
-        onCreate: async (payload) =>
-          editForm.equipment.createFeatureMutation.mutateAsync(payload),
-        onRetry: () => {
-          void editForm.equipment.retry()
-        },
-      }}
+      equipment={editForm.equipment.formProps}
       isLoadingOptions={editForm.isLoadingOptions}
       isSubmitting={editForm.isSubmitting}
       errorMessage={editForm.errorMessage}
       onCancel={onCancel}
       onSubmit={editForm.submit}
       onFieldChange={editForm.updateField}
+      onUseGeneratedTitle={editForm.useGeneratedTitle}
     />
   )
 }

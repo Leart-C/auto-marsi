@@ -104,6 +104,20 @@ export function buildListingPayload(
   }
 }
 
+export function buildGeneratedListingTitle({
+  year,
+  make,
+  model,
+}: {
+  year: string
+  make?: string
+  model?: string
+}): string {
+  return [year.trim(), make?.trim(), model?.trim()]
+    .filter(Boolean)
+    .join(' ')
+}
+
 export function normalizePriceInput(value: string): string {
   return value
     .replace(/\D/g, '')

@@ -18,7 +18,8 @@ export function useListingCreateForm({
 }: UseListingCreateFormParams) {
   const { getAdminToken } = useAdminToken()
   const fields = useListingFormFields(
-    initialListingFormState
+    initialListingFormState,
+    { autoGenerateTitle: true }
   )
 
   const createListingMutation = useMutation({
