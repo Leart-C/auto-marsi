@@ -12,6 +12,8 @@ class UpdateInquiry
             'status' => $data['status'],
         ]);
 
-        return $inquiry->fresh(['listing.make', 'listing.carModel']);
+        return $inquiry
+            ->fresh(['listing.make', 'listing.carModel'])
+            ->loadExists('appointments');
     }
 }

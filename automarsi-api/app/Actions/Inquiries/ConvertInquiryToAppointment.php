@@ -12,24 +12,28 @@ class ConvertInquiryToAppointment
     public function handle(Inquiry $inquiry, array $data): Appointment
     {
         return DB::transaction(function () use ($inquiry, $data) {
-            if ($inquiry->appointments()->exists()) {
+            $lockedInquiry = Inquiry::query()
+                ->lockForUpdate()
+                ->findOrFail($inquiry->id);
+
+            if ($lockedInquiry->appointments()->exists()) {
                 throw ValidationException::withMessages([
                     'inquiry_id' => ['This inquiry already has an appointment.'],
                 ]);
             }
 
             $appointment = Appointment::create([
-                'listing_id' => $inquiry->listing_id,
-                'inquiry_id' => $inquiry->id,
-                'name' => $inquiry->name,
-                'phone' => $inquiry->phone,
-                'email' => $inquiry->email,
+                'listing_id' => $lockedInquiry->listing_id,
+                'inquiry_id' => $lockedInquiry->id,
+                'name' => $lockedInquiry->name,
+                'phone' => $lockedInquiry->phone,
+                'email' => $lockedInquiry->email,
                 'preferred_at' => $data['preferred_at'],
-                'message' => $data['message'] ?? $inquiry->message,
+                'message' => $data['message'] ?? $lockedInquiry->message,
                 'status' => $data['status'] ?? 'pending',
             ]);
 
-            $inquiry->update([
+            $lockedInquiry->update([
                 'status' => 'closed',
             ]);
 

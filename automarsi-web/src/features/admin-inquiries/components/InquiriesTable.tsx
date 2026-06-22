@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Eye, MoreHorizontal } from 'lucide-react'
+import { CalendarPlus, Eye, MoreHorizontal } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -30,6 +30,7 @@ type InquiriesTableProps = {
   inquiries: AdminInquiry[]
   onStatusChange: (inquiryId: number, status: InquiryStatus) => void
   isUpdating: boolean
+  onScheduleAppointment: (inquiry: AdminInquiry) => void
 }
 
 function formatDate(value: string | null): string {
@@ -51,6 +52,7 @@ function InquiriesTable({
   inquiries,
   onStatusChange,
   isUpdating,
+  onScheduleAppointment,
 }: InquiriesTableProps) {
   const [selectedInquiry, setSelectedInquiry] = useState<AdminInquiry | null>(
     null
@@ -118,6 +120,15 @@ function InquiriesTable({
                         View details
                       </DropdownMenuItem>
 
+                      <DropdownMenuItem
+                        onClick={() => onScheduleAppointment(inquiry)}
+                        disabled={inquiry.has_appointment}
+                        className="gap-2"
+                      >
+                        <CalendarPlus className="size-4 text-muted-foreground" />
+                        Schedule appointment
+                      </DropdownMenuItem>
+
                       {inquiryStatuses.map((status) => (
                         <DropdownMenuItem
                           key={status}
@@ -154,14 +165,42 @@ function InquiriesTable({
 
           {selectedInquiry ? (
             <div className="grid gap-3 text-sm">
-              <p><strong>Phone:</strong> {selectedInquiry.phone}</p>
-              <p><strong>Email:</strong> {selectedInquiry.email ?? '-'}</p>
-              <p><strong>Listing:</strong> {formatListing(selectedInquiry)}</p>
-              <p><strong>Status:</strong> {selectedInquiry.status}</p>
-              <p><strong>Created:</strong> {formatDate(selectedInquiry.created_at)}</p>
+              <p>
+                <strong>Phone:</strong> {selectedInquiry.phone}
+              </p>
+              <p>
+                <strong>Email:</strong> {selectedInquiry.email ?? '-'}
+              </p>
+              <p>
+                <strong>Listing:</strong> {formatListing(selectedInquiry)}
+              </p>
+              <p>
+                <strong>Status:</strong> {selectedInquiry.status}
+              </p>
+              <p>
+                <strong>Created:</strong>{' '}
+                {formatDate(selectedInquiry.created_at)}
+              </p>
               <p className="whitespace-pre-wrap">
                 <strong>Message:</strong> {selectedInquiry.message ?? '-'}
               </p>
+
+              {!selectedInquiry.has_appointment ? (
+                <Button
+                  type="button"
+                  onClick={() => {
+                    onScheduleAppointment(selectedInquiry)
+                    setSelectedInquiry(null)
+                  }}
+                >
+                  <CalendarPlus />
+                  Schedule appointment
+                </Button>
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  An appointment has already been scheduled.
+                </p>
+              )}
             </div>
           ) : null}
         </DialogContent>

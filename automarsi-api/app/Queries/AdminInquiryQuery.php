@@ -11,6 +11,7 @@ class AdminInquiryQuery
     {
         return Inquiry::query()
             ->with(['listing.make', 'listing.carModel'])
+            ->withExists('appointments')
             ->when($filters['status'] ?? null, fn ($query, string $status) =>
                 $query->where('status', $status)
             )

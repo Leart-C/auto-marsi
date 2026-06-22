@@ -17,6 +17,7 @@ export type AdminAppointmentListing = {
 export type AdminAppointment = {
   id: number
   listing_id: number | null
+  inquiry_id: number | null
   listing: AdminAppointmentListing | null
   name: string
   phone: string
@@ -26,6 +27,16 @@ export type AdminAppointment = {
   status: AppointmentStatus
   created_at: string | null
   updated_at: string | null
+}
+
+export type AppointmentFormPayload = {
+  listing_id: number | null
+  name: string
+  phone: string
+  email: string | null
+  preferred_at: string
+  message: string | null
+  status: AppointmentStatus
 }
 
 export type AdminAppointmentsResponse = {

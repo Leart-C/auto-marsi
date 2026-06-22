@@ -41,7 +41,8 @@ class AdminInquiryControllerTest extends TestCase
         $response
             ->assertOk()
             ->assertJsonCount(1, 'data')
-            ->assertJsonPath('data.0.name', 'John Doe');
+            ->assertJsonPath('data.0.name', 'John Doe')
+            ->assertJsonPath('data.0.has_appointment', false);
     }
 
     public function test_admin_can_filter_inquiries_by_status(): void

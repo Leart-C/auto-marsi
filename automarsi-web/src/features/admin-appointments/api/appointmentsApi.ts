@@ -3,6 +3,7 @@ import type {
   AdminAppointmentResponse,
   AdminAppointmentsResponse,
   AppointmentStatus,
+  AppointmentFormPayload,
 } from '../types'
 
 type GetAdminAppointmentsParams = {
@@ -10,6 +11,8 @@ type GetAdminAppointmentsParams = {
   search?: string
   status?: AppointmentStatus | ''
   listingId?: string
+  page?: number
+  perPage?: number
 }
 
 export function getAdminAppointments({
@@ -17,6 +20,8 @@ export function getAdminAppointments({
   search,
   status,
   listingId,
+  page = 1,
+  perPage = 15,
 }: GetAdminAppointmentsParams) {
   return adminApi<AdminAppointmentsResponse>({
     token,
@@ -25,8 +30,41 @@ export function getAdminAppointments({
       search,
       status,
       listing_id: listingId,
-      per_page: 50,
+      page,
+      per_page: perPage,
     },
+  })
+}
+
+export function createAdminAppointment({
+  token,
+  payload,
+}: {
+  token: string
+  payload: AppointmentFormPayload
+}) {
+  return adminApi<AdminAppointmentResponse>({
+    token,
+    path: '/admin/appointments',
+    method: 'POST',
+    body: payload,
+  })
+}
+
+export function updateAdminAppointment({
+  token,
+  appointmentId,
+  payload,
+}: {
+  token: string
+  appointmentId: number
+  payload: AppointmentFormPayload
+}) {
+  return adminApi<AdminAppointmentResponse>({
+    token,
+    path: `/admin/appointments/${appointmentId}`,
+    method: 'PATCH',
+    body: payload,
   })
 }
 

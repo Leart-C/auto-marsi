@@ -25,7 +25,9 @@ class AdminInquiryController extends Controller
     public function show(Inquiry $inquiry): InquiryResource
     {
         return new InquiryResource(
-            $inquiry->load(['listing.make', 'listing.carModel'])
+            $inquiry
+                ->load(['listing.make', 'listing.carModel'])
+                ->loadExists('appointments')
         );
     }
 

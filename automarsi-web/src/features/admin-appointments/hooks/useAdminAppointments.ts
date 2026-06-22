@@ -2,26 +2,37 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useAdminToken } from '@/hooks/useAdminToken'
 import {
+  createAdminAppointment,
   getAdminAppointments,
+  updateAdminAppointment,
   updateAdminAppointmentStatus,
 } from '../api/appointmentsApi'
-import type { AppointmentStatus } from '../types'
+import type {
+  AppointmentFormPayload,
+  AppointmentStatus,
+} from '../types'
 
 type UseAdminAppointmentsParams = {
   search: string
   status: AppointmentStatus | ''
   listingId: string
+  page: number
 }
 
 export function useAdminAppointments({
   search,
   status,
   listingId,
+  page,
 }: UseAdminAppointmentsParams) {
   const queryClient = useQueryClient()
   const { isAuthReady, getAdminToken } = useAdminToken()
 
-  const queryKey = ['admin', 'appointments', { search, status, listingId }]
+  const queryKey = [
+    'admin',
+    'appointments',
+    { search, status, listingId, page },
+  ]
 
   const appointmentsQuery = useQuery({
     queryKey,
@@ -34,6 +45,7 @@ export function useAdminAppointments({
         search,
         status,
         listingId,
+        page,
       })
     },
   })
@@ -67,11 +79,70 @@ export function useAdminAppointments({
     },
   })
 
+  const createAppointmentMutation = useMutation({
+    mutationFn: async (payload: AppointmentFormPayload) => {
+      const token = await getAdminToken()
+
+      return createAdminAppointment({ token, payload })
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ['admin', 'appointments'],
+      })
+      toast.success('Appointment created.')
+    },
+    onError: (error) => {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : 'Failed to create appointment.'
+      )
+    },
+  })
+
+  const editAppointmentMutation = useMutation({
+    mutationFn: async ({
+      appointmentId,
+      payload,
+    }: {
+      appointmentId: number
+      payload: AppointmentFormPayload
+    }) => {
+      const token = await getAdminToken()
+
+      return updateAdminAppointment({
+        token,
+        appointmentId,
+        payload,
+      })
+    },
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ['admin', 'appointments'],
+      })
+      toast.success('Appointment updated.')
+    },
+    onError: (error) => {
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : 'Failed to update appointment.'
+      )
+    },
+  })
+
   return {
     appointments: appointmentsQuery.data?.data ?? [],
-    total: appointmentsQuery.data?.meta?.total ?? 0,
+    meta: appointmentsQuery.data?.meta ?? {
+      current_page: 1,
+      last_page: 1,
+      per_page: 15,
+      total: 0,
+    },
     appointmentsQuery,
     updateStatusMutation,
+    createAppointmentMutation,
+    editAppointmentMutation,
     errorMessage:
       appointmentsQuery.error instanceof Error
         ? appointmentsQuery.error.message

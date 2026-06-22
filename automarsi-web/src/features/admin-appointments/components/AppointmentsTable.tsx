@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Eye, MoreHorizontal } from 'lucide-react'
+import { Eye, MoreHorizontal, Pencil } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -30,6 +30,7 @@ type AppointmentsTableProps = {
   appointments: AdminAppointment[]
   onStatusChange: (appointmentId: number, status: AppointmentStatus) => void
   isUpdating: boolean
+  onEdit: (appointment: AdminAppointment) => void
 }
 
 function formatDateTime(value: string): string {
@@ -48,6 +49,7 @@ function AppointmentsTable({
   appointments,
   onStatusChange,
   isUpdating,
+  onEdit,
 }: AppointmentsTableProps) {
   const [selectedAppointment, setSelectedAppointment] =
     useState<AdminAppointment | null>(null)
@@ -112,6 +114,14 @@ function AppointmentsTable({
                         View details
                       </DropdownMenuItem>
 
+                      <DropdownMenuItem
+                        onClick={() => onEdit(appointment)}
+                        className="gap-2"
+                      >
+                        <Pencil className="size-4 text-muted-foreground" />
+                        Edit or reschedule
+                      </DropdownMenuItem>
+
                       {appointmentStatuses.map((status) => (
                         <DropdownMenuItem
                           key={status}
@@ -152,14 +162,38 @@ function AppointmentsTable({
 
           {selectedAppointment ? (
             <div className="grid gap-3 text-sm">
-              <p><strong>Phone:</strong> {selectedAppointment.phone}</p>
-              <p><strong>Email:</strong> {selectedAppointment.email ?? '-'}</p>
-              <p><strong>Listing:</strong> {formatListing(selectedAppointment)}</p>
-              <p><strong>Scheduled:</strong> {formatDateTime(selectedAppointment.preferred_at)}</p>
-              <p><strong>Status:</strong> {selectedAppointment.status}</p>
+              <p>
+                <strong>Phone:</strong> {selectedAppointment.phone}
+              </p>
+              <p>
+                <strong>Email:</strong>{' '}
+                {selectedAppointment.email ?? '-'}
+              </p>
+              <p>
+                <strong>Listing:</strong>{' '}
+                {formatListing(selectedAppointment)}
+              </p>
+              <p>
+                <strong>Scheduled:</strong>{' '}
+                {formatDateTime(selectedAppointment.preferred_at)}
+              </p>
+              <p>
+                <strong>Status:</strong> {selectedAppointment.status}
+              </p>
               <p className="whitespace-pre-wrap">
                 <strong>Notes:</strong> {selectedAppointment.message ?? '-'}
               </p>
+
+              <Button
+                type="button"
+                onClick={() => {
+                  onEdit(selectedAppointment)
+                  setSelectedAppointment(null)
+                }}
+              >
+                <Pencil />
+                Edit appointment
+              </Button>
             </div>
           ) : null}
         </DialogContent>

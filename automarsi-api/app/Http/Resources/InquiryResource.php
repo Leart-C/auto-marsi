@@ -20,6 +20,7 @@ class InquiryResource extends JsonResource
             'message' => $this->message,
             'source' => $this->source,
             'status' => $this->status,
+            'has_appointment' => (bool) ($this->appointments_exists ?? false),
 
             'created_at' => $this->created_at?->toISOString(),
             'updated_at' => $this->updated_at?->toISOString(),
