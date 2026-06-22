@@ -69,6 +69,10 @@ class AdminInquiryAppointmentControllerTest extends TestCase
             'id' => $inquiry->id,
             'status' => 'closed',
         ]);
+
+        $this->getJson('/api/admin/inquiries')
+            ->assertOk()
+            ->assertJsonPath('data.0.has_appointment', true);
     }
 
     public function test_converted_appointment_defaults_to_pending_and_uses_inquiry_message(): void
@@ -154,6 +158,33 @@ class AdminInquiryAppointmentControllerTest extends TestCase
         $response->assertUnprocessable();
 
         $this->assertDatabaseCount('appointments', 1);
+    }
+
+    public function test_database_prevents_duplicate_appointments_for_an_inquiry(): void
+    {
+        $inquiry = Inquiry::create([
+            'name' => 'Unique Lead',
+            'phone' => '+38344111222',
+            'status' => 'new',
+        ]);
+
+        Appointment::create([
+            'inquiry_id' => $inquiry->id,
+            'name' => 'Unique Lead',
+            'phone' => '+38344111222',
+            'preferred_at' => now()->addDay(),
+            'status' => 'pending',
+        ]);
+
+        $this->expectException(\Illuminate\Database\QueryException::class);
+
+        Appointment::create([
+            'inquiry_id' => $inquiry->id,
+            'name' => 'Unique Lead',
+            'phone' => '+38344111222',
+            'preferred_at' => now()->addDays(2),
+            'status' => 'pending',
+        ]);
     }
 
     private function createListing(string $slug): Listing

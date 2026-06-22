@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Actions\Appointments\CreateAppointment;
 use App\Actions\Appointments\UpdateAppointment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\Appointments\IndexAppointmentsRequest;
+use App\Http\Requests\Admin\Appointments\StoreAppointmentRequest;
 use App\Http\Requests\Admin\Appointments\UpdateAppointmentRequest;
 use App\Http\Resources\AppointmentResource;
 use App\Models\Appointment;
 use App\Queries\AdminAppointmentQuery;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use App\Actions\Appointments\CreateAppointment;
-use App\Http\Requests\Admin\Appointments\StoreAppointmentRequest;
 
 class AdminAppointmentController extends Controller
 {
@@ -27,7 +27,11 @@ class AdminAppointmentController extends Controller
     public function show(Appointment $appointment): AppointmentResource
     {
         return new AppointmentResource(
-            $appointment->load(['listing.make', 'listing.carModel'])
+            $appointment->load([
+                'listing.make',
+                'listing.carModel',
+                'inquiry',
+            ])
         );
     }
 

@@ -8,10 +8,12 @@ class UpdateAppointment
 {
     public function handle(Appointment $appointment, array $data): Appointment
     {
-        $appointment->update([
-            'status' => $data['status'],
-        ]);
+        $appointment->update($data);
 
-        return $appointment->fresh(['listing.make', 'listing.carModel']);
+        return $appointment->fresh([
+            'listing.make',
+            'listing.carModel',
+            'inquiry',
+        ]);
     }
 }

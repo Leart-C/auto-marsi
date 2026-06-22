@@ -19,6 +19,7 @@ export type AdminInquiry = {
   message: string | null
   source: string | null
   status: InquiryStatus
+  has_appointment: boolean
   created_at: string | null
   updated_at: string | null
 }

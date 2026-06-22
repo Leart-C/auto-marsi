@@ -242,6 +242,51 @@ class AdminAppointmentControllerTest extends TestCase
         ]);
     }
 
+    public function test_admin_can_reschedule_and_edit_appointment(): void
+    {
+        $firstListing = $this->createListing('audi-a6');
+        $secondListing = $this->createListing('bmw-x5');
+
+        $appointment = Appointment::create([
+            'listing_id' => $firstListing->id,
+            'name' => 'John Doe',
+            'phone' => '+38344111222',
+            'preferred_at' => now()->addDay(),
+            'status' => 'pending',
+        ]);
+
+        $preferredAt = now()->addDays(3)->startOfHour();
+
+        $response = $this->patchJson(
+            "/api/admin/appointments/{$appointment->id}",
+            [
+                'listing_id' => $secondListing->id,
+                'name' => 'John Updated',
+                'phone' => '+38344999999',
+                'email' => 'john.updated@example.com',
+                'preferred_at' => $preferredAt->toDateTimeString(),
+                'message' => 'Customer requested a later visit.',
+                'status' => 'confirmed',
+            ]
+        );
+
+        $response
+            ->assertOk()
+            ->assertJsonPath('data.listing_id', $secondListing->id)
+            ->assertJsonPath('data.name', 'John Updated')
+            ->assertJsonPath('data.status', 'confirmed');
+
+        $this->assertDatabaseHas('appointments', [
+            'id' => $appointment->id,
+            'listing_id' => $secondListing->id,
+            'name' => 'John Updated',
+            'phone' => '+38344999999',
+            'email' => 'john.updated@example.com',
+            'message' => 'Customer requested a later visit.',
+            'status' => 'confirmed',
+        ]);
+    }
+
     public function test_admin_cannot_update_appointment_to_invalid_status(): void
     {
         $appointment = Appointment::create([
