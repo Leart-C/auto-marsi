@@ -1,6 +1,8 @@
 type PublicApiParams = {
   path: string
+  method?: 'GET' | 'POST'
   query?: Record<string, string | number | null | undefined>
+  body?: unknown
 }
 
 async function getErrorMessage(response: Response): Promise<string> {
@@ -19,7 +21,9 @@ async function getErrorMessage(response: Response): Promise<string> {
 
 export async function publicApi<T>({
   path,
+  method = 'GET',
   query,
+  body,
 }: PublicApiParams): Promise<T> {
   const apiUrl = import.meta.env.VITE_API_URL
   const url = new URL(`${apiUrl}${path}`)
@@ -31,9 +35,12 @@ export async function publicApi<T>({
   })
 
   const response = await fetch(url.toString(), {
+    method,
     headers: {
       Accept: 'application/json',
+      ...(body ? { 'Content-Type': 'application/json' } : {}),
     },
+    body: body ? JSON.stringify(body) : undefined,
   })
 
   if (!response.ok) {

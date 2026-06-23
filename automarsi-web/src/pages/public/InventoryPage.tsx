@@ -7,6 +7,10 @@ import PublicListingPagination from '@/features/public-listings/components/Publi
 import { usePublicListings } from '@/features/public-listings/hooks/usePublicListings'
 import type { PublicListingFilters as PublicListingFiltersType } from '@/features/public-listings/types'
 
+type InventoryPageProps = {
+  onNavigate: (path: string) => void
+}
+
 const initialFilters: PublicListingFiltersType = {
   page: 1,
   search: '',
@@ -18,7 +22,7 @@ const initialFilters: PublicListingFiltersType = {
   body_type: '',
 }
 
-function InventoryPage() {
+function InventoryPage({onNavigate}: InventoryPageProps) {
   const [filters, setFilters] =
     useState<PublicListingFiltersType>(initialFilters)
 
@@ -75,7 +79,7 @@ function InventoryPage() {
 
           {!listingsQuery.isLoading && !errorMessage && listings.length > 0 ? (
             <>
-              <PublicListingGrid listings={listings} />
+              <PublicListingGrid listings={listings} onNavigate={onNavigate}/>
 
               {meta ? (
                 <PublicListingPagination
