@@ -3,6 +3,7 @@ import type { PublicListing } from '../types'
 
 type PublicListingCardProps = {
   listing: PublicListing
+  onNavigate: (path: string) => void
 }
 
 function formatPrice(listing: PublicListing): string {
@@ -27,9 +28,9 @@ function formatKilometers(kilometers: number | null): string {
   return `${new Intl.NumberFormat('en-US').format(kilometers)} km`
 }
 
-function PublicListingCard({ listing }: PublicListingCardProps) {
+function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
   return (
-    <article className="overflow-hidden rounded-lg border bg-card text-card-foreground shadow-xs">
+    <article className="group overflow-hidden rounded-lg border bg-card text-card-foreground shadow-xs transition hover:-translate-y-0.5 hover:shadow-md">
       <div className="aspect-[4/3] bg-muted">
         {listing.primary_image?.image_url ? (
           <img
@@ -69,6 +70,13 @@ function PublicListingCard({ listing }: PublicListingCardProps) {
             <MapPin className="size-3.5" />
             {listing.location ?? 'Location unavailable'}
           </span>
+          <button
+            type="button"
+            onClick={() => onNavigate(`/inventory/${listing.id}`)}
+            className="mt-1 inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground transition hover:bg-primary/90"
+          >
+            View details
+          </button>
         </div>
       </div>
     </article>

@@ -19,6 +19,13 @@ export type PublicListingImage = {
   is_primary?: boolean
 }
 
+export type PublicListingFeature = {
+  id: number
+  name: string
+  slug: string
+  icon?: string | null
+}
+
 export type PublicListing = {
   id: number
   make: PublicListingMake | null
@@ -34,13 +41,19 @@ export type PublicListing = {
   transmission: string
   body_type: string | null
   color: string | null
+  engine_size: string | null
+  horsepower: number | null
+  vin: string | null
+  registration_until: string | null
   condition: string
   status: string
   is_featured: boolean
   location: string | null
   published_at: string | null
+  sold_at: string | null
   primary_image: PublicListingImage | null
   images: PublicListingImage[]
+  features: PublicListingFeature[]
 }
 
 export type PublicListingFilters = {
@@ -62,4 +75,8 @@ export type PublicListingsResponse = {
     per_page: number
     total: number
   }
+}
+
+export type PublicListingResponse = {
+  data: PublicListing
 }
