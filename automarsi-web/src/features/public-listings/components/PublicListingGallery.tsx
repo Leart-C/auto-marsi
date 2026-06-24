@@ -36,9 +36,19 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
               className="size-full object-cover"
             />
           ) : (
-            <div className="grid size-full place-items-center gap-2 text-sm text-muted-foreground">
-              <ImageIcon className="size-6" />
-              No image available
+            <div className="grid size-full place-items-center p-8 text-center">
+              <div className="grid max-w-sm justify-items-center gap-2 text-muted-foreground">
+                <div className="grid size-12 place-items-center rounded-lg bg-background shadow-sm">
+                  <ImageIcon className="size-6" />
+                </div>
+                <p className="font-medium text-foreground">
+                  Photos coming soon
+                </p>
+                <p className="text-sm leading-6">
+                  This vehicle is available, but images have not been uploaded
+                  yet.
+                </p>
+              </div>
             </div>
           )}
 
@@ -52,7 +62,7 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
 
       {images.length > 1 ? (
         <div className="grid grid-cols-4 gap-3 sm:grid-cols-5 lg:grid-cols-6">
-          {images.map((image) => {
+          {images.map((image, index) => {
             const isSelected = image.id === selectedImage?.id
 
             return (
@@ -60,6 +70,8 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
                 key={image.id}
                 type="button"
                 onClick={() => setSelectedImageId(image.id)}
+                aria-label={`View image ${index + 1} for ${listing.title}`}
+                aria-pressed={isSelected}
                 className={
                   isSelected
                     ? 'overflow-hidden rounded-md border-2 border-red-600 bg-muted'

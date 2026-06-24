@@ -30,7 +30,10 @@ function formatKilometers(kilometers: number | null): string {
 function PublicListingSpecs({ listing }: PublicListingSpecsProps) {
   return (
     <aside className="h-fit rounded-lg border bg-card p-6">
-      <p className="text-3xl font-semibold text-red-600">
+      <p className="text-xs font-semibold uppercase text-muted-foreground">
+        Vehicle price
+      </p>
+      <p className="mt-1 text-3xl font-semibold text-red-600">
         {formatPrice(listing.price, listing.currency)}
       </p>
 
@@ -54,8 +57,15 @@ function PublicListingSpecs({ listing }: PublicListingSpecsProps) {
         <SpecItem label="Color" value={listing.color ?? '-'} />
         <SpecItem label="Condition" value={listing.condition} capitalize />
         <SpecItem label="Engine" value={listing.engine_size ?? '-'} />
-        <SpecItem label="Power" value={listing.horsepower ? `${listing.horsepower} hp` : '-'} />
+        <SpecItem
+          label="Power"
+          value={listing.horsepower ? `${listing.horsepower} hp` : '-'}
+        />
       </dl>
+
+      <p className="mt-5 rounded-md bg-muted px-3 py-2 text-xs leading-5 text-muted-foreground">
+        Availability and final details are confirmed by AutoMarsi.
+      </p>
     </aside>
   )
 }

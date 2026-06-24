@@ -1,5 +1,6 @@
 import { ArrowLeft } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import PublicListingContactReassurance from '@/features/public-listings/components/PublicListingContactReassurance'
 import PublicListingDetailsHeader from '@/features/public-listings/components/PublicListingDetailsHeader'
 import PublicListingFeatures from '@/features/public-listings/components/PublicListingFeatures'
 import PublicListingGallery from '@/features/public-listings/components/PublicListingGallery'
@@ -101,6 +102,7 @@ function ListingDetailsPage({
         <aside className="grid h-fit gap-5">
           <PublicListingSpecs listing={listing} />
           <PublicListingInquiryForm listingId={listing.id} />
+          <PublicListingContactReassurance />
         </aside>
       </div>
     </section>
