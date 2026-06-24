@@ -65,6 +65,7 @@ export type PublicListingFilters = {
   fuel_type: string
   transmission: string
   body_type: string
+  per_page?: number
 }
 
 export type PublicListingsResponse = {

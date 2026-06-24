@@ -16,7 +16,7 @@ export function getPublicListings(filters: PublicListingFilters) {
       fuel_type: filters.fuel_type,
       transmission: filters.transmission,
       body_type: filters.body_type,
-      per_page: 9,
+      per_page: filters.per_page ?? 9,
     },
   })
 }
