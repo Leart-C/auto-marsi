@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { Send } from 'lucide-react'
+import { Clock, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useCreatePublicInquiry } from '@/features/public-inquiries/hooks/useCreatePublicInquiry'
 
@@ -8,17 +8,26 @@ type PublicListingInquiryFormProps = {
   listingId: number
 }
 
+type InquiryIntent = 'question' | 'viewing' | 'financing'
 type InquiryFormState = {
   name: string
   phone: string
   email: string
+  intent: InquiryIntent
   message: string
+}
+
+const intentLabels: Record<InquiryIntent, string> = {
+  question: 'Ask a question',
+  viewing: 'Book a viewing',
+  financing: 'Discuss financing',
 }
 
 const initialFormState: InquiryFormState = {
   name: '',
   phone: '',
   email: '',
+  intent: 'question',
   message: '',
 }
 
@@ -36,22 +45,31 @@ function PublicListingInquiryForm({ listingId }: PublicListingInquiryFormProps) 
   async function submitInquiry(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    await createInquiryMutation.mutateAsync(
-      {
+    const intentLabel = intentLabels[formState.intent]
+
+    const message = [
+      `Intent: ${intentLabel}`,
+      '',
+      formState.message ? `Customer message: ${formState.message}` : null,
+    ]
+      .filter(Boolean)
+      .join('\n')
+
+    try {
+      await createInquiryMutation.mutateAsync({
         listing_id: listingId,
         name: formState.name,
         phone: formState.phone,
         email: formState.email || null,
-        message: formState.message || null,
+        message,
         source: 'listing_details',
-      },
-      {
-        onSuccess: () => {
-          setFormState(initialFormState)
-          toast.success('Inquiry sent successfully.')
-        },
-      },
-    )
+      })
+
+      setFormState(initialFormState)
+      toast.success('Inquiry sent successfully.')
+    } catch {
+      // Inline error state below handles the message.
+    }
   }
 
   const errorMessage =
@@ -62,12 +80,16 @@ function PublicListingInquiryForm({ listingId }: PublicListingInquiryFormProps) 
   return (
     <form
       onSubmit={submitInquiry}
-      className="grid gap-4 rounded-lg border bg-card p-6"
+      className="grid gap-4 rounded-lg border bg-card p-5 text-card-foreground"
     >
       <div>
         <h2 className="text-lg font-semibold">Interested in this vehicle?</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Send your contact details and AutoMarsi will follow up.
+          Send your details and the AutoMarsi team will contact you.
+        </p>
+        <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
+          <Clock className="size-3.5" />
+          We usually respond within business hours.
         </p>
       </div>
 
@@ -108,6 +130,21 @@ function PublicListingInquiryForm({ listingId }: PublicListingInquiryFormProps) 
           placeholder="you@example.com"
           className="h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
         />
+      </label>
+
+      <label className="grid gap-1.5 text-sm font-medium">
+        I want to
+        <select
+          value={formState.intent}
+          onChange={(event) =>
+            updateField('intent', event.target.value as InquiryIntent)
+          }
+          className="h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+        >
+          <option value="question">Ask a question</option>
+          <option value="viewing">Book a viewing</option>
+          <option value="financing">Discuss financing</option>
+        </select>
       </label>
 
       <label className="grid gap-1.5 text-sm font-medium">
