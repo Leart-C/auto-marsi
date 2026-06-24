@@ -3,8 +3,13 @@ import FeatureCard from '@/components/public/FeatureCard'
 import SectionHeader from '@/components/public/SectionHeader'
 import StatBand from '@/components/public/StatBand'
 import { Button } from '@/components/ui/button'
+import FeaturedListingsSection from '@/features/public-listings/components/FeaturedListingsSection'
 
-function HomePage() {
+type HomePageProps = {
+  onNavigate: (path: string) => void
+}
+
+function HomePage({ onNavigate }: HomePageProps) {
   return (
     <div className="grid gap-14">
       <section className="bg-slate-950 text-white">
@@ -21,8 +26,14 @@ function HomePage() {
               and after the sale.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button type="button">Browse cars</Button>
-              <Button type="button" variant="outline">
+              <Button type="button" onClick={() => onNavigate('/inventory')}>
+                Browse cars
+              </Button>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => onNavigate('/contact')}
+              >
                 Contact us
               </Button>
             </div>
@@ -30,18 +41,20 @@ function HomePage() {
         </div>
       </section>
 
+      <FeaturedListingsSection onNavigate={onNavigate} />
+
       <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 sm:px-6 lg:px-8">
         <SectionHeader
           eyebrow="Why choose us"
           title="A practical, transparent way to buy your next car."
-          description="This foundation will later connect directly to the real inventory created by the admin dashboard."
+          description="Our public inventory is connected to the vehicles managed and published from the AutoMarsi admin dashboard."
         />
 
         <div className="grid gap-4 md:grid-cols-3">
           <FeatureCard
             icon={<ShieldCheck className="size-5" />}
             title="Inspected vehicles"
-            description="Listings can highlight vehicles that are carefully checked before publishing."
+            description="Listings highlight vehicles that are carefully checked before publishing."
           />
           <FeatureCard
             icon={<Wrench className="size-5" />}
@@ -51,16 +64,32 @@ function HomePage() {
           <FeatureCard
             icon={<Sparkles className="size-5" />}
             title="Fresh arrivals"
-            description="Active listings from admin will power this public website in the next branch."
+            description="New active listings appear on the public website as soon as they are published."
           />
         </div>
 
         <StatBand
           items={[
-            { value: '150+', label: 'Vehicles in stock', icon: <Car className="size-5" /> },
-            { value: '10+', label: 'Years in business', icon: <ShieldCheck className="size-5" /> },
-            { value: '2,000+', label: 'Happy customers', icon: <Sparkles className="size-5" /> },
-            { value: '100%', label: 'Transparent process', icon: <Wrench className="size-5" /> },
+            {
+              value: '150+',
+              label: 'Vehicles in stock',
+              icon: <Car className="size-5" />,
+            },
+            {
+              value: '10+',
+              label: 'Years in business',
+              icon: <ShieldCheck className="size-5" />,
+            },
+            {
+              value: '2,000+',
+              label: 'Happy customers',
+              icon: <Sparkles className="size-5" />,
+            },
+            {
+              value: '100%',
+              label: 'Transparent process',
+              icon: <Wrench className="size-5" />,
+            },
           ]}
         />
       </section>

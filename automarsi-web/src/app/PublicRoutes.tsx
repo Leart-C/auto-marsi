@@ -44,7 +44,7 @@ function getPublicPage(path: string, onNavigate: (path: string) => void) {
     return <ContactPage />
   }
 
-  return <HomePage />
+  return <HomePage onNavigate={onNavigate} />
 }
 
 function PublicRoutes({ currentPath, onNavigate }: PublicRoutesProps) {
