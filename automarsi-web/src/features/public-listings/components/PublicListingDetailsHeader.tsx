@@ -1,3 +1,4 @@
+import { BadgeCheck } from 'lucide-react'
 import type { PublicListing } from '../types'
 
 type PublicListingDetailsHeaderProps = {
@@ -8,21 +9,35 @@ function PublicListingDetailsHeader({
   listing,
 }: PublicListingDetailsHeaderProps) {
   return (
-    <div className="rounded-lg border bg-card p-6">
-      <h1 className="text-3xl font-semibold tracking-tight">
-        {listing.title}
-      </h1>
+    <section className="rounded-xl border bg-card p-5 sm:p-6">
+      <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start">
+        <div className="grid gap-2">
+          <p className="text-sm text-muted-foreground">
+            {listing.make?.name ?? '-'} {listing.car_model?.name ?? ''}
+          </p>
 
-      <p className="mt-2 text-muted-foreground">
-        {listing.make?.name ?? '-'} {listing.car_model?.name ?? ''}
-      </p>
+          <h1 className="max-w-3xl text-3xl font-semibold tracking-tight">
+            {listing.title}
+          </h1>
+        </div>
+
+        <div className="inline-flex w-fit items-center gap-2 rounded-full border bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
+          <BadgeCheck className="size-3.5 text-red-600" />
+          Active listing
+        </div>
+      </div>
 
       {listing.description ? (
-        <p className="mt-5 leading-7 text-muted-foreground">
+        <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">
           {listing.description}
         </p>
-      ) : null}
-    </div>
+      ) : (
+        <p className="mt-5 max-w-3xl text-sm leading-7 text-muted-foreground">
+          Contact AutoMarsi for availability, condition details, and showroom
+          follow-up for this vehicle.
+        </p>
+      )}
+    </section>
   )
 }
 

@@ -21,7 +21,7 @@ const steps = [
 function FinancingSteps() {
   return (
     <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="grid gap-4 rounded-lg border bg-card p-5 shadow-xs md:grid-cols-[260px_1fr] md:items-center">
+      <div className="grid gap-4 rounded-xl border bg-card p-5 shadow-xs md:grid-cols-[260px_1fr] md:items-center">
         <div className="grid gap-1">
           <p className="text-xs font-semibold uppercase text-red-600">
             How it works

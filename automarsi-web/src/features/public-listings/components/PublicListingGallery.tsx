@@ -27,8 +27,8 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
 
   return (
     <div className="grid gap-3">
-      <div className="overflow-hidden rounded-lg border bg-card">
-        <div className="relative aspect-[16/10] bg-muted">
+      <div className="overflow-hidden rounded-xl border bg-card">
+        <div className="relative aspect-[16/10] bg-slate-100">
           {selectedImage?.image_url ? (
             <img
               src={selectedImage.image_url}
@@ -37,17 +37,19 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
             />
           ) : (
             <div className="grid size-full place-items-center p-8 text-center">
-              <div className="grid max-w-sm justify-items-center gap-2 text-muted-foreground">
-                <div className="grid size-12 place-items-center rounded-lg bg-background shadow-sm">
+              <div className="grid max-w-sm justify-items-center gap-3 text-muted-foreground">
+                <div className="grid size-14 place-items-center rounded-full bg-white shadow-xs">
                   <ImageIcon className="size-6" />
                 </div>
-                <p className="font-medium text-foreground">
-                  Photos coming soon
-                </p>
-                <p className="text-sm leading-6">
-                  This vehicle is available, but images have not been uploaded
-                  yet.
-                </p>
+                <div>
+                  <p className="font-medium text-foreground">
+                    Photos coming soon
+                  </p>
+                  <p className="mt-1 text-sm leading-6">
+                    This vehicle is available, but photos have not been uploaded
+                    yet.
+                  </p>
+                </div>
               </div>
             </div>
           )}
@@ -74,8 +76,8 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
                 aria-pressed={isSelected}
                 className={
                   isSelected
-                    ? 'overflow-hidden rounded-md border-2 border-red-600 bg-muted'
-                    : 'overflow-hidden rounded-md border bg-muted transition hover:border-foreground/40'
+                    ? 'overflow-hidden rounded-lg border-2 border-red-600 bg-muted'
+                    : 'overflow-hidden rounded-lg border bg-muted transition hover:border-foreground/40'
                 }
               >
                 <span className="block aspect-square">

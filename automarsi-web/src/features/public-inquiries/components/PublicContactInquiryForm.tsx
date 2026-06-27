@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
-import { Send } from 'lucide-react'
+import { CheckCircle2, Send } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useCreatePublicInquiry } from '../hooks/useCreatePublicInquiry'
 
@@ -28,10 +28,13 @@ const initialFormState: ContactInquiryFormState = {
 
 const intentOptions: ContactIntent[] = [
   'General question',
+  'Vehicle availability',
   'Book a showroom visit',
   'Financing question',
-  'Vehicle availability',
 ]
+
+const inputClassName =
+  'h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50'
 
 function buildMessage(formState: ContactInquiryFormState): string {
   const message = formState.message.trim()
@@ -46,13 +49,16 @@ function buildMessage(formState: ContactInquiryFormState): string {
 function PublicContactInquiryForm() {
   const [formState, setFormState] =
     useState<ContactInquiryFormState>(initialFormState)
+  const [wasSubmitted, setWasSubmitted] = useState(false)
 
   const createInquiryMutation = useCreatePublicInquiry()
 
   function updateField<K extends keyof ContactInquiryFormState>(
     field: K,
-    value: ContactInquiryFormState[K]
+    value: ContactInquiryFormState[K],
   ) {
+    setWasSubmitted(false)
+
     setFormState((currentState) => ({
       ...currentState,
       [field]: value,
@@ -74,6 +80,7 @@ function PublicContactInquiryForm() {
       {
         onSuccess: () => {
           setFormState(initialFormState)
+          setWasSubmitted(true)
           toast.success('Message sent successfully.')
         },
       },
@@ -88,14 +95,14 @@ function PublicContactInquiryForm() {
   return (
     <form
       onSubmit={submitInquiry}
-      className="grid gap-4 rounded-lg border bg-card p-5 shadow-xs sm:p-6"
+      className="grid gap-4 rounded-xl border bg-card p-5 shadow-sm sm:p-6"
     >
       <div className="grid gap-1">
         <h2 className="text-xl font-semibold tracking-tight">
           Send us a message
         </h2>
         <p className="text-sm text-muted-foreground">
-          We usually respond within business hours.
+          Share your details and what you need help with.
         </p>
       </div>
 
@@ -105,27 +112,38 @@ function PublicContactInquiryForm() {
         </div>
       ) : null}
 
-      <label className="grid gap-1.5 text-sm font-medium">
-        Name
-        <input
-          value={formState.name}
-          onChange={(event) => updateField('name', event.target.value)}
-          required
-          placeholder="Your name"
-          className="h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
-        />
-      </label>
+      {wasSubmitted ? (
+        <div className="flex items-start gap-2 rounded-md border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-700">
+          <CheckCircle2 className="mt-0.5 size-4 shrink-0" />
+          <span>
+            Inquiry sent successfully. The AutoMarsi team will follow up soon.
+          </span>
+        </div>
+      ) : null}
 
-      <label className="grid gap-1.5 text-sm font-medium">
-        Phone
-        <input
-          value={formState.phone}
-          onChange={(event) => updateField('phone', event.target.value)}
-          required
-          placeholder="+383 ..."
-          className="h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
-        />
-      </label>
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="grid gap-1.5 text-sm font-medium">
+          Name
+          <input
+            value={formState.name}
+            onChange={(event) => updateField('name', event.target.value)}
+            required
+            placeholder="Your name"
+            className={inputClassName}
+          />
+        </label>
+
+        <label className="grid gap-1.5 text-sm font-medium">
+          Phone
+          <input
+            value={formState.phone}
+            onChange={(event) => updateField('phone', event.target.value)}
+            required
+            placeholder="+383 ..."
+            className={inputClassName}
+          />
+        </label>
+      </div>
 
       <label className="grid gap-1.5 text-sm font-medium">
         Email
@@ -134,7 +152,7 @@ function PublicContactInquiryForm() {
           onChange={(event) => updateField('email', event.target.value)}
           type="email"
           placeholder="you@example.com"
-          className="h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          className={inputClassName}
         />
       </label>
 
@@ -145,7 +163,7 @@ function PublicContactInquiryForm() {
           onChange={(event) =>
             updateField('intent', event.target.value as ContactIntent)
           }
-          className="h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          className={inputClassName}
         >
           {intentOptions.map((intent) => (
             <option key={intent} value={intent}>
@@ -167,8 +185,22 @@ function PublicContactInquiryForm() {
       </label>
 
       <Button type="submit" disabled={createInquiryMutation.isPending}>
-        <Send />
-        {createInquiryMutation.isPending ? 'Sending...' : 'Send message'}
+        {createInquiryMutation.isPending ? (
+          <>
+            <Send className="size-4 animate-pulse" />
+            Sending...
+          </>
+        ) : wasSubmitted ? (
+          <>
+            <CheckCircle2 className="size-4" />
+            Inquiry sent
+          </>
+        ) : (
+          <>
+            <Send className="size-4" />
+            Send message
+          </>
+        )}
       </Button>
     </form>
   )

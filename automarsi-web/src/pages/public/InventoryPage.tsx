@@ -32,21 +32,25 @@ function InventoryPage({ onNavigate }: InventoryPageProps) {
     filters,
   })
 
+  const vehiclesFoundLabel = meta
+    ? `${meta.total} ${meta.total === 1 ? 'vehicle' : 'vehicles'} found`
+    : 'Loading vehicles'
+
   return (
-    <section className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:px-8">
-      <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+    <section className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
+      <div className="flex flex-col justify-between gap-4 border-b pb-6 md:flex-row md:items-end">
         <SectionHeader
           eyebrow="Inventory"
-          title="Browse selected vehicles."
-          description="Explore active vehicles published from the AutoMarsi admin dashboard."
+          title="Find the right vehicle."
+          description="Use filters to browse active vehicles published by the AutoMarsi team."
         />
 
-        <div className="text-sm text-muted-foreground">
-          {meta ? `${meta.total} vehicles found` : 'Loading vehicles'}
+        <div className="rounded-full border bg-card px-4 py-2 text-sm text-muted-foreground shadow-xs">
+          {vehiclesFoundLabel}
         </div>
       </div>
 
-      <div className="grid min-w-0 gap-6 lg:grid-cols-[320px_minmax(0,1fr)]">
+      <div className="grid min-w-0 gap-6 lg:grid-cols-[300px_minmax(0,1fr)]">
         <PublicListingFilters
           filters={filters}
           onFiltersChange={setFilters}
@@ -54,18 +58,22 @@ function InventoryPage({ onNavigate }: InventoryPageProps) {
 
         <div className="grid min-w-0 gap-5">
           {listingsQuery.isLoading ? (
-            <div className="rounded-lg border bg-card p-8 text-sm text-muted-foreground">
-              Loading vehicles...
+            <div className="rounded-xl border bg-card p-8 text-sm text-muted-foreground">
+              Loading available vehicles...
             </div>
           ) : null}
 
           {errorMessage ? (
-            <div className="grid gap-3 rounded-lg border bg-card p-8">
-              <p className="font-medium">Could not load inventory.</p>
-              <p className="text-sm text-muted-foreground">{errorMessage}</p>
+            <div className="grid gap-3 rounded-xl border bg-card p-8">
+              <div className="grid gap-1">
+                <p className="font-medium">Could not load inventory.</p>
+                <p className="text-sm text-muted-foreground">{errorMessage}</p>
+              </div>
+
               <Button
                 type="button"
                 variant="outline"
+                className="w-fit"
                 onClick={() => listingsQuery.refetch()}
               >
                 Try again
@@ -74,8 +82,11 @@ function InventoryPage({ onNavigate }: InventoryPageProps) {
           ) : null}
 
           {!listingsQuery.isLoading && !errorMessage && listings.length === 0 ? (
-            <div className="rounded-lg border bg-card p-8 text-sm text-muted-foreground">
-              No vehicles matched your filters.
+            <div className="rounded-xl border bg-card p-8">
+              <p className="font-medium">No vehicles found.</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Try changing the make, model, price, or keyword filters.
+              </p>
             </div>
           ) : null}
 
