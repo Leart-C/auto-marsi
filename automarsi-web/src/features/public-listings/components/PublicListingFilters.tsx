@@ -56,14 +56,14 @@ function PublicListingFilters({
 
   return (
     <aside className="h-fit rounded-lg border bg-card text-card-foreground shadow-xs">
-      <div className="flex items-center justify-between gap-3">
-        <h2 className="p-4 pb-0 font-semibold">Filters</h2>
+      <div className="flex items-center justify-between gap-3 border-b px-4 py-3">
+        <h2 className="font-semibold">Filters</h2>
         <button
           type="button"
           onClick={clearFilters}
-          className="mr-4 mt-4 text-xs font-medium text-red-600 hover:underline"
+          className="text-xs font-medium text-muted-foreground transition hover:text-red-600"
         >
-          Clear all
+          Reset
         </button>
       </div>
 

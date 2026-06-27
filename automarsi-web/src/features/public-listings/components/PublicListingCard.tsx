@@ -1,4 +1,4 @@
-import { Gauge, MapPin } from 'lucide-react'
+import { Car, Gauge, MapPin } from 'lucide-react'
 import type { PublicListing } from '../types'
 
 type PublicListingCardProps = {
@@ -30,20 +30,31 @@ function formatKilometers(kilometers: number | null): string {
 
 function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
   return (
-    <article className="group overflow-hidden rounded-lg border bg-card text-card-foreground shadow-xs transition hover:-translate-y-0.5 hover:shadow-md">
-      <div className="aspect-[4/3] bg-muted">
-        {listing.primary_image?.image_url ? (
-          <img
-            src={listing.primary_image.image_url}
-            alt={listing.primary_image.alt_text ?? listing.title}
-            className="size-full object-cover"
-          />
-        ) : (
-          <div className="grid size-full place-items-center text-sm text-muted-foreground">
-            No image
-          </div>
-        )}
-      </div>
+    <article className="group overflow-hidden rounded-xl border bg-card text-card-foreground shadow-xs transition hover:-translate-y-0.5 hover:shadow-md">
+      <button
+        type="button"
+        onClick={() => onNavigate(`/inventory/${listing.id}`)}
+        className="block w-full text-left"
+      >
+        <div className="aspect-[4/3] bg-muted">
+          {listing.primary_image?.image_url ? (
+            <img
+              src={listing.primary_image.image_url}
+              alt={listing.primary_image.alt_text ?? listing.title}
+              className="size-full object-cover transition duration-300 group-hover:scale-[1.02]"
+            />
+          ) : (
+            <div className="grid size-full place-items-center bg-slate-100 text-muted-foreground">
+              <div className="grid justify-items-center gap-2">
+                <div className="grid size-10 place-items-center rounded-full bg-white shadow-xs">
+                  <Car className="size-5" />
+                </div>
+                <span className="text-sm">Photos coming soon</span>
+              </div>
+            </div>
+          )}
+        </div>
+      </button>
 
       <div className="grid gap-3 p-4">
         <div className="grid gap-1">
@@ -63,21 +74,24 @@ function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
             <Gauge className="size-3.5" />
             {formatKilometers(listing.kilometers)}
           </span>
-          <span>
+
+          <span className="capitalize">
             {listing.transmission} / {listing.fuel_type}
           </span>
+
           <span className="inline-flex items-center gap-1.5">
             <MapPin className="size-3.5" />
             {listing.location ?? 'Location unavailable'}
           </span>
-          <button
-            type="button"
-            onClick={() => onNavigate(`/inventory/${listing.id}`)}
-            className="mt-1 inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground transition hover:bg-primary/90"
-          >
-            View details
-          </button>
         </div>
+
+        <button
+          type="button"
+          onClick={() => onNavigate(`/inventory/${listing.id}`)}
+          className="mt-1 inline-flex h-9 items-center justify-center rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground transition hover:bg-primary/90"
+        >
+          View details
+        </button>
       </div>
     </article>
   )

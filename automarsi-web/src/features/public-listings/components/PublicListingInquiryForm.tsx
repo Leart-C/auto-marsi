@@ -9,6 +9,7 @@ type PublicListingInquiryFormProps = {
 }
 
 type InquiryIntent = 'question' | 'viewing' | 'financing'
+
 type InquiryFormState = {
   name: string
   phone: string
@@ -30,6 +31,9 @@ const initialFormState: InquiryFormState = {
   intent: 'question',
   message: '',
 }
+
+const inputClassName =
+  'h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50'
 
 function PublicListingInquiryForm({ listingId }: PublicListingInquiryFormProps) {
   const [formState, setFormState] = useState<InquiryFormState>(initialFormState)
@@ -80,16 +84,16 @@ function PublicListingInquiryForm({ listingId }: PublicListingInquiryFormProps) 
   return (
     <form
       onSubmit={submitInquiry}
-      className="grid gap-4 rounded-lg border bg-card p-5 text-card-foreground"
+      className="grid gap-4 rounded-xl border bg-card p-5 text-card-foreground"
     >
       <div>
-        <h2 className="text-lg font-semibold">Interested in this vehicle?</h2>
+        <h2 className="text-lg font-semibold">Ask about this vehicle</h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Send your details and the AutoMarsi team will contact you.
+          Leave your details and the team will follow up.
         </p>
         <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-muted-foreground">
           <Clock className="size-3.5" />
-          We usually respond within business hours.
+          Usually within business hours.
         </p>
       </div>
 
@@ -106,7 +110,7 @@ function PublicListingInquiryForm({ listingId }: PublicListingInquiryFormProps) 
           onChange={(event) => updateField('name', event.target.value)}
           required
           placeholder="Your name"
-          className="h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          className={inputClassName}
         />
       </label>
 
@@ -117,7 +121,7 @@ function PublicListingInquiryForm({ listingId }: PublicListingInquiryFormProps) 
           onChange={(event) => updateField('phone', event.target.value)}
           required
           placeholder="+383 ..."
-          className="h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          className={inputClassName}
         />
       </label>
 
@@ -128,7 +132,7 @@ function PublicListingInquiryForm({ listingId }: PublicListingInquiryFormProps) 
           onChange={(event) => updateField('email', event.target.value)}
           type="email"
           placeholder="you@example.com"
-          className="h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          className={inputClassName}
         />
       </label>
 
@@ -139,7 +143,7 @@ function PublicListingInquiryForm({ listingId }: PublicListingInquiryFormProps) 
           onChange={(event) =>
             updateField('intent', event.target.value as InquiryIntent)
           }
-          className="h-10 rounded-md border border-input bg-background px-3 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50"
+          className={inputClassName}
         >
           <option value="question">Ask a question</option>
           <option value="viewing">Book a viewing</option>
@@ -159,7 +163,7 @@ function PublicListingInquiryForm({ listingId }: PublicListingInquiryFormProps) 
       </label>
 
       <Button type="submit" disabled={createInquiryMutation.isPending}>
-        <Send />
+        <Send className="size-4" />
         {createInquiryMutation.isPending ? 'Sending...' : 'Send inquiry'}
       </Button>
     </form>

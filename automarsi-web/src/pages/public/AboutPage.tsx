@@ -2,14 +2,10 @@ import {
   ArrowRight,
   BadgeCheck,
   Car,
-  ClipboardCheck,
-  Handshake,
   MessageSquare,
   ShieldCheck,
-  Sparkles,
   Users,
 } from 'lucide-react'
-import FeatureCard from '@/components/public/FeatureCard'
 import SectionHeader from '@/components/public/SectionHeader'
 import { Button } from '@/components/ui/button'
 
@@ -17,61 +13,62 @@ type AboutPageProps = {
   onNavigate: (path: string) => void
 }
 
-const values = [
+const principles = [
   {
-    icon: <ShieldCheck className="size-5" />,
-    title: 'Selected vehicles',
-    description:
-      'We keep the public inventory focused on active vehicles that are ready for real customer interest.',
+    icon: <ShieldCheck className="size-4" />,
+    title: 'Selected inventory',
+    description: 'Customers see active vehicles prepared for real interest.',
   },
   {
-    icon: <Handshake className="size-5" />,
+    icon: <MessageSquare className="size-4" />,
     title: 'Clear communication',
-    description:
-      'Customers can ask questions, check availability, and understand the next step before visiting.',
+    description: 'Questions and visit requests enter the admin lead flow.',
   },
   {
-    icon: <Users className="size-5" />,
+    icon: <Users className="size-4" />,
     title: 'Human follow-up',
-    description:
-      'Every inquiry goes to the AutoMarsi team, where it can be reviewed and scheduled properly.',
+    description: 'The team reviews every inquiry before the next step.',
   },
 ]
 
 const processSteps = [
   {
-    icon: <Car className="size-5" />,
-    title: 'Browse active vehicles',
-    description: 'Customers see only vehicles published from the admin dashboard.',
+    title: 'Vehicle published',
+    description: 'The AutoMarsi team creates and activates the listing.',
   },
   {
-    icon: <MessageSquare className="size-5" />,
-    title: 'Send an inquiry',
-    description: 'Questions and visit requests go directly into the admin lead flow.',
+    title: 'Customer asks',
+    description: 'The customer sends a question, viewing request, or financing interest.',
   },
   {
-    icon: <BadgeCheck className="size-5" />,
-    title: 'Confirm the next step',
-    description: 'The team follows up and schedules appointments when needed.',
+    title: 'Team follows up',
+    description: 'The team confirms availability and schedules the next step.',
   },
 ]
 
 function AboutPage({ onNavigate }: AboutPageProps) {
   return (
-    <div className="grid gap-12">
-      <section className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:px-8">
+    <div className="grid gap-10">
+      <section className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(340px,0.5fr)] lg:items-center lg:px-8">
         <div className="grid max-w-3xl gap-5">
           <SectionHeader
             eyebrow="About AutoMarsi"
-            title="A trusted autosallon built around clear choices."
-            description="AutoMarsi helps customers find quality vehicles through a simple public website, transparent communication, and a professional showroom follow-up process."
+            title="A practical autosallon with a clear customer flow."
+            description="AutoMarsi connects real active vehicles with customers who want clear information before visiting the showroom."
           />
+
+          <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
+            The public website is connected to the admin workflow, so listings,
+            inquiries, and showroom follow-up stay organized from the first
+            customer message.
+          </p>
 
           <div className="flex flex-wrap gap-3">
             <Button type="button" onClick={() => onNavigate('/inventory')}>
               Browse vehicles
               <ArrowRight className="size-4" />
             </Button>
+
             <Button
               type="button"
               variant="outline"
@@ -82,96 +79,85 @@ function AboutPage({ onNavigate }: AboutPageProps) {
           </div>
         </div>
 
-        <div className="grid gap-3 rounded-lg border bg-card p-4 text-sm text-muted-foreground md:grid-cols-3">
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="size-4 text-red-600" />
-            Inspected vehicle information
-          </div>
-          <div className="flex items-center gap-2">
-            <ClipboardCheck className="size-4 text-red-600" />
-            Admin-managed inventory
-          </div>
-          <div className="flex items-center gap-2">
-            <Sparkles className="size-4 text-red-600" />
-            Clear customer follow-up
+        <div className="rounded-xl border bg-card p-5 shadow-sm">
+          <p className="text-xs font-semibold uppercase text-red-600">
+            What matters
+          </p>
+
+          <div className="mt-4 grid gap-4">
+            {principles.map((principle) => (
+              <div key={principle.title} className="flex gap-3">
+                <div className="grid size-9 shrink-0 place-items-center rounded-lg bg-red-50 text-red-600">
+                  {principle.icon}
+                </div>
+
+                <div>
+                  <h3 className="text-sm font-semibold">{principle.title}</h3>
+                  <p className="mt-1 text-sm leading-5 text-muted-foreground">
+                    {principle.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          eyebrow="What we value"
-          title="A practical and honest buying experience."
-          description="The website is designed to connect customers with real active vehicles and help the team respond with the right next step."
-        />
+        <div className="grid gap-5 rounded-xl border bg-card p-6 md:grid-cols-[280px_1fr] md:items-start">
+          <div>
+            <p className="text-xs font-semibold uppercase text-red-600">
+              Our process
+            </p>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight">
+              From online interest to showroom visit.
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              A simple flow keeps the customer and team aligned.
+            </p>
+          </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
-          {values.map((value) => (
-            <FeatureCard
-              key={value.title}
-              icon={value.icon}
-              title={value.title}
-              description={value.description}
-            />
-          ))}
-        </div>
-      </section>
+          <div className="grid gap-4">
+            {processSteps.map((step, index) => (
+              <div key={step.title} className="flex gap-4">
+                <div className="grid size-8 shrink-0 place-items-center rounded-full bg-slate-950 text-xs font-semibold text-white">
+                  {index + 1}
+                </div>
 
-      <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          eyebrow="Our process"
-          title="From online interest to showroom visit."
-          description="Customers do not book appointments blindly. The AutoMarsi team reviews each inquiry and schedules the next step properly."
-        />
-
-        <div className="grid gap-4 md:grid-cols-3">
-          {processSteps.map((step) => (
-            <article
-              key={step.title}
-              className="grid gap-3 rounded-lg border bg-card p-5 shadow-xs"
-            >
-              <div className="grid size-10 place-items-center rounded-lg bg-muted text-foreground">
-                {step.icon}
+                <div className="border-b pb-4 last:border-b-0 last:pb-0">
+                  <h3 className="font-semibold">{step.title}</h3>
+                  <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                    {step.description}
+                  </p>
+                </div>
               </div>
-              <div className="grid gap-1">
-                <h3 className="font-medium">{step.title}</h3>
-                <p className="text-sm leading-6 text-muted-foreground">
-                  {step.description}
-                </p>
-              </div>
-            </article>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-        <div className="grid gap-5 rounded-lg bg-slate-950 p-6 text-white md:grid-cols-[1fr_auto] md:items-center">
+        <div className="grid gap-5 rounded-xl bg-slate-950 p-6 text-white md:grid-cols-[1fr_auto] md:items-center">
           <div className="grid gap-2">
-            <p className="text-xs font-semibold uppercase text-red-400">
-              Visit AutoMarsi
-            </p>
+            <div className="flex items-center gap-2 text-red-300">
+              <BadgeCheck className="size-4" />
+              <p className="text-xs font-semibold uppercase">Visit AutoMarsi</p>
+            </div>
+
             <h2 className="text-2xl font-semibold">
-              Ready to find your next vehicle?
+              Start with a vehicle you like.
             </h2>
+
             <p className="max-w-2xl text-sm leading-6 text-slate-300">
-              Browse active inventory or contact the team about availability,
-              financing, or showroom visits.
+              Browse active inventory and send an inquiry when you want more
+              details, availability, or showroom guidance.
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-3">
-            <Button type="button" onClick={() => onNavigate('/inventory')}>
-              View inventory
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              className="border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white"
-              onClick={() => onNavigate('/contact')}
-            >
-              Send inquiry
-            </Button>
-          </div>
+          <Button type="button" onClick={() => onNavigate('/inventory')}>
+            View inventory
+            <Car className="size-4" />
+          </Button>
         </div>
       </section>
     </div>
