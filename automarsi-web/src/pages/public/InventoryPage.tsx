@@ -13,6 +13,8 @@ type InventoryPageProps = {
 
 const initialFilters: PublicListingFiltersType = {
   page: 1,
+  make_id: '',
+  car_model_id: '',
   search: '',
   year: '',
   min_price: '',
@@ -22,7 +24,7 @@ const initialFilters: PublicListingFiltersType = {
   body_type: '',
 }
 
-function InventoryPage({onNavigate}: InventoryPageProps) {
+function InventoryPage({ onNavigate }: InventoryPageProps) {
   const [filters, setFilters] =
     useState<PublicListingFiltersType>(initialFilters)
 
@@ -79,7 +81,10 @@ function InventoryPage({onNavigate}: InventoryPageProps) {
 
           {!listingsQuery.isLoading && !errorMessage && listings.length > 0 ? (
             <>
-              <PublicListingGrid listings={listings} onNavigate={onNavigate}/>
+              <PublicListingGrid
+                listings={listings}
+                onNavigate={onNavigate}
+              />
 
               {meta ? (
                 <PublicListingPagination

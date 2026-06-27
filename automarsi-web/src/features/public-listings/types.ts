@@ -2,6 +2,8 @@ export type PublicListingMake = {
   id: number
   name: string
   slug?: string
+  logo_url?: string | null
+  models_count?: number
 }
 
 export type PublicListingCarModel = {
@@ -58,6 +60,8 @@ export type PublicListing = {
 
 export type PublicListingFilters = {
   page: number
+  make_id: string
+  car_model_id: string
   search: string
   year: string
   min_price: string
@@ -80,4 +84,11 @@ export type PublicListingsResponse = {
 
 export type PublicListingResponse = {
   data: PublicListing
+}
+export type PublicMakesResponse = {
+  data: PublicListingMake[]
+}
+
+export type PublicMakeModelsResponse = {
+  data: PublicListingCarModel[]
 }
