@@ -9,6 +9,8 @@ export function getPublicListings(filters: PublicListingFilters) {
     path: '/listings',
     query: {
       page: filters.page,
+      make_id: filters.make_id,
+      car_model_id: filters.car_model_id,
       search: filters.search,
       year: filters.year,
       min_price: filters.min_price,
