@@ -12,7 +12,13 @@ type ListingsPageProps = {
 }
 
 function ListingsPage({ onNavigate }: ListingsPageProps) {
-  const { listings, listingsQuery, errorMessage } = useAdminListings()
+  const {
+    listings,
+    listingsQuery,
+    errorMessage,
+    deleteListing,
+    isDeletingListing,
+  } = useAdminListings()
 
   const hasListings = listings.length > 0
 
@@ -24,20 +30,23 @@ function ListingsPage({ onNavigate }: ListingsPageProps) {
         description="Manage vehicles, photos, status, and listing details."
         action={
           <>
-          <Button
-            type="button"
-            variant="outline"
-            onClick={() => void listingsQuery.refetch()}
-            disabled={listingsQuery.isFetching}
-          >
-            <RefreshCw />
-            Refresh
-          </Button>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={() => void listingsQuery.refetch()}
+              disabled={listingsQuery.isFetching}
+            >
+              <RefreshCw />
+              Refresh
+            </Button>
 
-          <Button type="button" onClick={() => onNavigate('/admin/listings/new')}>
-            <Plus />
-            Add listing
-          </Button>
+            <Button
+              type="button"
+              onClick={() => onNavigate('/admin/listings/new')}
+            >
+              <Plus />
+              Add listing
+            </Button>
           </>
         }
       />
@@ -65,7 +74,12 @@ function ListingsPage({ onNavigate }: ListingsPageProps) {
         ) : null}
 
         {!listingsQuery.isLoading && !errorMessage && hasListings ? (
-          <ListingsTable listings={listings} onNavigate={onNavigate} />
+          <ListingsTable
+            listings={listings}
+            isDeletingListing={isDeletingListing}
+            onNavigate={onNavigate}
+            onDeleteListing={deleteListing}
+          />
         ) : null}
       </DataTableShell>
     </section>

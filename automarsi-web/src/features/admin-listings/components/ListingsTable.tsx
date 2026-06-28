@@ -12,7 +12,9 @@ import ListingStatusBadge from './ListingStatusBadge'
 
 type ListingsTableProps = {
   listings: AdminListing[]
+  isDeletingListing: boolean
   onNavigate: (path: string) => void
+  onDeleteListing: (listingId: number) => Promise<void>
 }
 
 function formatPrice(listing: AdminListing): string {
@@ -37,7 +39,12 @@ function formatKilometers(kilometers: number | null): string {
   return `${new Intl.NumberFormat('en-US').format(kilometers)} km`
 }
 
-function ListingsTable({ listings, onNavigate }: ListingsTableProps) {
+function ListingsTable({
+  listings,
+  isDeletingListing,
+  onNavigate,
+  onDeleteListing,
+}: ListingsTableProps) {
   return (
     <div className="overflow-x-auto">
       <Table>
@@ -81,7 +88,9 @@ function ListingsTable({ listings, onNavigate }: ListingsTableProps) {
 
               <TableCell>
                 <div className="grid gap-0.5">
-                  <span className="leading-none">{listing.make?.name ?? '-'}</span>
+                  <span className="leading-none">
+                    {listing.make?.name ?? '-'}
+                  </span>
                   <span className="text-xs text-muted-foreground">
                     {listing.car_model?.name ?? '-'}
                   </span>
@@ -91,9 +100,11 @@ function ListingsTable({ listings, onNavigate }: ListingsTableProps) {
               <TableCell className="text-muted-foreground">
                 {listing.year}
               </TableCell>
+
               <TableCell className="text-right font-medium">
                 {formatPrice(listing)}
               </TableCell>
+
               <TableCell className="text-muted-foreground">
                 {formatKilometers(listing.kilometers)}
               </TableCell>
@@ -102,9 +113,14 @@ function ListingsTable({ listings, onNavigate }: ListingsTableProps) {
                 <ListingStatusBadge status={listing.status} />
               </TableCell>
 
-            <TableCell className="text-right">
-              <ListingActionsMenu listing={listing} onNavigate={onNavigate} />
-            </TableCell>
+              <TableCell className="text-right">
+                <ListingActionsMenu
+                  listing={listing}
+                  isDeleting={isDeletingListing}
+                  onNavigate={onNavigate}
+                  onDelete={onDeleteListing}
+                />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
