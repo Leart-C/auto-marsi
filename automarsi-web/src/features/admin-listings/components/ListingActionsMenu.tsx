@@ -1,6 +1,15 @@
 import { useState } from 'react'
-import { Eye, Images, MoreHorizontal, Pencil, Trash2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import {
+  Archive,
+  BadgeDollarSign,
+  CheckCircle2,
+  Eye,
+  Images,
+  MoreHorizontal,
+  Pencil,
+  Trash2,
+} from 'lucide-react'
+import { buttonVariants } from '@/components/ui/button'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,77 +27,123 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import type { AdminListingStatusAction } from '../api/updateAdminListingStatus'
 import type { AdminListing } from '../types'
 
 type ListingActionsMenuProps = {
   listing: AdminListing
   isDeleting: boolean
+  isUpdatingStatus: boolean
   onNavigate: (path: string) => void
   onDelete: (listingId: number) => Promise<void>
+  onUpdateStatus: (
+    listingId: number,
+    status: AdminListingStatusAction,
+  ) => Promise<void>
 }
 
 function ListingActionsMenu({
   listing,
   isDeleting,
+  isUpdatingStatus,
   onNavigate,
   onDelete,
+  onUpdateStatus,
 }: ListingActionsMenuProps) {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
-  function handleView() {
-    onNavigate(`/admin/listings/${listing.id}`)
-  }
+  const isActionDisabled = isDeleting || isUpdatingStatus
 
-  function handleEdit() {
-    onNavigate(`/admin/listings/${listing.id}/edit`)
-  }
-
-  function handleImages() {
-    onNavigate(`/admin/listings/${listing.id}/images`)
-  }
-
-  async function confirmDelete() {
+  async function handleDeleteListing() {
     await onDelete(listing.id)
     setIsDeleteDialogOpen(false)
+  }
+
+  async function handleStatusChange(status: AdminListingStatusAction) {
+    await onUpdateStatus(listing.id, status)
   }
 
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger
-          render={
-            <Button
-              type="button"
-              variant="ghost"
-              size="icon"
-              aria-label={`Open actions for ${listing.title}`}
-            >
-              <MoreHorizontal />
-            </Button>
-          }
-        />
+          type="button"
+          disabled={isActionDisabled}
+          className={buttonVariants({
+            variant: 'ghost',
+            size: 'icon',
+          })}
+        >
+          <MoreHorizontal className="size-4" />
+          <span className="sr-only">Open listing actions</span>
+        </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem onClick={handleView} className="gap-2">
+        <DropdownMenuContent align="end" className="w-48">
+          <DropdownMenuItem
+            className="gap-2"
+            onClick={() => onNavigate(`/admin/listings/${listing.id}`)}
+          >
             <Eye className="size-4 text-muted-foreground" />
             View
           </DropdownMenuItem>
 
-          <DropdownMenuItem onClick={handleEdit} className="gap-2">
+          <DropdownMenuItem
+            className="gap-2"
+            onClick={() => onNavigate(`/admin/listings/${listing.id}/edit`)}
+          >
             <Pencil className="size-4 text-muted-foreground" />
             Edit
           </DropdownMenuItem>
 
-          <DropdownMenuItem onClick={handleImages} className="gap-2">
+          <DropdownMenuItem
+            className="gap-2"
+            onClick={() => onNavigate(`/admin/listings/${listing.id}/images`)}
+          >
             <Images className="size-4 text-muted-foreground" />
             Manage images
           </DropdownMenuItem>
 
           <DropdownMenuSeparator />
 
+          {listing.status !== 'active' ? (
+            <DropdownMenuItem
+              disabled={isActionDisabled}
+              className="gap-2"
+              onClick={() => void handleStatusChange('active')}
+            >
+              <CheckCircle2 className="size-4 text-muted-foreground" />
+              Mark active
+            </DropdownMenuItem>
+          ) : null}
+
+          {listing.status !== 'sold' ? (
+            <DropdownMenuItem
+              disabled={isActionDisabled}
+              className="gap-2"
+              onClick={() => void handleStatusChange('sold')}
+            >
+              <BadgeDollarSign className="size-4 text-muted-foreground" />
+              Mark sold
+            </DropdownMenuItem>
+          ) : null}
+
+          {listing.status !== 'archived' ? (
+            <DropdownMenuItem
+              disabled={isActionDisabled}
+              className="gap-2"
+              onClick={() => void handleStatusChange('archived')}
+            >
+              <Archive className="size-4 text-muted-foreground" />
+              Archive
+            </DropdownMenuItem>
+          ) : null}
+
+          <DropdownMenuSeparator />
+
           <DropdownMenuItem
+            disabled={isActionDisabled}
+            className="gap-2 text-destructive focus:text-destructive"
             onClick={() => setIsDeleteDialogOpen(true)}
-            className="gap-2 text-red-600 focus:text-red-600"
           >
             <Trash2 className="size-4" />
             Delete
@@ -102,11 +157,10 @@ function ListingActionsMenu({
       >
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete this listing?</AlertDialogTitle>
+            <AlertDialogTitle>Delete listing?</AlertDialogTitle>
             <AlertDialogDescription>
-              This will remove "{listing.title}" from the admin inventory and
-              public website. This action should only be used for test or
-              incorrect listings.
+              This permanently deletes the listing. Archive or mark it as sold
+              if you only want to remove it from the public inventory.
             </AlertDialogDescription>
           </AlertDialogHeader>
 
@@ -119,9 +173,8 @@ function ListingActionsMenu({
               disabled={isDeleting}
               onClick={(event) => {
                 event.preventDefault()
-                void confirmDelete()
+                void handleDeleteListing()
               }}
-              className="bg-red-600 text-white hover:bg-red-700"
             >
               {isDeleting ? 'Deleting...' : 'Delete listing'}
             </AlertDialogAction>

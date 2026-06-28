@@ -18,6 +18,8 @@ function ListingsPage({ onNavigate }: ListingsPageProps) {
     errorMessage,
     deleteListing,
     isDeletingListing,
+    updateListingStatus,
+    isUpdatingListingStatus,
   } = useAdminListings()
 
   const hasListings = listings.length > 0
@@ -77,8 +79,10 @@ function ListingsPage({ onNavigate }: ListingsPageProps) {
           <ListingsTable
             listings={listings}
             isDeletingListing={isDeletingListing}
+            isUpdatingListingStatus={isUpdatingListingStatus}
             onNavigate={onNavigate}
             onDeleteListing={deleteListing}
+            onUpdateListingStatus={updateListingStatus}
           />
         ) : null}
       </DataTableShell>
