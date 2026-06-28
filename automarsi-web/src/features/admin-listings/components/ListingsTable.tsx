@@ -6,6 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import type { AdminListingStatusAction } from '../api/updateAdminListingStatus'
 import type { AdminListing } from '../types'
 import ListingActionsMenu from './ListingActionsMenu'
 import ListingStatusBadge from './ListingStatusBadge'
@@ -13,25 +14,24 @@ import ListingStatusBadge from './ListingStatusBadge'
 type ListingsTableProps = {
   listings: AdminListing[]
   isDeletingListing: boolean
+  isUpdatingListingStatus: boolean
   onNavigate: (path: string) => void
   onDeleteListing: (listingId: number) => Promise<void>
+  onUpdateListingStatus: (
+    listingId: number,
+    status: AdminListingStatusAction,
+  ) => Promise<void>
 }
 
-function formatPrice(listing: AdminListing): string {
-  const numericPrice = Number(listing.price)
-
-  if (Number.isNaN(numericPrice)) {
-    return `${listing.price} ${listing.currency}`
-  }
-
+function formatCurrency(price: string, currency: string) {
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: listing.currency,
+    currency,
     maximumFractionDigits: 0,
-  }).format(numericPrice)
+  }).format(Number(price))
 }
 
-function formatKilometers(kilometers: number | null): string {
+function formatKilometers(kilometers: number | null) {
   if (kilometers === null) {
     return '-'
   }
@@ -42,72 +42,71 @@ function formatKilometers(kilometers: number | null): string {
 function ListingsTable({
   listings,
   isDeletingListing,
+  isUpdatingListingStatus,
   onNavigate,
   onDeleteListing,
+  onUpdateListingStatus,
 }: ListingsTableProps) {
   return (
-    <div className="overflow-x-auto">
-      <Table>
-        <TableHeader>
-          <TableRow className="bg-muted/40 hover:bg-muted/40">
-            <TableHead className="min-w-64">Listing</TableHead>
-            <TableHead>Vehicle</TableHead>
-            <TableHead>Year</TableHead>
-            <TableHead className="text-right">Price</TableHead>
-            <TableHead>Kilometers</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead className="w-12 text-right">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Listing</TableHead>
+          <TableHead>Vehicle</TableHead>
+          <TableHead>Year</TableHead>
+          <TableHead>Price</TableHead>
+          <TableHead>Kilometers</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead className="w-16 text-right">Actions</TableHead>
+        </TableRow>
+      </TableHeader>
 
-        <TableBody>
-          {listings.map((listing) => (
-            <TableRow key={listing.id} className="h-14">
+      <TableBody>
+        {listings.map((listing) => {
+          const primaryImage =
+            listing.primary_image ??
+            listing.images.find((image) => image.is_primary) ??
+            listing.images[0]
+
+          return (
+            <TableRow key={listing.id}>
               <TableCell>
                 <div className="flex items-center gap-3">
-                  <div className="size-10 shrink-0 overflow-hidden rounded-md border bg-muted">
-                    {listing.primary_image ? (
+                  <div className="h-11 w-11 overflow-hidden rounded-md border bg-muted">
+                    {primaryImage ? (
                       <img
-                        src={listing.primary_image.image_url}
-                        alt={listing.primary_image.alt_text ?? listing.title}
-                        className="size-full object-cover"
+                        src={primaryImage.image_url}
+                        alt={primaryImage.alt_text ?? listing.title}
+                        className="h-full w-full object-cover"
                       />
                     ) : null}
                   </div>
 
-                  <div className="grid gap-0.5">
-                    <span className="font-medium leading-none">
-                      {listing.title}
-                    </span>
-                    <span className="text-xs text-muted-foreground">
+                  <div className="min-w-0">
+                    <p className="truncate font-medium">{listing.title}</p>
+                    <p className="text-sm text-muted-foreground">
                       {listing.location ?? 'No location'}
-                    </span>
+                    </p>
                   </div>
                 </div>
               </TableCell>
 
               <TableCell>
-                <div className="grid gap-0.5">
-                  <span className="leading-none">
-                    {listing.make?.name ?? '-'}
-                  </span>
-                  <span className="text-xs text-muted-foreground">
+                <div>
+                  <p className="font-medium">{listing.make?.name ?? '-'}</p>
+                  <p className="text-sm text-muted-foreground">
                     {listing.car_model?.name ?? '-'}
-                  </span>
+                  </p>
                 </div>
               </TableCell>
 
-              <TableCell className="text-muted-foreground">
-                {listing.year}
+              <TableCell>{listing.year}</TableCell>
+
+              <TableCell>
+                {formatCurrency(listing.price, listing.currency)}
               </TableCell>
 
-              <TableCell className="text-right font-medium">
-                {formatPrice(listing)}
-              </TableCell>
-
-              <TableCell className="text-muted-foreground">
-                {formatKilometers(listing.kilometers)}
-              </TableCell>
+              <TableCell>{formatKilometers(listing.kilometers)}</TableCell>
 
               <TableCell>
                 <ListingStatusBadge status={listing.status} />
@@ -117,15 +116,17 @@ function ListingsTable({
                 <ListingActionsMenu
                   listing={listing}
                   isDeleting={isDeletingListing}
+                  isUpdatingStatus={isUpdatingListingStatus}
                   onNavigate={onNavigate}
                   onDelete={onDeleteListing}
+                  onUpdateStatus={onUpdateListingStatus}
                 />
               </TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+          )
+        })}
+      </TableBody>
+    </Table>
   )
 }
 
