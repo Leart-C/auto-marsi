@@ -1,5 +1,6 @@
 import { ImagePlus, Upload, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+import AnimatedStateIcon from '@/components/admin/AnimatedStateIcon'
 import { Button } from '@/components/ui/button'
 
 const acceptedTypes = ['image/jpeg', 'image/png', 'image/webp']
@@ -128,7 +129,7 @@ function ListingImageUploader({
 
       <button
         type="button"
-        className="grid min-h-20 place-items-center rounded-md border border-dashed bg-muted/20 px-4 py-3 text-center transition-colors hover:bg-muted/40"
+        className="group grid min-h-24 place-items-center rounded-md border border-dashed bg-muted/20 px-4 py-4 text-center transition-colors hover:border-primary/30 hover:bg-muted/40"
         onClick={() => inputRef.current?.click()}
         onDragOver={(event) => event.preventDefault()}
         onDrop={(event) => {
@@ -137,9 +138,10 @@ function ListingImageUploader({
         }}
       >
         <span className="flex flex-wrap items-center justify-center gap-3">
-          <span className="grid size-8 place-items-center rounded-md border bg-background">
-            <ImagePlus className="size-4" />
-          </span>
+          <AnimatedStateIcon
+            icon={ImagePlus}
+            className="group-hover:border-primary/30 group-hover:text-primary"
+          />
           <span className="grid gap-0.5 text-left">
             <span className="text-sm font-medium">Add images</span>
             <span className="text-xs text-muted-foreground">
