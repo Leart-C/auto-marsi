@@ -11,6 +11,7 @@ import StatBand from '@/components/public/StatBand'
 import { Button } from '@/components/ui/button'
 import supraHeroImage from '@/assets/home-hero-supra.jpg'
 import FeaturedListingsSection from '@/features/public-listings/components/FeaturedListingsSection'
+import RecentlySoldSection from '@/features/public-listings/components/RecentlySoldSection'
 import { useI18n } from '@/i18n/useI18n'
 
 type HomePageProps = {
@@ -82,6 +83,8 @@ function HomePage({ onNavigate }: HomePageProps) {
       </section>
 
       <FeaturedListingsSection onNavigate={onNavigate} />
+
+      <RecentlySoldSection onNavigate={onNavigate} />
 
       <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 pb-12 sm:px-6 lg:px-8">
         <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">

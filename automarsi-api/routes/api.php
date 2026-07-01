@@ -3,12 +3,14 @@
 use App\Http\Controllers\Api\InquiryController;
 use App\Http\Controllers\Api\ListingController;
 use App\Http\Controllers\Api\MakeController;
+use App\Http\Controllers\Api\RecentlySoldListingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('makes', [MakeController::class, 'index']);
 Route::get('makes/{make}/models', [MakeController::class, 'models']);
 
+Route::get('listings/recently-sold', [RecentlySoldListingController::class, 'index']);
 Route::get('listings', [ListingController::class, 'index']);
 Route::get('listings/{listing}', [ListingController::class, 'show']);
 
