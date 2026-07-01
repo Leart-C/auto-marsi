@@ -1,0 +1,26 @@
+{
+  "name": "AutoMarsi",
+  "short_name": "AutoMarsi",
+  "description": "AutoMarsi",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#05070d",
+  "theme_color": "#05070d",
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/automarsi-logo.png",
+      "sizes": "1536x1024",
+      "type": "image/png"
+    }
+  ]
+}
