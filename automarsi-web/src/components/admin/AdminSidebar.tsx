@@ -39,15 +39,15 @@ function AdminSidebar({ currentPath, onNavigate }: AdminSidebarProps) {
       <Button
         type="button"
         variant="ghost"
-        className="mb-2 h-auto w-full justify-start gap-2.5 rounded-md px-2 py-2 text-sm font-semibold hover:bg-sidebar-accent"
+        className="mb-2 h-auto w-full justify-start gap-2.5 rounded-md px-2 py-2 text-[15px] font-semibold hover:bg-sidebar-accent"
         onClick={() => onNavigate('/admin')}
       >
-        <span className="grid size-7 place-items-center rounded-md bg-primary text-primary-foreground">
-          <ChartNoAxesCombined className="size-4" />
+        <span className="grid size-8 place-items-center rounded-md bg-primary text-primary-foreground">
+          <ChartNoAxesCombined className="size-[17px]" />
         </span>
         <span className="grid gap-0.5 text-left leading-none">
           <span>AutoMarsi</span>
-          <span className="text-[10px] font-medium uppercase text-muted-foreground">
+          <span className="text-[11px] font-medium uppercase text-muted-foreground">
             Admin console
           </span>
         </span>
@@ -55,47 +55,49 @@ function AdminSidebar({ currentPath, onNavigate }: AdminSidebarProps) {
 
       <div className="admin-scrollbar flex-1 overflow-y-auto py-2 max-md:overflow-visible">
         <div className="grid gap-5">
-        {navSections.map((section) => (
-          <div key={section.label}>
-            <p className="mb-2 px-2 text-[11px] font-semibold uppercase tracking-wide text-muted-foreground">
-              {section.label}
-            </p>
+          {navSections.map((section) => (
+            <div key={section.label}>
+              <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                {section.label}
+              </p>
 
-            <nav className="grid gap-0.5">
-              {section.items.map((item) => {
-                const isActive =
-                  currentPath === item.href ||
-                  (item.href === '/admin/listings' &&
-                    currentPath.startsWith('/admin/listings/'))
+              <nav className="grid gap-1">
+                {section.items.map((item) => {
+                  const isActive =
+                    currentPath === item.href ||
+                    (item.href === '/admin/listings' &&
+                      currentPath.startsWith('/admin/listings/'))
 
-                return (
-                  <Button
-                    type="button"
-                    key={item.href}
-                    variant={isActive ? 'secondary' : 'ghost'}
-                    onClick={() => onNavigate(item.href)}
-                    className="group h-9 w-full justify-start gap-2 rounded-md px-2 text-[13px]"
-                  >
-                    <span
-                      className={
-                        isActive
-                          ? 'grid size-6 place-items-center rounded-md bg-primary text-primary-foreground'
-                          : 'grid size-6 place-items-center rounded-md text-muted-foreground transition-colors group-hover:bg-sidebar-accent group-hover:text-sidebar-accent-foreground'
-                      }
+                  return (
+                    <Button
+                      type="button"
+                      key={item.href}
+                      variant={isActive ? 'secondary' : 'ghost'}
+                      onClick={() => onNavigate(item.href)}
+                      className="group h-10 w-full justify-start gap-2.5 rounded-md px-2 text-[15px] font-medium"
                     >
-                      <item.icon className="size-3.5" />
-                    </span>
-                    <span className="min-w-0 flex-1 text-left">{item.label}</span>
-                  </Button>
-                )
-              })}
-            </nav>
-          </div>
-        ))}
+                      <span
+                        className={
+                          isActive
+                            ? 'grid size-7 place-items-center rounded-md bg-primary text-primary-foreground'
+                            : 'grid size-7 place-items-center rounded-md text-muted-foreground transition-colors group-hover:bg-sidebar-accent group-hover:text-sidebar-accent-foreground'
+                        }
+                      >
+                        <item.icon className="size-4" />
+                      </span>
+                      <span className="min-w-0 flex-1 text-left">
+                        {item.label}
+                      </span>
+                    </Button>
+                  )
+                })}
+              </nav>
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="border-t border-sidebar-border p-2 text-[11px] text-muted-foreground">
+      <div className="border-t border-sidebar-border p-2 text-xs text-muted-foreground">
         Inventory and customer operations
       </div>
     </aside>

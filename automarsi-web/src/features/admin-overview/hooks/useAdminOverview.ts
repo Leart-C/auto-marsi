@@ -1,17 +1,27 @@
 import { useQuery } from '@tanstack/react-query'
 import { useAdminToken } from '@/hooks/useAdminToken'
-import { getAdminDashboard } from '../api/getAdminDashboard'
+import {
+  getAdminDashboard,
+  type AdminSalesRange,
+} from '../api/getAdminDashboard'
 
-export function useAdminOverview() {
+type UseAdminOverviewParams = {
+  salesRange: AdminSalesRange
+}
+
+export function useAdminOverview({ salesRange }: UseAdminOverviewParams) {
   const { isAuthReady, getAdminToken } = useAdminToken()
 
   const overviewQuery = useQuery({
-    queryKey: ['admin', 'overview'],
+    queryKey: ['admin', 'overview', salesRange],
     enabled: isAuthReady,
     staleTime: 30_000,
     queryFn: async () => {
       const token = await getAdminToken()
-      const response = await getAdminDashboard(token)
+      const response = await getAdminDashboard({
+        token,
+        salesRange,
+      })
 
       return {
         totalListings: response.data.listings.total,
@@ -23,6 +33,7 @@ export function useAdminOverview() {
         openAppointments: response.data.open_appointments,
         recentInquiries: response.data.recent_inquiries,
         upcomingAppointments: response.data.upcoming_appointments,
+        sales: response.data.sales,
       }
     },
   })

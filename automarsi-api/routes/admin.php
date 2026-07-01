@@ -8,12 +8,14 @@ use App\Http\Controllers\Api\Admin\AdminInquiryController;
 use App\Http\Controllers\Api\Admin\AdminListingController;
 use App\Http\Controllers\Api\Admin\AdminListingImageController;
 use App\Http\Controllers\Api\Admin\AdminMakeController;
+use App\Http\Controllers\Api\Admin\AdminSalesReportController;
 use App\Http\Controllers\Api\Admin\AdminVehicleCatalogImportController;
 use App\Http\Controllers\Api\Admin\AdminVehicleFeatureController;
 use App\Http\Controllers\Api\Admin\CarModelFeatureSuggestionsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('dashboard', AdminDashboardController::class);
+Route::get('reports/sales', AdminSalesReportController::class);
 
 Route::apiResource('makes', AdminMakeController::class);
 

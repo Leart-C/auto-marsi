@@ -22,6 +22,18 @@ class UpdateListing
                 $data['slug'] = $this->slugService->unique(Listing::class, $data['title'], $listing->id);
             }
 
+            if (($data['status'] ?? null) === 'sold' && ! array_key_exists('sold_at', $data)) {
+                $data['sold_at'] = $listing->sold_at ?? now();
+            }
+
+            if (
+                array_key_exists('status', $data) &&
+                $data['status'] !== 'sold' &&
+                ! array_key_exists('sold_at', $data)
+            ) {
+                $data['sold_at'] = null;
+            }
+
             $listing->update($data);
 
             if ($featureIds !== null) {
