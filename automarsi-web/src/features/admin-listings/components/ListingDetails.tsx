@@ -5,6 +5,7 @@ import ListingDescriptionPanel from './details/ListingDescriptionPanel'
 import ListingFeaturesPanel from './details/ListingFeaturesPanel'
 import ListingGalleryPanel from './details/ListingGalleryPanel'
 import ListingHeroImage from './details/ListingHeroImage'
+import ListingQualityPanel from './details/ListingQualityPanel'
 import ListingSpecsGrid from './details/ListingSpecsGrid'
 import ListingSummaryPanel from './details/ListingSummaryPanel'
 import SalesSummaryPanel from './details/SalesSummaryPanel'
@@ -33,6 +34,8 @@ function ListingDetails({ listing }: ListingDetailsProps) {
 
         <ListingSummaryPanel listing={listing} />
       </div>
+
+      <ListingQualityPanel listing={listing} />
 
       <ListingSpecsGrid listing={listing} />
 
