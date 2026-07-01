@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
+use App\Actions\Reports\BuildSalesReport;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AppointmentResource;
 use App\Http\Resources\InquiryResource;
@@ -9,11 +10,15 @@ use App\Models\Appointment;
 use App\Models\Inquiry;
 use App\Models\Listing;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AdminDashboardController extends Controller
 {
-    public function __invoke(): JsonResponse
+    public function __invoke(Request $request, BuildSalesReport $buildSalesReport): JsonResponse
     {
+        $salesRange = $request->query('sales_range', 'month');
+        $salesReport = $buildSalesReport->handle($salesRange);
+
         $listingCounts = Listing::query()
             ->selectRaw('status, count(*) as aggregate')
             ->groupBy('status')
@@ -49,6 +54,14 @@ class AdminDashboardController extends Controller
                 'open_appointments' => Appointment::query()
                     ->whereIn('status', ['pending', 'confirmed'])
                     ->count(),
+                'sales' => [
+                    'range' => $salesReport['range'],
+                    'title' => $salesReport['title'],
+                    'starts_at' => $salesReport['starts_at'],
+                    'ends_at' => $salesReport['ends_at'],
+                    'summary' => $salesReport['summary'],
+                    'trend' => $salesReport['trend'],
+                ],
                 'recent_inquiries' => InquiryResource::collection(
                     $recentInquiries
                 )->resolve(request()),

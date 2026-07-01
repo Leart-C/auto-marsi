@@ -30,6 +30,13 @@ class AdminDashboardControllerTest extends TestCase
     {
         $activeListing = $this->createListing('active-listing', 'active');
         $this->createListing('draft-listing', 'draft');
+        $this->createListing('sold-listing', 'sold', [
+            'price' => 23000,
+            'purchase_price' => 21000,
+            'sale_price' => 23000,
+            'sales_expenses' => 500,
+            'sold_at' => now(),
+        ]);
 
         $inquiry = Inquiry::create([
             'listing_id' => $activeListing->id,
@@ -58,11 +65,15 @@ class AdminDashboardControllerTest extends TestCase
 
         $response
             ->assertOk()
-            ->assertJsonPath('data.listings.total', 2)
+            ->assertJsonPath('data.listings.total', 3)
             ->assertJsonPath('data.listings.active', 1)
             ->assertJsonPath('data.listings.draft', 1)
+            ->assertJsonPath('data.listings.sold', 1)
             ->assertJsonPath('data.new_inquiries', 1)
             ->assertJsonPath('data.open_appointments', 2)
+            ->assertJsonPath('data.sales.summary.revenue', 23000)
+            ->assertJsonPath('data.sales.summary.profit', 1500)
+            ->assertJsonPath('data.sales.summary.sold_count', 1)
             ->assertJsonPath('data.recent_inquiries.0.id', $inquiry->id)
             ->assertJsonCount(1, 'data.upcoming_appointments')
             ->assertJsonPath(
@@ -71,7 +82,49 @@ class AdminDashboardControllerTest extends TestCase
             );
     }
 
-    private function createListing(string $slug, string $status): Listing
+    public function test_dashboard_counts_sold_listing_without_sold_at(): void
+    {
+        $this->createListing('legacy-sold-listing', 'sold', [
+            'price' => 12000,
+            'purchase_price' => 10000,
+            'sale_price' => 11500,
+            'sales_expenses' => 500,
+            'sold_at' => null,
+        ]);
+
+        $response = $this->getJson('/api/admin/dashboard');
+
+        $response
+            ->assertOk()
+            ->assertJsonPath('data.sales.summary.revenue', 11500)
+            ->assertJsonPath('data.sales.summary.profit', 1000)
+            ->assertJsonPath('data.sales.summary.sold_count', 1);
+    }
+
+    public function test_admin_can_download_sales_report_pdf(): void
+    {
+        $this->createListing('report-sold-listing', 'sold', [
+            'price' => 12000,
+            'purchase_price' => 10000,
+            'sale_price' => 11500,
+            'sales_expenses' => 500,
+            'sold_at' => now(),
+        ]);
+
+        $response = $this->get('/api/admin/reports/sales?sales_range=month');
+
+        $response
+            ->assertOk()
+            ->assertHeader('content-type', 'application/pdf');
+
+        $this->assertStringStartsWith('%PDF', $response->getContent());
+    }
+
+    private function createListing(
+        string $slug,
+        string $status,
+        array $overrides = []
+    ): Listing
     {
         $make = Make::create([
             'name' => "Make {$slug}",
@@ -84,7 +137,7 @@ class AdminDashboardControllerTest extends TestCase
             'slug' => "model-{$slug}",
         ]);
 
-        return Listing::create([
+        return Listing::create(array_merge([
             'make_id' => $make->id,
             'car_model_id' => $carModel->id,
             'title' => "Listing {$slug}",
@@ -95,6 +148,6 @@ class AdminDashboardControllerTest extends TestCase
             'fuel_type' => 'diesel',
             'transmission' => 'automatic',
             'status' => $status,
-        ]);
+        ], $overrides));
     }
 }
