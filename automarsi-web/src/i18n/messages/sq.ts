@@ -166,6 +166,18 @@ export const sq: typeof en = {
       couldNotLoad: 'Veturat nuk mund te ngarkoheshin.',
       empty: 'Veturat e reja do te shfaqen ketu se shpejti.',
     },
+    recentlySold: {
+      eyebrow: 'Te shitura se fundmi',
+      title: 'Vetura qe klientet tashme i zgjodhen.',
+      description:
+        'Veturat e shitura qendrojne te ndara nga inventari i disponueshem dhe tregojne historine e sallonit qe klientet mund t’i besojne.',
+      askSimilar: 'Pyet per vetura te ngjashme',
+      loading: 'Duke ngarkuar veturat e shitura se fundmi...',
+      couldNotLoad:
+        'Veturat e shitura se fundmi nuk mund te ngarkohen tani.',
+      soldBadge: 'E shitur',
+      recentlySoldFallback: 'E shitur se fundmi',
+    },
     pagination: {
       page: 'Faqja',
       of: 'nga',
@@ -177,6 +189,11 @@ export const sq: typeof en = {
     loading: 'Duke ngarkuar detajet e vetures...',
     couldNotLoad: 'Kjo veture nuk mund te ngarkohej.',
     notFound: 'Vetura nuk u gjet.',
+    unavailableEyebrow: 'Vetura nuk eshte e disponueshme',
+    unavailableTitle: 'Kjo veture nuk eshte me e disponueshme',
+    unavailableDescription:
+      'Kjo veture nuk eshte me e disponueshme ose listimi nuk mund te gjendet.',
+    viewAvailableInventory: 'Shiko veturat e disponueshme',
     backToInventory: 'Kthehu te veturat',
     activeListing: 'Listim aktiv',
     fallbackDescription:
@@ -232,6 +249,13 @@ export const sq: typeof en = {
         },
       ],
     },
+  },
+  notFoundPage: {
+    eyebrow: '404',
+    title: 'Faqja nuk u gjet',
+    description: 'Faqja qe po kerkon nuk ekziston ose eshte zhvendosur.',
+    goHome: 'Shko ne balline',
+    viewInventory: 'Shiko veturat',
   },
   about: {
     eyebrow: 'Rreth AutoMarsi',

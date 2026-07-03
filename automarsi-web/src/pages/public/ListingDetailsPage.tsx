@@ -1,4 +1,5 @@
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, SearchX } from 'lucide-react'
+import PublicEmptyState from '@/components/public/PublicEmptyState'
 import { Button } from '@/components/ui/button'
 import PublicListingContactReassurance from '@/features/public-listings/components/PublicListingContactReassurance'
 import PublicListingDetailsHeader from '@/features/public-listings/components/PublicListingDetailsHeader'
@@ -33,36 +34,19 @@ function ListingDetailsPage({
     )
   }
 
-  if (errorMessage) {
+  if (errorMessage || !listing) {
     return (
-      <section className="mx-auto grid max-w-7xl gap-5 px-4 py-8 sm:px-6 lg:px-8">
-        <BackToInventoryButton onNavigate={onNavigate} />
-
-        <div className="grid gap-3 rounded-xl border bg-card p-8">
-          <p className="font-medium">{messages.listingDetails.couldNotLoad}</p>
-          <p className="text-sm text-muted-foreground">{errorMessage}</p>
-          <Button
-            type="button"
-            variant="outline"
-            className="w-fit"
-            onClick={() => listingQuery.refetch()}
-          >
-            {messages.common.tryAgain}
-          </Button>
-        </div>
-      </section>
-    )
-  }
-
-  if (!listing) {
-    return (
-      <section className="mx-auto grid max-w-7xl gap-5 px-4 py-8 sm:px-6 lg:px-8">
-        <BackToInventoryButton onNavigate={onNavigate} />
-
-        <div className="rounded-xl border bg-card p-8 text-sm text-muted-foreground">
-          {messages.listingDetails.notFound}
-        </div>
-      </section>
+      <PublicEmptyState
+        icon={SearchX}
+        eyebrow={messages.listingDetails.unavailableEyebrow}
+        title={messages.listingDetails.unavailableTitle}
+        description={messages.listingDetails.unavailableDescription}
+        primaryActionLabel={messages.listingDetails.viewAvailableInventory}
+        primaryActionPath="/inventory"
+        secondaryActionLabel={messages.nav.contact}
+        secondaryActionPath="/contact"
+        onNavigate={onNavigate}
+      />
     )
   }
 
