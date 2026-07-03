@@ -3,11 +3,13 @@ import {
   Car,
   MessageSquare,
   ShieldCheck,
-  Sparkles,
   Wrench,
 } from 'lucide-react'
-import SectionHeader from '@/components/public/SectionHeader'
-import StatBand from '@/components/public/StatBand'
+import PublicMediaFrame from '@/components/public/PublicMediaFrame'
+import PublicSection from '@/components/public/PublicSection'
+import PublicSectionHeader from '@/components/public/PublicSectionHeader'
+import PublicStatsBand from '@/components/public/PublicStatsBand'
+import PublicValueList from '@/components/public/PublicValueList'
 import { Button } from '@/components/ui/button'
 import supraHeroImage from '@/assets/home-hero-supra.jpg'
 import FeaturedListingsSection from '@/features/public-listings/components/FeaturedListingsSection'
@@ -20,98 +22,77 @@ type HomePageProps = {
 
 function HomePage({ onNavigate }: HomePageProps) {
   const { messages } = useI18n()
-  const trustIcons = [
-    <ShieldCheck className="size-4" />,
-    <MessageSquare className="size-4" />,
-    <Wrench className="size-4" />,
-  ]
 
   return (
-    <div className="grid gap-12">
-      <section className="px-4 pt-4 sm:px-6 lg:px-8">
-        <div className="relative mx-auto overflow-hidden rounded-2xl bg-slate-950 text-white shadow-sm">
-          <img
-            src={supraHeroImage}
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover object-[58%_center] opacity-100"
-          />
-          <div className="absolute inset-0 bg-slate-950/10" />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/70 to-slate-950/10" />
-          <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-slate-950/65 to-transparent" />
+    <div className="grid gap-0">
+      <PublicSection className="pt-12 lg:pt-16">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.9fr)] lg:items-center">
+          <div className="grid gap-6">
+            <PublicSectionHeader
+              eyebrow={messages.home.heroEyebrow}
+              title={messages.home.heroTitle}
+              description={messages.home.heroDescription}
+            />
 
-          <div className="relative mx-auto grid min-h-[520px] max-w-7xl content-center gap-6 px-5 py-14 sm:px-8 lg:px-14">
-            <div className="grid max-w-3xl gap-5">
-              <p className="text-xs font-semibold uppercase text-red-400">
-                AutoMarsi
-              </p>
+            <div className="flex flex-wrap gap-3">
+              <Button type="button" size="lg" onClick={() => onNavigate('/inventory')}>
+                {messages.home.browseInventory}
+                <ArrowRight className="size-4" />
+              </Button>
 
-              <h1 className="text-4xl font-semibold tracking-tight drop-shadow-sm sm:text-6xl">
-                {messages.home.heroTitle}
-              </h1>
+              <Button
+                type="button"
+                size="lg"
+                variant="outline"
+                onClick={() => onNavigate('/contact')}
+              >
+                {messages.home.contactTeam}
+              </Button>
+            </div>
 
-              <p className="max-w-2xl text-sm leading-6 text-slate-200">
-                {messages.home.heroDescription}
-              </p>
-
-              <div className="flex flex-wrap gap-3">
-                <Button type="button" onClick={() => onNavigate('/inventory')}>
-                  {messages.home.browseInventory}
-                  <ArrowRight className="size-4" />
-                </Button>
-
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white"
-                  onClick={() => onNavigate('/contact')}
+            <div className="flex flex-wrap gap-3 pt-2 text-sm text-muted-foreground">
+              {[messages.home.selectedActiveVehicles, messages.home.showroomFollowUp, messages.footer.financingGuidance].map((item) => (
+                <span
+                  key={item}
+                  className="inline-flex items-center gap-2 rounded-full border bg-white/70 px-4 py-2 shadow-xs"
                 >
-                  {messages.home.contactTeam}
-                </Button>
-              </div>
-
-              <div className="flex flex-wrap gap-4 pt-4 text-sm text-slate-200">
-                <span>{messages.contact.location}</span>
-                <span className="hidden text-slate-500 sm:inline">/</span>
-                <span>{messages.home.selectedActiveVehicles}</span>
-                <span className="hidden text-slate-500 sm:inline">/</span>
-                <span>{messages.home.showroomFollowUp}</span>
-              </div>
+                  <span className="size-1.5 rounded-full bg-primary" />
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
+
+          <div className="grid gap-4">
+            <PublicMediaFrame
+              src={supraHeroImage}
+              alt="AutoMarsi hero vehicle"
+              label="Hero car"
+              className="shadow-[0_24px_70px_rgba(31,25,76,0.13)]"
+            />
+            <p className="px-5 text-xs font-bold uppercase tracking-[0.24em] text-foreground">
+              {messages.home.featuredLocation}
+            </p>
+          </div>
         </div>
-      </section>
+      </PublicSection>
 
       <FeaturedListingsSection onNavigate={onNavigate} />
 
       <RecentlySoldSection onNavigate={onNavigate} />
 
-      <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 pb-12 sm:px-6 lg:px-8">
+      <PublicSection>
         <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-          <SectionHeader
+          <PublicSectionHeader
             eyebrow={messages.home.whyEyebrow}
             title={messages.home.whyTitle}
             description={messages.home.whyDescription}
           />
 
-          <div className="grid gap-3">
-            {messages.home.trustItems.map((item, index) => (
-              <div key={item.title} className="flex gap-3 rounded-lg border p-4">
-                <div className="grid size-9 shrink-0 place-items-center rounded-lg bg-red-50 text-red-600">
-                  {trustIcons[index]}
-                </div>
-                <div>
-                  <h3 className="text-sm font-semibold">{item.title}</h3>
-                  <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <PublicValueList items={messages.home.trustItems} />
         </div>
 
-        <StatBand
+        <PublicStatsBand
           items={[
             {
               value: '150+',
@@ -126,7 +107,7 @@ function HomePage({ onNavigate }: HomePageProps) {
             {
               value: '2,000+',
               label: messages.home.stats.conversations,
-              icon: <Sparkles className="size-5" />,
+              icon: <MessageSquare className="size-5" />,
             },
             {
               value: '100%',
@@ -135,7 +116,7 @@ function HomePage({ onNavigate }: HomePageProps) {
             },
           ]}
         />
-      </section>
+      </PublicSection>
     </div>
   )
 }

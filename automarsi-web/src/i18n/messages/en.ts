@@ -71,6 +71,7 @@ export const en = {
     },
   },
   home: {
+    heroEyebrow: 'Autosallon · Prishtina',
     heroTitle: 'Quality cars. Clear next steps.',
     heroDescription:
       'Browse selected vehicles, ask about availability, and continue with a real showroom follow-up from the AutoMarsi team.',
@@ -78,6 +79,7 @@ export const en = {
     contactTeam: 'Contact team',
     selectedActiveVehicles: 'Selected active vehicles',
     showroomFollowUp: 'Showroom follow-up',
+    featuredLocation: 'Featured · Prishtina',
     whyEyebrow: 'Why AutoMarsi',
     whyTitle: 'A practical way to move from browsing to visiting.',
     whyDescription:
@@ -152,6 +154,7 @@ export const en = {
     card: {
       viewDetails: 'View details',
       photosComingSoon: 'Photos coming soon',
+      goodPrice: 'Good price',
     },
     featured: {
       eyebrow: 'Inventory',
@@ -261,6 +264,9 @@ export const en = {
     browseVehicles: 'Browse vehicles',
     contactTeam: 'Contact the team',
     mattersEyebrow: 'What matters',
+    storyEyebrow: 'Story',
+    storyTitle: 'From one idea to the showroom.',
+    showroomLabel: 'Showroom in Prishtina',
     processEyebrow: 'Our process',
     processTitle: 'From online interest to showroom visit.',
     processDescription: 'A simple flow keeps the customer and team aligned.',

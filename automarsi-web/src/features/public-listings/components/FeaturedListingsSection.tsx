@@ -1,5 +1,6 @@
 import { ArrowRight, RefreshCcw } from 'lucide-react'
-import SectionHeader from '@/components/public/SectionHeader'
+import PublicSection from '@/components/public/PublicSection'
+import PublicSectionHeader from '@/components/public/PublicSectionHeader'
 import { Button } from '@/components/ui/button'
 import { useI18n } from '@/i18n/useI18n'
 import { useFeaturedPublicListings } from '../hooks/useFeaturedPublicListings'
@@ -14,9 +15,10 @@ function FeaturedListingsSection({ onNavigate }: FeaturedListingsSectionProps) {
   const { listings, listingsQuery, errorMessage } = useFeaturedPublicListings()
 
   return (
-    <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 sm:px-6 lg:px-8">
+    <PublicSection bleed>
+      <div className="grid gap-7">
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-        <SectionHeader
+        <PublicSectionHeader
           eyebrow={messages.inventory.featured.eyebrow}
           title={messages.inventory.featured.title}
           description={messages.inventory.featured.description}
@@ -68,7 +70,8 @@ function FeaturedListingsSection({ onNavigate }: FeaturedListingsSectionProps) {
       {!listingsQuery.isLoading && !errorMessage && listings.length > 0 ? (
         <PublicListingGrid listings={listings} onNavigate={onNavigate} />
       ) : null}
-    </section>
+      </div>
+    </PublicSection>
   )
 }
 

@@ -57,7 +57,7 @@ function PublicListingFilters({
   }
 
   return (
-    <aside className="h-fit rounded-lg border bg-card text-card-foreground shadow-xs">
+    <aside className="h-fit rounded-2xl border bg-card text-card-foreground shadow-[0_18px_45px_rgba(31,25,76,0.06)] lg:sticky lg:top-24">
       <div className="flex items-center justify-between gap-3 border-b px-4 py-3">
         <h2 className="font-semibold">{messages.inventory.filters.title}</h2>
         <button

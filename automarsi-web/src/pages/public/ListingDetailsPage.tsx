@@ -1,5 +1,6 @@
 import { ArrowLeft, SearchX } from 'lucide-react'
 import PublicEmptyState from '@/components/public/PublicEmptyState'
+import PublicSection from '@/components/public/PublicSection'
 import { Button } from '@/components/ui/button'
 import PublicListingContactReassurance from '@/features/public-listings/components/PublicListingContactReassurance'
 import PublicListingDetailsHeader from '@/features/public-listings/components/PublicListingDetailsHeader'
@@ -26,11 +27,11 @@ function ListingDetailsPage({
 
   if (listingQuery.isLoading) {
     return (
-      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="rounded-xl border bg-card p-8 text-sm text-muted-foreground">
+      <PublicSection>
+        <div className="rounded-2xl border bg-card p-8 text-sm text-muted-foreground shadow-[0_18px_45px_rgba(31,25,76,0.06)]">
           {messages.listingDetails.loading}
         </div>
-      </section>
+      </PublicSection>
     )
   }
 
@@ -51,7 +52,8 @@ function ListingDetailsPage({
   }
 
   return (
-    <section className="mx-auto grid max-w-7xl gap-5 px-4 py-8 sm:px-6 lg:px-8">
+    <PublicSection>
+      <div className="grid gap-5">
       <BackToInventoryButton onNavigate={onNavigate} />
 
       <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
@@ -67,7 +69,8 @@ function ListingDetailsPage({
           <PublicListingContactReassurance />
         </aside>
       </div>
-    </section>
+      </div>
+    </PublicSection>
   )
 }
 

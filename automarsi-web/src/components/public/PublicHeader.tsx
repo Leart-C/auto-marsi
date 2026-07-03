@@ -1,6 +1,4 @@
-import { MapPin, Phone } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import automarsiLogo from '@/assets/automarsi-logo.png'
+import { Phone } from 'lucide-react'
 import { useI18n } from '@/i18n/useI18n'
 import { cn } from '@/lib/utils'
 import LanguageToggle from './LanguageToggle'
@@ -22,19 +20,18 @@ function PublicHeader({ currentPath, onNavigate }: PublicHeaderProps) {
   ]
 
   return (
-    <header className="sticky top-0 z-40 border-b bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
         <button
           type="button"
           onClick={() => onNavigate('/')}
           aria-label={messages.common.brand}
-          className="flex h-12 shrink-0 items-center"
+          className="flex shrink-0 items-center gap-3 text-xl font-black tracking-[-0.04em]"
         >
-          <img
-            src={automarsiLogo}
-            alt={messages.common.brand}
-            className="h-10 w-auto object-contain sm:h-11"
-          />
+          <span className="size-2.5 rounded-full bg-primary shadow-[0_0_0_6px_rgba(107,75,255,0.12)]" />
+          <span>
+            Auto<span className="text-primary">Marsi</span>
+          </span>
         </button>
 
         <nav className="hidden items-center gap-1 md:flex">
@@ -44,8 +41,9 @@ function PublicHeader({ currentPath, onNavigate }: PublicHeaderProps) {
               type="button"
               onClick={() => onNavigate(item.path)}
               className={cn(
-                'rounded-full px-3 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground',
-                currentPath === item.path && 'bg-muted text-foreground'
+                'rounded-full px-3 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-white hover:text-foreground',
+                currentPath === item.path &&
+                  'bg-white text-foreground shadow-[0_8px_20px_rgba(31,25,76,0.06)]'
               )}
             >
               {item.label}
@@ -58,10 +56,6 @@ function PublicHeader({ currentPath, onNavigate }: PublicHeaderProps) {
             <Phone className="size-3.5" />
             {messages.contact.phone}
           </span>
-          <span className="inline-flex items-center gap-1.5">
-            <MapPin className="size-3.5" />
-            {messages.contact.location}
-          </span>
           <LanguageToggle />
         </div>
 
@@ -71,13 +65,6 @@ function PublicHeader({ currentPath, onNavigate }: PublicHeaderProps) {
 
         <div className="flex items-center gap-2 md:hidden">
           <LanguageToggle />
-          <Button
-            type="button"
-            size="sm"
-            onClick={() => onNavigate('/inventory')}
-          >
-            {messages.common.browse}
-          </Button>
         </div>
       </div>
     </header>

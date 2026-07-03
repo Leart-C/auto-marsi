@@ -1,5 +1,6 @@
 import { BadgeCheck, Car, Clock3 } from 'lucide-react'
-import SectionHeader from '@/components/public/SectionHeader'
+import PublicSection from '@/components/public/PublicSection'
+import PublicSectionHeader from '@/components/public/PublicSectionHeader'
 import { Badge } from '@/components/ui/badge'
 import { useI18n } from '@/i18n/useI18n'
 import type { PublicListing } from '../types'
@@ -30,7 +31,7 @@ function SoldListingCard({ listing }: { listing: PublicListing }) {
   const locale = language === 'sq' ? 'sq-AL' : 'en-GB'
 
   return (
-    <article className="overflow-hidden rounded-xl border bg-card text-card-foreground shadow-xs">
+    <article className="overflow-hidden rounded-2xl border bg-card text-card-foreground shadow-[0_18px_45px_rgba(31,25,76,0.06)]">
       <div className="relative aspect-[4/3] bg-muted">
         {listing.primary_image?.image_url ? (
           <img
@@ -55,14 +56,16 @@ function SoldListingCard({ listing }: { listing: PublicListing }) {
 
         <div className="absolute inset-0 bg-slate-950/10" />
 
-        <Badge className="absolute left-3 top-3 bg-slate-950 text-white hover:bg-slate-950">
+        <Badge className="absolute left-4 top-4 rounded-full bg-white text-foreground shadow-sm hover:bg-white">
           {messages.inventory.recentlySold.soldBadge}
         </Badge>
       </div>
 
-      <div className="grid gap-3 p-4">
+      <div className="grid gap-3 p-5">
         <div className="grid gap-1">
-          <h3 className="font-semibold leading-tight">{listing.title}</h3>
+          <h3 className="text-xl font-black leading-tight tracking-[-0.035em]">
+            {listing.title}
+          </h3>
           <p className="text-sm text-muted-foreground">
             {listing.make?.name ?? '-'} {listing.car_model?.name ?? ''} ·{' '}
             {listing.year}
@@ -98,9 +101,10 @@ function RecentlySoldSection({ onNavigate }: RecentlySoldSectionProps) {
   }
 
   return (
-    <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 sm:px-6 lg:px-8">
+    <PublicSection>
+      <div className="grid gap-7">
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-        <SectionHeader
+        <PublicSectionHeader
           eyebrow={messages.inventory.recentlySold.eyebrow}
           title={messages.inventory.recentlySold.title}
           description={messages.inventory.recentlySold.description}
@@ -135,7 +139,8 @@ function RecentlySoldSection({ onNavigate }: RecentlySoldSectionProps) {
           ))}
         </div>
       ) : null}
-    </section>
+      </div>
+    </PublicSection>
   )
 }
 

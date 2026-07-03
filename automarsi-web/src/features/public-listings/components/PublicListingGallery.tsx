@@ -29,7 +29,7 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
 
   return (
     <div className="grid gap-3">
-      <div className="overflow-hidden rounded-xl border bg-card">
+      <div className="overflow-hidden rounded-2xl border bg-card shadow-[0_18px_45px_rgba(31,25,76,0.06)]">
         <div className="relative aspect-[16/10] bg-slate-100">
           {selectedImage?.image_url ? (
             <img
@@ -83,8 +83,8 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
                 aria-pressed={isSelected}
                 className={
                   isSelected
-                    ? 'overflow-hidden rounded-lg border-2 border-red-600 bg-muted'
-                    : 'overflow-hidden rounded-lg border bg-muted transition hover:border-foreground/40'
+                    ? 'overflow-hidden rounded-xl border-2 border-primary bg-muted'
+                    : 'overflow-hidden rounded-xl border bg-muted transition hover:border-foreground/40'
                 }
               >
                 <span className="block aspect-square">

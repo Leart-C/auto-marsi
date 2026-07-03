@@ -1,12 +1,15 @@
 import {
   ArrowRight,
-  BadgeCheck,
   Car,
   MessageSquare,
   ShieldCheck,
   Users,
 } from 'lucide-react'
-import SectionHeader from '@/components/public/SectionHeader'
+import PublicCtaBand from '@/components/public/PublicCtaBand'
+import PublicMediaFrame from '@/components/public/PublicMediaFrame'
+import PublicSection from '@/components/public/PublicSection'
+import PublicSectionHeader from '@/components/public/PublicSectionHeader'
+import PublicValueList from '@/components/public/PublicValueList'
 import { Button } from '@/components/ui/button'
 import { useI18n } from '@/i18n/useI18n'
 
@@ -23,10 +26,11 @@ function AboutPage({ onNavigate }: AboutPageProps) {
   ]
 
   return (
-    <div className="grid gap-10">
-      <section className="mx-auto grid w-full max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(340px,0.5fr)] lg:items-center lg:px-8">
+    <div className="grid gap-0">
+      <PublicSection>
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(340px,0.55fr)] lg:items-start">
         <div className="grid max-w-3xl gap-5">
-          <SectionHeader
+          <PublicSectionHeader
             eyebrow={messages.about.eyebrow}
             title={messages.about.title}
             description={messages.about.description}
@@ -52,37 +56,39 @@ function AboutPage({ onNavigate }: AboutPageProps) {
           </div>
         </div>
 
-        <div className="rounded-xl border bg-card p-5 shadow-sm">
-          <p className="text-xs font-semibold uppercase text-red-600">
-            {messages.about.mattersEyebrow}
-          </p>
-
-          <div className="mt-4 grid gap-4">
-            {messages.about.principles.map((principle, index) => (
-              <div key={principle.title} className="flex gap-3">
-                <div className="grid size-9 shrink-0 place-items-center rounded-lg bg-red-50 text-red-600">
-                  {principleIcons[index]}
-                </div>
-
-                <div>
-                  <h3 className="text-sm font-semibold">{principle.title}</h3>
-                  <p className="mt-1 text-sm leading-5 text-muted-foreground">
-                    {principle.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+        <PublicValueList
+          title={messages.about.mattersEyebrow}
+          items={messages.about.principles.map((principle, index) => ({
+            ...principle,
+            icon: principleIcons[index],
+          }))}
+        />
         </div>
-      </section>
+      </PublicSection>
 
-      <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-5 rounded-xl border bg-card p-6 md:grid-cols-[280px_1fr] md:items-start">
+      <PublicSection bleed>
+        <div className="grid gap-7">
+          <PublicSectionHeader
+            eyebrow={messages.about.storyEyebrow}
+            title={messages.about.storyTitle}
+            description={messages.about.body}
+          />
+
+          <PublicMediaFrame
+            label={messages.about.showroomLabel}
+            aspect="aspect-[16/6]"
+            className="bg-white/45"
+          />
+        </div>
+      </PublicSection>
+
+      <PublicSection>
+        <div className="grid gap-5 rounded-3xl border bg-card p-6 shadow-[0_18px_45px_rgba(31,25,76,0.06)] md:grid-cols-[280px_1fr] md:items-start">
           <div>
-            <p className="text-xs font-semibold uppercase text-red-600">
+            <p className="text-xs font-bold uppercase tracking-[0.22em] text-primary">
               {messages.about.processEyebrow}
             </p>
-            <h2 className="mt-2 text-2xl font-semibold tracking-tight">
+            <h2 className="mt-2 text-2xl font-black tracking-[-0.03em]">
               {messages.about.processTitle}
             </h2>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
@@ -107,33 +113,19 @@ function AboutPage({ onNavigate }: AboutPageProps) {
             ))}
           </div>
         </div>
-      </section>
+      </PublicSection>
 
-      <section className="mx-auto w-full max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-        <div className="grid gap-5 rounded-xl bg-slate-950 p-6 text-white md:grid-cols-[1fr_auto] md:items-center">
-          <div className="grid gap-2">
-            <div className="flex items-center gap-2 text-red-300">
-              <BadgeCheck className="size-4" />
-              <p className="text-xs font-semibold uppercase">
-                {messages.about.ctaEyebrow}
-              </p>
-            </div>
-
-            <h2 className="text-2xl font-semibold">
-              {messages.about.ctaTitle}
-            </h2>
-
-            <p className="max-w-2xl text-sm leading-6 text-slate-300">
-              {messages.about.ctaDescription}
-            </p>
-          </div>
-
-          <Button type="button" onClick={() => onNavigate('/inventory')}>
-            {messages.about.viewInventory}
-            <Car className="size-4" />
-          </Button>
-        </div>
-      </section>
+      <PublicSection>
+        <PublicCtaBand
+          eyebrow={messages.about.ctaEyebrow}
+          title={messages.about.ctaTitle}
+          description={messages.about.ctaDescription}
+          actionLabel={messages.about.viewInventory}
+          actionPath="/inventory"
+          icon={<Car className="size-4" />}
+          onNavigate={onNavigate}
+        />
+      </PublicSection>
     </div>
   )
 }

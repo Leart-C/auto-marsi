@@ -99,7 +99,7 @@ function PublicContactInquiryForm() {
   return (
     <form
       onSubmit={submitInquiry}
-      className="grid gap-4 rounded-xl border bg-card p-5 shadow-sm sm:p-6"
+      className="grid gap-4 rounded-3xl border bg-card p-5 shadow-[0_18px_45px_rgba(31,25,76,0.06)] sm:p-6"
     >
       <div className="grid gap-1">
         <h2 className="text-xl font-semibold tracking-tight">

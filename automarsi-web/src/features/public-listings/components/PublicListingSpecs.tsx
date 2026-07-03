@@ -13,7 +13,7 @@ function formatPrice(price: string, currency: string): string {
     return `${price} ${currency}`
   }
 
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency,
     maximumFractionDigits: 0,
@@ -25,7 +25,7 @@ function formatKilometers(kilometers: number | null): string {
     return 'Mileage unavailable'
   }
 
-  return `${new Intl.NumberFormat('en-US').format(kilometers)} km`
+  return `${new Intl.NumberFormat('de-DE').format(kilometers)} km`
 }
 
 function PublicListingSpecs({ listing }: PublicListingSpecsProps) {
@@ -45,11 +45,11 @@ function PublicListingSpecs({ listing }: PublicListingSpecsProps) {
     : '-'
 
   return (
-    <aside className="h-fit rounded-lg border bg-card p-6">
+    <aside className="h-fit rounded-2xl border bg-card p-6 shadow-[0_18px_45px_rgba(31,25,76,0.06)]">
       <p className="text-xs font-semibold uppercase text-muted-foreground">
         {messages.listingDetails.specs.price}
       </p>
-      <p className="mt-1 text-3xl font-semibold text-red-600">
+      <p className="mt-1 text-4xl font-black tracking-[-0.04em] text-primary">
         {formatPrice(listing.price, listing.currency)}
       </p>
 
@@ -88,7 +88,7 @@ function PublicListingSpecs({ listing }: PublicListingSpecsProps) {
         />
       </dl>
 
-      <p className="mt-5 rounded-md bg-muted px-3 py-2 text-xs leading-5 text-muted-foreground">
+      <p className="mt-5 rounded-xl bg-primary/10 px-3 py-2 text-xs leading-5 text-muted-foreground">
         {messages.listingDetails.specs.note}
       </p>
     </aside>

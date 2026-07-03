@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import SectionHeader from '@/components/public/SectionHeader'
+import PublicSection from '@/components/public/PublicSection'
+import PublicSectionHeader from '@/components/public/PublicSectionHeader'
 import { Button } from '@/components/ui/button'
 import PublicListingFilters from '@/features/public-listings/components/PublicListingFilters'
 import PublicListingGrid from '@/features/public-listings/components/PublicListingGrid'
@@ -43,20 +44,21 @@ function InventoryPage({ onNavigate }: InventoryPageProps) {
     : messages.inventory.loadingVehicles
 
   return (
-    <section className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:px-6 lg:px-8">
+    <PublicSection>
+      <div className="grid gap-7">
       <div className="flex flex-col justify-between gap-4 border-b pb-6 md:flex-row md:items-end">
-        <SectionHeader
+        <PublicSectionHeader
           eyebrow={messages.inventory.eyebrow}
           title={messages.inventory.title}
           description={messages.inventory.description}
         />
 
-        <div className="rounded-full border bg-card px-4 py-2 text-sm text-muted-foreground shadow-xs">
+        <div className="w-fit rounded-full border bg-white/80 px-4 py-2 text-sm font-semibold text-muted-foreground shadow-xs">
           {vehiclesFoundLabel}
         </div>
       </div>
 
-      <div className="grid min-w-0 gap-6 lg:grid-cols-[300px_minmax(0,1fr)]">
+      <div className="grid min-w-0 gap-7 lg:grid-cols-[300px_minmax(0,1fr)]">
         <PublicListingFilters
           filters={filters}
           onFiltersChange={setFilters}
@@ -118,7 +120,8 @@ function InventoryPage({ onNavigate }: InventoryPageProps) {
           ) : null}
         </div>
       </div>
-    </section>
+      </div>
+    </PublicSection>
   )
 }
 

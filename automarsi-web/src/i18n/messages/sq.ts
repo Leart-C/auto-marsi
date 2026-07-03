@@ -73,6 +73,7 @@ export const sq: typeof en = {
     },
   },
   home: {
+    heroEyebrow: 'Autosallon · Prishtine',
     heroTitle: 'Vetura cilesore. Hapa te qarte.',
     heroDescription:
       'Shfleto vetura te perzgjedhura, pyet per disponueshmeri dhe vazhdo me percjellje reale nga ekipi i AutoMarsi.',
@@ -80,6 +81,7 @@ export const sq: typeof en = {
     contactTeam: 'Kontakto ekipin',
     selectedActiveVehicles: 'Vetura aktive te perzgjedhura',
     showroomFollowUp: 'Percjellje nga salloni',
+    featuredLocation: 'Featured · Prishtine',
     whyEyebrow: 'Pse AutoMarsi',
     whyTitle: 'Menyre praktike per te kaluar nga shfletimi te vizita.',
     whyDescription:
@@ -155,6 +157,7 @@ export const sq: typeof en = {
     card: {
       viewDetails: 'Shiko detajet',
       photosComingSoon: 'Fotot do te shtohen se shpejti',
+      goodPrice: 'Cmimi mire',
     },
     featured: {
       eyebrow: 'Vetura',
@@ -267,6 +270,9 @@ export const sq: typeof en = {
     browseVehicles: 'Shfleto veturat',
     contactTeam: 'Kontakto ekipin',
     mattersEyebrow: 'Cfare ka rendesi',
+    storyEyebrow: 'Historia',
+    storyTitle: 'Nga nje ide te salloni.',
+    showroomLabel: 'Salloni ne Prishtine',
     processEyebrow: 'Procesi yne',
     processTitle: 'Nga interesi online te vizita ne sallon.',
     processDescription: 'Proces i thjeshte qe mban klientin dhe ekipin te qarte.',
