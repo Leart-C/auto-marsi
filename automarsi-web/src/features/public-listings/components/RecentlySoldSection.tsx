@@ -1,6 +1,7 @@
 import { BadgeCheck, Car, Clock3 } from 'lucide-react'
 import SectionHeader from '@/components/public/SectionHeader'
 import { Badge } from '@/components/ui/badge'
+import { useI18n } from '@/i18n/useI18n'
 import type { PublicListing } from '../types'
 import { useRecentlySoldListings } from '../hooks/useRecentlySoldListings'
 
@@ -8,12 +9,16 @@ type RecentlySoldSectionProps = {
   onNavigate: (path: string) => void
 }
 
-function formatSoldDate(soldAt: string | null) {
+function formatSoldDate(
+  soldAt: string | null,
+  locale: string,
+  fallback: string
+) {
   if (!soldAt) {
-    return 'Recently sold'
+    return fallback
   }
 
-  return new Intl.DateTimeFormat('en-GB', {
+  return new Intl.DateTimeFormat(locale, {
     month: 'short',
     day: 'numeric',
     year: 'numeric',
@@ -21,6 +26,9 @@ function formatSoldDate(soldAt: string | null) {
 }
 
 function SoldListingCard({ listing }: { listing: PublicListing }) {
+  const { language, messages } = useI18n()
+  const locale = language === 'sq' ? 'sq-AL' : 'en-GB'
+
   return (
     <article className="overflow-hidden rounded-xl border bg-card text-card-foreground shadow-xs">
       <div className="relative aspect-[4/3] bg-muted">
@@ -38,7 +46,9 @@ function SoldListingCard({ listing }: { listing: PublicListing }) {
               <div className="grid size-10 place-items-center rounded-full bg-white shadow-xs">
                 <Car className="size-5" />
               </div>
-              <span className="text-sm">Photos coming soon</span>
+              <span className="text-sm">
+                {messages.common.photosComingSoon}
+              </span>
             </div>
           </div>
         )}
@@ -46,7 +56,7 @@ function SoldListingCard({ listing }: { listing: PublicListing }) {
         <div className="absolute inset-0 bg-slate-950/10" />
 
         <Badge className="absolute left-3 top-3 bg-slate-950 text-white hover:bg-slate-950">
-          Sold
+          {messages.inventory.recentlySold.soldBadge}
         </Badge>
       </div>
 
@@ -61,7 +71,13 @@ function SoldListingCard({ listing }: { listing: PublicListing }) {
 
         <div className="flex items-center gap-2 text-xs text-muted-foreground">
           <Clock3 className="size-3.5" />
-          <span>{formatSoldDate(listing.sold_at)}</span>
+          <span>
+            {formatSoldDate(
+              listing.sold_at,
+              locale,
+              messages.inventory.recentlySold.recentlySoldFallback
+            )}
+          </span>
         </div>
       </div>
     </article>
@@ -69,6 +85,7 @@ function SoldListingCard({ listing }: { listing: PublicListing }) {
 }
 
 function RecentlySoldSection({ onNavigate }: RecentlySoldSectionProps) {
+  const { messages } = useI18n()
   const { listings, recentlySoldQuery, errorMessage } =
     useRecentlySoldListings(6)
 
@@ -84,9 +101,9 @@ function RecentlySoldSection({ onNavigate }: RecentlySoldSectionProps) {
     <section className="mx-auto grid w-full max-w-7xl gap-6 px-4 sm:px-6 lg:px-8">
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
         <SectionHeader
-          eyebrow="Recently sold"
-          title="Vehicles customers already chose."
-          description="Sold vehicles stay separate from available inventory, while showing the showroom history customers can trust."
+          eyebrow={messages.inventory.recentlySold.eyebrow}
+          title={messages.inventory.recentlySold.title}
+          description={messages.inventory.recentlySold.description}
         />
 
         <button
@@ -95,19 +112,19 @@ function RecentlySoldSection({ onNavigate }: RecentlySoldSectionProps) {
           className="inline-flex h-9 items-center justify-center gap-2 rounded-md border px-3 text-sm font-medium transition hover:bg-muted"
         >
           <BadgeCheck className="size-4" />
-          Ask for similar vehicles
+          {messages.inventory.recentlySold.askSimilar}
         </button>
       </div>
 
       {recentlySoldQuery.isLoading ? (
         <div className="rounded-lg border bg-card p-6 text-sm text-muted-foreground">
-          Loading recently sold vehicles...
+          {messages.inventory.recentlySold.loading}
         </div>
       ) : null}
 
       {errorMessage ? (
         <div className="rounded-lg border bg-card p-6 text-sm text-muted-foreground">
-          Recently sold vehicles could not be loaded right now.
+          {messages.inventory.recentlySold.couldNotLoad}
         </div>
       ) : null}
 

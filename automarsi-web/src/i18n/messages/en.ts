@@ -163,6 +163,17 @@ export const en = {
       couldNotLoad: 'Could not load vehicles.',
       empty: 'New vehicles will appear here soon.',
     },
+    recentlySold: {
+      eyebrow: 'Recently sold',
+      title: 'Vehicles customers already chose.',
+      description:
+        'Sold vehicles stay separate from available inventory, while showing the showroom history customers can trust.',
+      askSimilar: 'Ask for similar vehicles',
+      loading: 'Loading recently sold vehicles...',
+      couldNotLoad: 'Recently sold vehicles could not be loaded right now.',
+      soldBadge: 'Sold',
+      recentlySoldFallback: 'Recently sold',
+    },
     pagination: {
       page: 'Page',
       of: 'of',
@@ -174,6 +185,11 @@ export const en = {
     loading: 'Loading vehicle details...',
     couldNotLoad: 'Could not load this vehicle.',
     notFound: 'Vehicle not found.',
+    unavailableEyebrow: 'Vehicle unavailable',
+    unavailableTitle: 'This vehicle is no longer available',
+    unavailableDescription:
+      'This vehicle is no longer available or the listing could not be found.',
+    viewAvailableInventory: 'View available inventory',
     backToInventory: 'Back to inventory',
     activeListing: 'Active listing',
     fallbackDescription:
@@ -227,6 +243,13 @@ export const en = {
         },
       ],
     },
+  },
+  notFoundPage: {
+    eyebrow: '404',
+    title: 'Page not found',
+    description: 'The page you are looking for does not exist or has moved.',
+    goHome: 'Go home',
+    viewInventory: 'View inventory',
   },
   about: {
     eyebrow: 'About AutoMarsi',

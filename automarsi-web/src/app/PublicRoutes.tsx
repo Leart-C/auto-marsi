@@ -9,6 +9,7 @@ const InventoryPage = lazy(() => import('@/pages/public/InventoryPage'))
 const ListingDetailsPage = lazy(
   () => import('@/pages/public/ListingDetailsPage')
 )
+const NotFoundPage = lazy(() => import('@/pages/public/NotFoundPage'))
 const ServicesPage = lazy(() => import('@/pages/public/ServicesPage'))
 
 type PublicRoutesProps = {
@@ -48,7 +49,11 @@ function getPublicPage(path: string, onNavigate: (path: string) => void) {
     return <ContactPage />
   }
 
-  return <HomePage onNavigate={onNavigate} />
+  if (path === '/') {
+    return <HomePage onNavigate={onNavigate} />
+  }
+
+  return <NotFoundPage onNavigate={onNavigate} />
 }
 
 function PublicRoutes({ currentPath, onNavigate }: PublicRoutesProps) {
