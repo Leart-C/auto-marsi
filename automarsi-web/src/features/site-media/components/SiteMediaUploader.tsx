@@ -4,23 +4,24 @@ import { Button } from '@/components/ui/button'
 import type { SiteMedia } from '../types'
 
 type SiteMediaUploaderProps = {
-  media: SiteMedia | null
+  mediaItems: SiteMedia[]
   isSubmitting: boolean
   errorMessage: string | null
   onSubmit: (payload: { image: File; altText: string }) => Promise<void>
 }
 
 function SiteMediaUploader({
-  media,
+  mediaItems,
   isSubmitting,
   errorMessage,
   onSubmit,
 }: SiteMediaUploaderProps) {
   const [image, setImage] = useState<File | null>(null)
-  const [altText, setAltText] = useState(media?.alt_text ?? '')
+  const [altText, setAltText] = useState('')
+  const firstMedia = mediaItems[0] ?? null
   const previewUrl = useMemo(
-    () => (image ? URL.createObjectURL(image) : media?.image_url),
-    [image, media?.image_url]
+    () => (image ? URL.createObjectURL(image) : firstMedia?.image_url),
+    [image, firstMedia?.image_url]
   )
 
   useEffect(() => {
@@ -40,6 +41,7 @@ function SiteMediaUploader({
 
     await onSubmit({ image, altText })
     setImage(null)
+    setAltText('')
   }
 
   return (
@@ -62,7 +64,7 @@ function SiteMediaUploader({
             <div className="grid size-full place-items-center text-muted-foreground">
               <div className="grid justify-items-center gap-2">
                 <ImagePlus className="size-8" />
-                <span className="text-sm">No About image uploaded yet.</span>
+                <span className="text-sm">No About images uploaded yet.</span>
               </div>
             </div>
           )}
@@ -95,6 +97,33 @@ function SiteMediaUploader({
           {isSubmitting ? 'Uploading...' : 'Upload image'}
         </Button>
       </div>
+
+      {mediaItems.length > 0 ? (
+        <div className="grid gap-3 border-t pt-4">
+          <p className="text-sm font-semibold">Carousel images</p>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {mediaItems.map((media) => (
+              <div
+                key={media.id}
+                className="overflow-hidden rounded-xl border bg-background"
+              >
+                <div className="aspect-[4/3] bg-muted">
+                  {media.image_url ? (
+                    <img
+                      src={media.image_url}
+                      alt={media.alt_text ?? 'About carousel image'}
+                      className="size-full object-cover"
+                    />
+                  ) : null}
+                </div>
+                <div className="p-3 text-xs text-muted-foreground">
+                  {media.alt_text || 'No alt text'}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
     </form>
   )
 }

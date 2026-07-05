@@ -2,7 +2,7 @@ import { publicApi } from '@/lib/publicApi'
 import type { SiteMedia } from '../types'
 
 type SiteMediaResponse = {
-  data: SiteMedia
+  data: SiteMedia[]
 }
 
 export function getPublicSiteMedia(key: string) {

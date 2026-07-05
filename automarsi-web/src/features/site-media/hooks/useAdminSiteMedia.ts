@@ -48,7 +48,7 @@ export function useAdminSiteMedia(key: string) {
   })
 
   return {
-    media: mediaQuery.data ?? null,
+    mediaItems: mediaQuery.data ?? [],
     mediaQuery,
     updateMediaMutation,
     errorMessage:

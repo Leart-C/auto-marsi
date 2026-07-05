@@ -19,6 +19,7 @@ class SiteMediaResource extends JsonResource
                 ? $request->getSchemeAndHttpHost().'/storage/'.ltrim($this->path, '/')
                 : $this->image_url,
             'alt_text' => $this->alt_text,
+            'sort_order' => $this->sort_order,
             'updated_at' => $this->updated_at?->toISOString(),
         ];
     }

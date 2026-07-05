@@ -10,11 +10,12 @@ return new class extends Migration
     {
         Schema::create('site_media', function (Blueprint $table) {
             $table->id();
-            $table->string('key')->unique();
+            $table->string('key')->index();
             $table->string('disk')->default('public');
             $table->string('path')->nullable();
             $table->string('image_url')->nullable();
             $table->string('alt_text')->nullable();
+            $table->unsignedInteger('sort_order')->default(0);
             $table->timestamps();
         });
     }

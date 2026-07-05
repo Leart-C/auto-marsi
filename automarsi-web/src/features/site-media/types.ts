@@ -3,5 +3,6 @@ export type SiteMedia = {
   key: string
   image_url: string | null
   alt_text: string | null
+  sort_order: number
   updated_at: string | null
 }

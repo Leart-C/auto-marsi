@@ -6,7 +6,7 @@ import {
   Users,
 } from 'lucide-react'
 import PublicCtaBand from '@/components/public/PublicCtaBand'
-import PublicMediaFrame from '@/components/public/PublicMediaFrame'
+import PublicImageCarousel from '@/components/public/PublicImageCarousel'
 import PublicSection from '@/components/public/PublicSection'
 import PublicSectionHeader from '@/components/public/PublicSectionHeader'
 import PublicValueList from '@/components/public/PublicValueList'
@@ -76,11 +76,8 @@ function AboutPage({ onNavigate }: AboutPageProps) {
             description={messages.about.body}
           />
 
-          <PublicMediaFrame
-            src={aboutMediaQuery.data?.image_url}
-            alt={
-              aboutMediaQuery.data?.alt_text ?? messages.about.showroomLabel
-            }
+          <PublicImageCarousel
+            images={aboutMediaQuery.data ?? []}
             label={messages.about.showroomLabel}
             aspect="aspect-[16/6]"
             className="bg-white/45"

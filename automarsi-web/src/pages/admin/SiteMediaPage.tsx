@@ -6,7 +6,7 @@ import { useAdminSiteMedia } from '@/features/site-media/hooks/useAdminSiteMedia
 const ABOUT_MEDIA_KEY = 'about_showroom'
 
 function SiteMediaPage() {
-  const { media, mediaQuery, updateMediaMutation, errorMessage } =
+  const { mediaItems, mediaQuery, updateMediaMutation, errorMessage } =
     useAdminSiteMedia(ABOUT_MEDIA_KEY)
 
   return (
@@ -27,7 +27,7 @@ function SiteMediaPage() {
           </div>
         ) : (
           <SiteMediaUploader
-            media={media}
+            mediaItems={mediaItems}
             isSubmitting={updateMediaMutation.isPending}
             errorMessage={errorMessage}
             onSubmit={async (payload) => {

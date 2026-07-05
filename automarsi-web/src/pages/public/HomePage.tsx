@@ -28,12 +28,12 @@ function HomePage({ onNavigate }: HomePageProps) {
   const { messages } = useI18n()
   const { stats } = usePublicStats()
 
-  function formatStat(value: number | undefined, suffix = '') {
+  function formatStat(value: number | undefined) {
     if (value === undefined) {
       return '...'
     }
 
-    return `${new Intl.NumberFormat().format(value)}${suffix}`
+    return new Intl.NumberFormat().format(value)
   }
 
   return (
@@ -150,17 +150,17 @@ function HomePage({ onNavigate }: HomePageProps) {
               icon: <Car className="size-5" />,
             },
             {
-              value: formatStat(stats?.years_in_business),
+              value: '5+',
               label: messages.home.stats.years,
               icon: <ShieldCheck className="size-5" />,
             },
             {
-              value: formatStat(stats?.customer_conversations),
+              value: '100+',
               label: messages.home.stats.conversations,
               icon: <MessageSquare className="size-5" />,
             },
             {
-              value: formatStat(stats?.follow_up_rate, '%'),
+              value: '100%',
               label: messages.home.stats.flow,
               icon: <Wrench className="size-5" />,
             },

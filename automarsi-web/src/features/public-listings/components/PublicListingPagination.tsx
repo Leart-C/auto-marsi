@@ -13,33 +13,55 @@ function PublicListingPagination({
   onPageChange,
 }: PublicListingPaginationProps) {
   const { messages } = useI18n()
-  const canGoPrevious = meta.current_page > 1
-  const canGoNext = meta.current_page < meta.last_page
+  const currentPage = Number(meta.current_page)
+  const lastPage = Number(meta.last_page)
+  const canGoPrevious = currentPage > 1
+  const canGoNext = currentPage < lastPage
+  const firstVisiblePage = Math.max(1, Math.min(currentPage - 2, lastPage - 4))
+  const lastVisiblePage = Math.min(lastPage, firstVisiblePage + 4)
+  const visiblePages = Array.from(
+    { length: lastVisiblePage - firstVisiblePage + 1 },
+    (_, index) => firstVisiblePage + index
+  )
 
   return (
-    <div className="flex items-center justify-between gap-3 border-t pt-4">
+    <div className="flex flex-wrap items-center justify-between gap-3 border-t pt-4">
       <p className="text-sm text-muted-foreground">
-        {messages.inventory.pagination.page} {meta.current_page}{' '}
-        {messages.inventory.pagination.of} {meta.last_page}
+        {messages.inventory.pagination.page} {currentPage}{' '}
+        {messages.inventory.pagination.of} {lastPage}
       </p>
 
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <Button
           type="button"
           variant="outline"
           size="sm"
           disabled={!canGoPrevious}
-          onClick={() => onPageChange(meta.current_page - 1)}
+          onClick={() => onPageChange(currentPage - 1)}
         >
           <ChevronLeft />
           {messages.inventory.pagination.previous}
         </Button>
+
+        {visiblePages.map((page) => (
+          <Button
+            key={page}
+            type="button"
+            variant={page === currentPage ? 'default' : 'outline'}
+            size="sm"
+            className="min-w-9 px-3"
+            onClick={() => onPageChange(page)}
+          >
+            {page}
+          </Button>
+        ))}
+
         <Button
           type="button"
           variant="outline"
           size="sm"
           disabled={!canGoNext}
-          onClick={() => onPageChange(meta.current_page + 1)}
+          onClick={() => onPageChange(currentPage + 1)}
         >
           {messages.inventory.pagination.next}
           <ChevronRight />

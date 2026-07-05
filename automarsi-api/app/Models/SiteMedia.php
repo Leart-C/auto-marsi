@@ -12,5 +12,6 @@ class SiteMedia extends Model
         'path',
         'image_url',
         'alt_text',
+        'sort_order',
     ];
 }

@@ -2,7 +2,7 @@ import { adminApi } from '@/lib/adminApi'
 import type { SiteMedia } from '../types'
 
 type SiteMediaResponse = {
-  data: SiteMedia
+  data: SiteMedia[]
 }
 
 export function getAdminSiteMedia({
