@@ -15,6 +15,7 @@ const ListingsCreatePage = lazy(
 const ListingsPage = lazy(() => import('@/pages/admin/ListingsPage'))
 const ListingViewPage = lazy(() => import('@/pages/admin/ListingViewPage'))
 const OverviewPage = lazy(() => import('@/pages/admin/OverviewPage'))
+const SiteMediaPage = lazy(() => import('@/pages/admin/SiteMediaPage'))
 
 type AdminRoutesProps = {
   currentPath: string
@@ -66,6 +67,10 @@ function getAdminPage(path: string, onNavigate: (path: string) => void) {
 
   if (path === '/admin/catalog/features') {
     return <CatalogFeaturesPage />
+  }
+
+  if (path === '/admin/site-media') {
+    return <SiteMediaPage />
   }
 
   return <OverviewPage onNavigate={onNavigate} />

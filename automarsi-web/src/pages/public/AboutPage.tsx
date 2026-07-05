@@ -11,6 +11,7 @@ import PublicSection from '@/components/public/PublicSection'
 import PublicSectionHeader from '@/components/public/PublicSectionHeader'
 import PublicValueList from '@/components/public/PublicValueList'
 import { Button } from '@/components/ui/button'
+import { usePublicSiteMedia } from '@/features/site-media/hooks/usePublicSiteMedia'
 import { useI18n } from '@/i18n/useI18n'
 
 type AboutPageProps = {
@@ -19,6 +20,7 @@ type AboutPageProps = {
 
 function AboutPage({ onNavigate }: AboutPageProps) {
   const { messages } = useI18n()
+  const aboutMediaQuery = usePublicSiteMedia('about_showroom')
   const principleIcons = [
     <ShieldCheck className="size-4" />,
     <MessageSquare className="size-4" />,
@@ -75,6 +77,10 @@ function AboutPage({ onNavigate }: AboutPageProps) {
           />
 
           <PublicMediaFrame
+            src={aboutMediaQuery.data?.image_url}
+            alt={
+              aboutMediaQuery.data?.alt_text ?? messages.about.showroomLabel
+            }
             label={messages.about.showroomLabel}
             aspect="aspect-[16/6]"
             className="bg-white/45"

@@ -1,6 +1,7 @@
 import {
   CalendarClock,
   CarFront,
+  Image,
   LayoutDashboard,
   MessagesSquare,
   Wrench,
@@ -18,6 +19,7 @@ const navSections = [
       { label: 'Listings', href: '/admin/listings', icon: CarFront },
       { label: 'Inquiries', href: '/admin/inquiries', icon: MessagesSquare },
       { label: 'Appointments', href: '/admin/appointments', icon: CalendarClock },
+      { label: 'Site media', href: '/admin/site-media', icon: Image },
     ],
   },
   {

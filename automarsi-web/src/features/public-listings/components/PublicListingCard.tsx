@@ -1,5 +1,4 @@
-import { ArrowRight, Car, Star } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
+import { ArrowRight, Car } from 'lucide-react'
 import { useI18n } from '@/i18n/useI18n'
 import type { PublicListing } from '../types'
 
@@ -49,10 +48,6 @@ function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
         className="block w-full text-left"
       >
         <div className="relative aspect-[4/3] border-b border-dashed bg-slate-200/60">
-          <Badge className="absolute left-4 top-4 z-10 rounded-full bg-emerald-500 px-3 py-1 text-white shadow-md hover:bg-emerald-500">
-            {messages.inventory.card.goodPrice}
-          </Badge>
-
           <span className="absolute bottom-4 right-4 z-10 rounded-full bg-foreground/70 px-4 py-2 text-lg font-black text-white shadow-lg md:hidden">
             {formatPrice(listing)}
           </span>
@@ -89,16 +84,6 @@ function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
           <p className="text-sm text-muted-foreground">
             {listing.make?.name ?? '-'} {listing.car_model?.name ?? ''}
           </p>
-        </div>
-
-        <div className="flex items-center gap-2 text-sm">
-          <span className="inline-flex text-amber-400">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <Star key={index} className="size-3.5 fill-current" />
-            ))}
-          </span>
-          <span className="font-semibold">4.8</span>
-          <span className="text-muted-foreground">(35)</span>
         </div>
 
         <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">

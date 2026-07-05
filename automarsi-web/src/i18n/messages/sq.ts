@@ -43,7 +43,7 @@ export const sq: typeof en = {
     updatedSubject: 'Termini juaj ne AutoMarsi eshte perditesuar',
   },
   contact: {
-    phone: '+383 44 123 456',
+    phone: '+383 44 333 310',
     email: 'info@automarsi.com',
     location: 'Prishtine, Kosove',
     locationLabel: 'Lokacioni',
@@ -77,10 +77,10 @@ export const sq: typeof en = {
     mobileSearchPlaceholder: 'Kerko marke, model...',
     mobileFinancingAction: 'Llogarit kestin',
     mobileContactAction: 'Na shkruaj',
-    heroEyebrow: 'Autosallon · Prishtine',
-    heroTitle: 'Vetura cilesore. Hapa te qarte.',
+    heroEyebrow: 'AutoMarsi · Prishtine',
+    heroTitle: 'Gjej veturen e duhur me nje ekip qe te percjell qarte.',
     heroDescription:
-      'Shfleto vetura te perzgjedhura, pyet per disponueshmeri dhe vazhdo me percjellje reale nga ekipi i AutoMarsi.',
+      'Shfleto veturat e disponueshme, kerko detaje dhe merr pergjigje te qarte nga ekipi yne para vizites.',
     browseInventory: 'Shfleto veturat',
     contactTeam: 'Kontakto ekipin',
     selectedActiveVehicles: 'Vetura aktive te perzgjedhura',
@@ -162,7 +162,7 @@ export const sq: typeof en = {
     card: {
       viewDetails: 'Shiko detajet',
       photosComingSoon: 'Fotot do te shtohen se shpejti',
-      goodPrice: 'Cmimi mire',
+      goodPrice: '',
     },
     featured: {
       eyebrow: 'Vetura',

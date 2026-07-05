@@ -41,7 +41,7 @@ export const en = {
     updatedSubject: 'Your AutoMarsi appointment was updated',
   },
   contact: {
-    phone: '+383 44 123 456',
+    phone: '+383 44 333 310',
     email: 'info@automarsi.com',
     location: 'Prishtina, Kosovo',
     locationLabel: 'Location',
@@ -75,10 +75,10 @@ export const en = {
     mobileSearchPlaceholder: 'Search make, model...',
     mobileFinancingAction: 'Calculate payment',
     mobileContactAction: 'Write to us',
-    heroEyebrow: 'Autosallon · Prishtina',
-    heroTitle: 'Quality cars. Clear next steps.',
+    heroEyebrow: 'AutoMarsi · Prishtina',
+    heroTitle: 'Find the right car with a team that follows through.',
     heroDescription:
-      'Browse selected vehicles, ask about availability, and continue with a real showroom follow-up from the AutoMarsi team.',
+      'Explore available vehicles, ask for details, and get a clear response from our showroom team before you visit.',
     browseInventory: 'Browse inventory',
     contactTeam: 'Contact team',
     selectedActiveVehicles: 'Selected active vehicles',
@@ -159,7 +159,7 @@ export const en = {
     card: {
       viewDetails: 'View details',
       photosComingSoon: 'Photos coming soon',
-      goodPrice: 'Good price',
+      goodPrice: '',
     },
     featured: {
       eyebrow: 'Inventory',

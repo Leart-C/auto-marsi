@@ -17,6 +17,7 @@ import { Button } from '@/components/ui/button'
 import supraHeroImage from '@/assets/home-hero-supra.jpg'
 import FeaturedListingsSection from '@/features/public-listings/components/FeaturedListingsSection'
 import RecentlySoldSection from '@/features/public-listings/components/RecentlySoldSection'
+import { usePublicStats } from '@/features/public-stats/hooks/usePublicStats'
 import { useI18n } from '@/i18n/useI18n'
 
 type HomePageProps = {
@@ -25,6 +26,15 @@ type HomePageProps = {
 
 function HomePage({ onNavigate }: HomePageProps) {
   const { messages } = useI18n()
+  const { stats } = usePublicStats()
+
+  function formatStat(value: number | undefined, suffix = '') {
+    if (value === undefined) {
+      return '...'
+    }
+
+    return `${new Intl.NumberFormat().format(value)}${suffix}`
+  }
 
   return (
     <div className="grid gap-0">
@@ -135,22 +145,22 @@ function HomePage({ onNavigate }: HomePageProps) {
         <PublicStatsBand
           items={[
             {
-              value: '150+',
+              value: formatStat(stats?.vehicles_in_stock),
               label: messages.home.stats.vehicles,
               icon: <Car className="size-5" />,
             },
             {
-              value: '10+',
+              value: formatStat(stats?.years_in_business),
               label: messages.home.stats.years,
               icon: <ShieldCheck className="size-5" />,
             },
             {
-              value: '2,000+',
+              value: formatStat(stats?.customer_conversations),
               label: messages.home.stats.conversations,
               icon: <MessageSquare className="size-5" />,
             },
             {
-              value: '100%',
+              value: formatStat(stats?.follow_up_rate, '%'),
               label: messages.home.stats.flow,
               icon: <Wrench className="size-5" />,
             },
