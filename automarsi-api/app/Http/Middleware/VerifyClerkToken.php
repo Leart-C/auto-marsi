@@ -47,7 +47,14 @@ class VerifyClerkToken
                 ->map(fn ($email) => strtolower(trim($email)))
                 ->filter();
 
-            if ($user->email && $adminEmails->contains(strtolower($user->email))) {
+            $adminClerkIds = collect(explode(',', config('automarsi.admin_clerk_ids', '')))
+                ->map(fn ($id) => trim($id))
+                ->filter();
+
+            if (
+                ($user->email && $adminEmails->contains(strtolower($user->email))) ||
+                $adminClerkIds->contains($user->clerk_id)
+            ) {
                 $user->forceFill(['role' => 'admin'])->save();
             }
 
