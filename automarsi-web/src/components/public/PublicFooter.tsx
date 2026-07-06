@@ -25,7 +25,7 @@ function PublicFooter({ onNavigate }: PublicFooterProps) {
           <img
             src="/automarsi-logo.png"
             alt={messages.common.brand}
-            className="h-10 w-fit object-contain"
+            className="h-12 w-40 object-cover object-center"
           />
           <p className="max-w-sm text-sm leading-6 text-slate-400">
             {messages.footer.description}
