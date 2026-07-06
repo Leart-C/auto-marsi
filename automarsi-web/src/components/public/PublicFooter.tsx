@@ -23,8 +23,8 @@ function PublicFooter({ onNavigate }: PublicFooterProps) {
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1.4fr_0.8fr_0.8fr_1fr] lg:px-8">
         <div className="grid content-start gap-3">
           <p className="inline-flex items-center gap-3 text-xl font-black tracking-[-0.04em] text-white">
-            <span className="size-2.5 rounded-full bg-primary" />
-            Auto<span className="text-primary">Marsi</span>
+            <span className="size-2.5 rounded-full bg-[#A8741D]" />
+            Auto<span className="text-[#A8741D]">Marsi</span>
           </p>
           <p className="max-w-sm text-sm leading-6 text-slate-400">
             {messages.footer.description}
