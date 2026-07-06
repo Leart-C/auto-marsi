@@ -26,15 +26,13 @@ function PublicHeader({ currentPath, onNavigate }: PublicHeaderProps) {
           type="button"
           onClick={() => onNavigate('/')}
           aria-label={messages.common.brand}
-          className="flex shrink-0 items-center gap-3 text-xl font-black tracking-[-0.04em]"
+          className="flex h-10 shrink-0 items-center"
         >
-          <span className="grid size-9 place-items-center rounded-2xl bg-[#A8741D] text-sm font-black text-white shadow-[0_10px_25px_rgba(168,116,29,0.18)] md:size-2.5 md:text-transparent md:shadow-[0_0_0_6px_rgba(168,116,29,0.12)]">
-            A
-          </span>
-          <span>
-            <span className="text-[#FBD969]">Auto</span>
-            <span className="text-[#A8741D]">Marsi</span>
-          </span>
+          <img
+            src="/automarsi-logo.png"
+            alt={messages.common.brand}
+            className="h-10 w-auto object-contain"
+          />
         </button>
 
         <nav className="hidden items-center gap-1 md:flex">
