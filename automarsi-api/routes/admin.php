@@ -20,6 +20,7 @@ Route::get('reports/sales', AdminSalesReportController::class);
 
 Route::get('site-media/{key}', [AdminSiteMediaController::class, 'show']);
 Route::post('site-media/{key}', [AdminSiteMediaController::class, 'update']);
+Route::delete('site-media/{siteMedia}', [AdminSiteMediaController::class, 'destroy']);
 
 Route::apiResource('makes', AdminMakeController::class);
 
