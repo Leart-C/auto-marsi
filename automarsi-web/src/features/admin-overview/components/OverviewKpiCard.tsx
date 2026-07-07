@@ -6,7 +6,7 @@ type OverviewKpiCardProps = {
   value: number
   detail: string
   icon: LucideIcon
-  tone?: 'blue' | 'green' | 'amber'
+  tone?: 'brand' | 'blue' | 'green' | 'amber'
 }
 
 function OverviewKpiCard({
@@ -20,8 +20,8 @@ function OverviewKpiCard({
     tone === 'green'
       ? 'green'
       : tone === 'amber'
-        ? 'gold'
-        : 'slate'
+        ? 'brand'
+        : tone
 
   return (
     <AdminMetricCard
