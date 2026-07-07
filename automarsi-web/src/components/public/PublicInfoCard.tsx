@@ -19,7 +19,7 @@ function PublicInfoCard({
   return (
     <article
       className={cn(
-        'rounded-2xl border bg-card p-5 shadow-[0_18px_45px_rgba(31,25,76,0.06)]',
+        'rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-5 shadow-[0_20px_70px_rgba(0,0,0,0.25)] backdrop-blur-xl',
         className
       )}
     >

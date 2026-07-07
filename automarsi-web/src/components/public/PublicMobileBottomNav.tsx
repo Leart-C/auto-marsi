@@ -20,7 +20,7 @@ function PublicMobileBottomNav({
   ]
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-50 border-t bg-background/92 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 shadow-[0_-18px_45px_rgba(31,25,76,0.08)] backdrop-blur-xl md:hidden">
+    <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-white/10 bg-background/88 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-2 shadow-[0_-18px_45px_rgba(0,0,0,0.45)] backdrop-blur-2xl md:hidden">
       <div className="mx-auto grid max-w-md grid-cols-4">
         {items.map((item) => {
           const Icon = item.icon

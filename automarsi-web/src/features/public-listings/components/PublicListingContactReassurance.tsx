@@ -10,7 +10,7 @@ function PublicListingContactReassurance() {
   ]
 
   return (
-    <section className="grid gap-3 rounded-lg border bg-card p-5 text-card-foreground">
+    <section className="grid gap-3 rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-5 text-card-foreground shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-xl">
       <div>
         <h2 className="font-semibold">
           {messages.listingDetails.reassurance.title}
@@ -23,7 +23,7 @@ function PublicListingContactReassurance() {
       <div className="grid gap-3">
         {messages.listingDetails.reassurance.items.map((item, index) => (
           <div key={item.title} className="flex gap-3">
-            <div className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-lg bg-muted text-red-600">
+            <div className="mt-0.5 grid size-8 shrink-0 place-items-center rounded-xl bg-primary/15 text-primary">
               {reassuranceIcons[index]}
             </div>
             <div>

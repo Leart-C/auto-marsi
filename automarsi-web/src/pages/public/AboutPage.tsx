@@ -80,13 +80,12 @@ function AboutPage({ onNavigate }: AboutPageProps) {
             images={aboutMediaQuery.data ?? []}
             label={messages.about.showroomLabel}
             aspect="aspect-[16/6]"
-            className="bg-white/45"
           />
         </div>
       </PublicSection>
 
       <PublicSection>
-        <div className="grid gap-5 rounded-3xl border bg-card p-6 shadow-[0_18px_45px_rgba(31,25,76,0.06)] md:grid-cols-[280px_1fr] md:items-start">
+        <div className="grid gap-5 rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl md:grid-cols-[280px_1fr] md:items-start">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.22em] text-primary">
               {messages.about.processEyebrow}
@@ -102,11 +101,11 @@ function AboutPage({ onNavigate }: AboutPageProps) {
           <div className="grid gap-4">
             {messages.about.processSteps.map((step, index) => (
               <div key={step.title} className="flex gap-4">
-                <div className="grid size-8 shrink-0 place-items-center rounded-full bg-slate-950 text-xs font-semibold text-white">
+                <div className="grid size-8 shrink-0 place-items-center rounded-full bg-primary text-xs font-semibold text-primary-foreground">
                   {index + 1}
                 </div>
 
-                <div className="border-b pb-4 last:border-b-0 last:pb-0">
+                <div className="border-b border-white/10 pb-4 last:border-b-0 last:pb-0">
                   <h3 className="font-semibold">{step.title}</h3>
                   <p className="mt-1 text-sm leading-6 text-muted-foreground">
                     {step.description}

@@ -62,7 +62,7 @@ function FinancingPage({ onNavigate }: FinancingPageProps) {
               ))}
             </div>
 
-            <div className="grid gap-3 rounded-3xl border bg-card p-5 shadow-[0_18px_45px_rgba(31,25,76,0.06)]">
+            <div className="grid gap-3 rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-xl">
               <div className="grid gap-1">
                 <h2 className="text-base font-semibold">
                   {messages.financing.prepareTitle}
@@ -75,7 +75,7 @@ function FinancingPage({ onNavigate }: FinancingPageProps) {
               <div className="grid gap-2 sm:grid-cols-2">
                 {messages.financing.prepareItems.map((item) => (
                   <div key={item} className="flex items-center gap-2 text-sm">
-                    <CheckCircle2 className="size-4 shrink-0 text-red-600" />
+                    <CheckCircle2 className="size-4 shrink-0 text-primary" />
                     <span>{item}</span>
                   </div>
                 ))}

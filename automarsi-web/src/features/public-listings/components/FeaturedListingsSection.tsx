@@ -35,13 +35,13 @@ function FeaturedListingsSection({ onNavigate }: FeaturedListingsSectionProps) {
       </div>
 
       {listingsQuery.isLoading ? (
-        <div className="rounded-lg border bg-card p-6 text-sm text-muted-foreground">
+        <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-6 text-sm text-muted-foreground">
           {messages.inventory.featured.loading}
         </div>
       ) : null}
 
       {errorMessage ? (
-        <div className="grid gap-3 rounded-lg border bg-card p-6">
+        <div className="grid gap-3 rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-6">
           <div className="grid gap-1">
             <p className="font-medium">
               {messages.inventory.featured.couldNotLoad}
@@ -62,7 +62,7 @@ function FeaturedListingsSection({ onNavigate }: FeaturedListingsSectionProps) {
       ) : null}
 
       {!listingsQuery.isLoading && !errorMessage && listings.length === 0 ? (
-        <div className="rounded-lg border bg-card p-6 text-sm text-muted-foreground">
+        <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-6 text-sm text-muted-foreground">
           {messages.inventory.featured.empty}
         </div>
       ) : null}

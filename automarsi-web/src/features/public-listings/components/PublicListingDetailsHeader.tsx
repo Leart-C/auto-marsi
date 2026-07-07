@@ -12,20 +12,20 @@ function PublicListingDetailsHeader({
   const { messages } = useI18n()
 
   return (
-    <section className="rounded-xl border bg-card p-5 sm:p-6">
+    <section className="rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:p-6">
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start">
         <div className="grid gap-2">
           <p className="text-sm text-muted-foreground">
             {listing.make?.name ?? '-'} {listing.car_model?.name ?? ''}
           </p>
 
-          <h1 className="max-w-3xl text-3xl font-semibold tracking-tight">
+          <h1 className="max-w-3xl text-3xl font-black uppercase tracking-[-0.045em]">
             {listing.title}
           </h1>
         </div>
 
-        <div className="inline-flex w-fit items-center gap-2 rounded-full border bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
-          <BadgeCheck className="size-3.5 text-red-600" />
+        <div className="inline-flex w-fit items-center gap-2 rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
+          <BadgeCheck className="size-3.5" />
           {messages.listingDetails.activeListing}
         </div>
       </div>

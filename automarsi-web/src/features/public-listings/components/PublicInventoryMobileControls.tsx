@@ -49,8 +49,9 @@ function PublicInventoryMobileControls({
               type="button"
               onClick={() => updateFilter('body_type', type.value)}
               className={cn(
-                'shrink-0 rounded-2xl bg-muted px-5 py-3 text-base font-bold text-foreground/80 transition',
-                isActive && 'bg-primary text-primary-foreground shadow-sm'
+                'shrink-0 rounded-2xl border border-white/10 bg-white/[0.06] px-5 py-3 text-base font-bold text-foreground/80 transition',
+                isActive &&
+                  'border-primary/40 bg-primary text-primary-foreground shadow-[0_14px_35px_rgba(213,162,56,0.22)]'
               )}
             >
               {type.label}

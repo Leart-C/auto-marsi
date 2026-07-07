@@ -26,7 +26,7 @@ function PublicMobileQuickActions({
             key={item.path}
             type="button"
             onClick={() => onNavigate(item.path)}
-            className="grid min-h-32 content-between rounded-[1.75rem] bg-card p-5 text-left shadow-[0_18px_40px_rgba(31,25,76,0.08)]"
+            className="grid min-h-32 content-between rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-5 text-left shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-xl"
           >
             <span className="grid size-12 place-items-center rounded-2xl bg-primary/12 text-primary">
               <Icon className="size-6" />

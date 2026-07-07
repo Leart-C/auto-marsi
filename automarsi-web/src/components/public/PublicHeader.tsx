@@ -20,7 +20,7 @@ function PublicHeader({ currentPath, onNavigate }: PublicHeaderProps) {
   ]
 
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur-xl md:border-b">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-background/82 backdrop-blur-2xl md:border-b">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
         <button
           type="button"
@@ -29,9 +29,9 @@ function PublicHeader({ currentPath, onNavigate }: PublicHeaderProps) {
           className="flex h-12 shrink-0 items-center justify-center"
         >
           <img
-            src="/automarsi-logo.png"
+            src="/automarsi-mark.png"
             alt={messages.common.brand}
-            className="h-30 w-40 object-contain object-center"
+            className="h-12 w-36 rounded-xl object-cover object-center"
           />
         </button>
 
@@ -42,9 +42,9 @@ function PublicHeader({ currentPath, onNavigate }: PublicHeaderProps) {
               type="button"
               onClick={() => onNavigate(item.path)}
               className={cn(
-                'rounded-full px-3 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-white hover:text-foreground',
+                'rounded-full px-3 py-2 text-sm font-semibold text-muted-foreground transition hover:bg-white/8 hover:text-foreground',
                 currentPath === item.path &&
-                  'bg-white text-foreground shadow-[0_8px_20px_rgba(31,25,76,0.06)]'
+                  'bg-primary text-primary-foreground shadow-[0_14px_35px_rgba(213,162,56,0.24)]'
               )}
             >
               {item.label}

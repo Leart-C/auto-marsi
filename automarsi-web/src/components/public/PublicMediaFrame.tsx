@@ -19,7 +19,7 @@ function PublicMediaFrame({
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-2xl border border-dashed border-slate-300 bg-slate-200/45',
+        'relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-[0_30px_90px_rgba(0,0,0,0.35)]',
         aspect,
         className
       )}

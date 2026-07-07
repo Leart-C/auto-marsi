@@ -45,7 +45,7 @@ function PublicListingSpecs({ listing }: PublicListingSpecsProps) {
     : '-'
 
   return (
-    <aside className="h-fit rounded-2xl border bg-card p-6 shadow-[0_18px_45px_rgba(31,25,76,0.06)]">
+    <aside className="h-fit rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.3)] backdrop-blur-xl">
       <p className="text-xs font-semibold uppercase text-muted-foreground">
         {messages.listingDetails.specs.price}
       </p>
@@ -67,7 +67,7 @@ function PublicListingSpecs({ listing }: PublicListingSpecsProps) {
         </div>
       </div>
 
-      <dl className="mt-6 grid gap-3 text-sm">
+      <dl className="mt-6 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-1">
         <SpecItem label={messages.listingDetails.specs.year} value={listing.year} />
         <SpecItem label={messages.listingDetails.specs.fuel} value={fuelLabel} />
         <SpecItem
@@ -88,7 +88,7 @@ function PublicListingSpecs({ listing }: PublicListingSpecsProps) {
         />
       </dl>
 
-      <p className="mt-5 rounded-xl bg-primary/10 px-3 py-2 text-xs leading-5 text-muted-foreground">
+      <p className="mt-5 rounded-xl border border-primary/20 bg-primary/10 px-3 py-2 text-xs leading-5 text-muted-foreground">
         {messages.listingDetails.specs.note}
       </p>
     </aside>
@@ -103,9 +103,9 @@ type SpecItemProps = {
 
 function SpecItem({ label, value, capitalize = false }: SpecItemProps) {
   return (
-    <div className="flex justify-between gap-4">
+    <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-4">
       <dt className="text-muted-foreground">{label}</dt>
-      <dd className={capitalize ? 'font-medium capitalize' : 'font-medium'}>
+      <dd className={capitalize ? 'mt-1 font-bold capitalize' : 'mt-1 font-bold'}>
         {value}
       </dd>
     </div>

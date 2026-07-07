@@ -6,7 +6,7 @@ const fieldClassName =
   'grid min-w-0 gap-1.5 text-sm font-medium text-foreground'
 
 const controlClassName =
-  'h-10 w-full min-w-0 rounded-md border border-input bg-background px-3 text-sm text-foreground shadow-xs outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-60'
+  'h-11 w-full min-w-0 rounded-2xl border border-input bg-white/[0.04] px-3 text-sm text-foreground shadow-xs outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/30 disabled:cursor-not-allowed disabled:opacity-60'
 
 const selectClassName = `${controlClassName} appearance-none pr-9`
 
@@ -57,13 +57,13 @@ function PublicListingFilters({
   }
 
   return (
-    <aside className="h-fit rounded-2xl border bg-card text-card-foreground shadow-[0_18px_45px_rgba(31,25,76,0.06)] lg:sticky lg:top-24">
-      <div className="flex items-center justify-between gap-3 border-b px-4 py-3">
+    <aside className="h-fit rounded-[1.75rem] border border-white/10 bg-white/[0.05] text-card-foreground shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl lg:sticky lg:top-24">
+      <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
         <h2 className="font-semibold">{messages.inventory.filters.title}</h2>
         <button
           type="button"
           onClick={clearFilters}
-          className="text-xs font-medium text-muted-foreground transition hover:text-red-600"
+          className="text-xs font-medium text-muted-foreground transition hover:text-primary"
         >
           {messages.inventory.filters.reset}
         </button>

@@ -13,7 +13,7 @@ function LanguageToggle() {
 
   return (
     <div
-      className="inline-flex items-center rounded-full border bg-background p-1"
+      className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.06] p-1 shadow-xs backdrop-blur-xl"
       aria-label={messages.common.language}
     >
       <Languages className="ml-2 size-3.5 text-muted-foreground" />

@@ -8,8 +8,8 @@ type FeatureCardProps = {
 
 function FeatureCard({ icon, title, description }: FeatureCardProps) {
   return (
-    <article className="grid gap-3 rounded-lg border bg-card p-5 text-card-foreground shadow-xs">
-      <div className="grid size-10 place-items-center rounded-lg bg-muted text-foreground">
+    <article className="grid gap-3 rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-5 text-card-foreground shadow-[0_20px_70px_rgba(0,0,0,0.25)] backdrop-blur-xl">
+      <div className="grid size-10 place-items-center rounded-2xl bg-primary/15 text-primary">
         {icon}
       </div>
       <div className="grid gap-1">

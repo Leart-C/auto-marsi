@@ -31,8 +31,8 @@ function SoldListingCard({ listing }: { listing: PublicListing }) {
   const locale = language === 'sq' ? 'sq-AL' : 'en-GB'
 
   return (
-    <article className="overflow-hidden rounded-2xl border bg-card text-card-foreground shadow-[0_18px_45px_rgba(31,25,76,0.06)]">
-      <div className="relative aspect-[4/3] bg-muted">
+    <article className="overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.045] text-card-foreground shadow-[0_22px_70px_rgba(0,0,0,0.28)] backdrop-blur-xl">
+      <div className="relative aspect-[4/3] bg-white/[0.04]">
         {listing.primary_image?.image_url ? (
           <img
             src={listing.primary_image.image_url}
@@ -42,9 +42,9 @@ function SoldListingCard({ listing }: { listing: PublicListing }) {
             className="size-full object-cover"
           />
         ) : (
-          <div className="grid size-full place-items-center bg-slate-100 text-muted-foreground">
+          <div className="grid size-full place-items-center bg-white/[0.04] text-muted-foreground">
             <div className="grid justify-items-center gap-2">
-              <div className="grid size-10 place-items-center rounded-full bg-white shadow-xs">
+              <div className="grid size-10 place-items-center rounded-full bg-white/10 shadow-xs">
                 <Car className="size-5" />
               </div>
               <span className="text-sm">
@@ -54,9 +54,9 @@ function SoldListingCard({ listing }: { listing: PublicListing }) {
           </div>
         )}
 
-        <div className="absolute inset-0 bg-slate-950/10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-transparent to-transparent" />
 
-        <Badge className="absolute left-4 top-4 rounded-full bg-white text-foreground shadow-sm hover:bg-white">
+        <Badge className="absolute left-4 top-4 rounded-full border border-primary/35 bg-primary/15 text-primary shadow-sm hover:bg-primary/15">
           {messages.inventory.recentlySold.soldBadge}
         </Badge>
       </div>
@@ -113,7 +113,7 @@ function RecentlySoldSection({ onNavigate }: RecentlySoldSectionProps) {
         <button
           type="button"
           onClick={() => onNavigate('/contact')}
-          className="inline-flex h-9 items-center justify-center gap-2 rounded-md border px-3 text-sm font-medium transition hover:bg-muted"
+          className="inline-flex h-10 items-center justify-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 text-sm font-medium transition hover:bg-white/[0.08]"
         >
           <BadgeCheck className="size-4" />
           {messages.inventory.recentlySold.askSimilar}
@@ -121,13 +121,13 @@ function RecentlySoldSection({ onNavigate }: RecentlySoldSectionProps) {
       </div>
 
       {recentlySoldQuery.isLoading ? (
-        <div className="rounded-lg border bg-card p-6 text-sm text-muted-foreground">
+        <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-6 text-sm text-muted-foreground">
           {messages.inventory.recentlySold.loading}
         </div>
       ) : null}
 
       {errorMessage ? (
-        <div className="rounded-lg border bg-card p-6 text-sm text-muted-foreground">
+        <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.05] p-6 text-sm text-muted-foreground">
           {messages.inventory.recentlySold.couldNotLoad}
         </div>
       ) : null}

@@ -11,7 +11,7 @@ type PublicLayoutProps = {
 
 function PublicLayout({ currentPath, onNavigate, children }: PublicLayoutProps) {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="public-shell min-h-screen bg-background text-foreground">
       <PublicHeader currentPath={currentPath} onNavigate={onNavigate} />
       <main className="pb-24 md:pb-0">{children}</main>
       <div className="hidden md:block">

@@ -19,13 +19,13 @@ function PublicFooter({ onNavigate }: PublicFooterProps) {
   ]
 
   return (
-    <footer className="border-t bg-[#171331] text-slate-200">
+    <footer className="border-t border-white/10 bg-[#050509] text-slate-200">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 md:grid-cols-[1.4fr_0.8fr_0.8fr_1fr] lg:px-8">
         <div className="grid content-start gap-3">
           <img
-            src="/automarsi-logo.png"
+            src="/automarsi-mark.png"
             alt={messages.common.brand}
-            className="h-12 w-40 object-cover object-center"
+            className="h-14 w-40 rounded-xl object-cover object-center"
           />
           <p className="max-w-sm text-sm leading-6 text-slate-400">
             {messages.footer.description}

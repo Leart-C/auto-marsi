@@ -22,7 +22,7 @@ function PublicCtaBand({
   icon,
 }: PublicCtaBandProps) {
   return (
-    <div className="grid gap-5 rounded-3xl border border-primary/25 bg-white/70 p-7 shadow-[0_18px_45px_rgba(31,25,76,0.05)] md:grid-cols-[1fr_auto] md:items-center">
+    <div className="grid gap-5 rounded-[2rem] border border-primary/25 bg-primary/10 p-7 shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl md:grid-cols-[1fr_auto] md:items-center">
       <div className="grid gap-2">
         {eyebrow ? (
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-primary">

@@ -41,16 +41,19 @@ function HomePage({ onNavigate }: HomePageProps) {
 
   return (
     <div className="grid gap-0">
-      <PublicSection className="pt-12 lg:pt-16">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.9fr)] lg:items-center">
+      <PublicSection className="relative overflow-hidden pt-10 lg:pt-16">
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-80 bg-[radial-gradient(circle_at_20%_0%,rgba(213,162,56,0.22),transparent_36%),radial-gradient(circle_at_80%_10%,rgba(255,255,255,0.08),transparent_32%)]" />
+
+        <div className="relative grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(360px,0.9fr)] lg:items-center">
           <div className="grid gap-6">
             <div className="grid gap-4 md:hidden">
               <div>
-                <p className="text-xl font-bold text-muted-foreground">
+                <p className="text-xs font-black uppercase tracking-[0.28em] text-primary">
                   {messages.home.mobileWelcome}
                 </p>
-                <h1 className="mt-1 text-5xl font-black tracking-[-0.06em]">
-                  {messages.nav.home}
+                <h1 className="mt-2 text-5xl font-black uppercase tracking-[-0.06em]">
+                  Auto
+                  <span className="block text-primary">Marsi</span>
                 </h1>
               </div>
 
@@ -107,7 +110,7 @@ function HomePage({ onNavigate }: HomePageProps) {
               {[messages.home.selectedActiveVehicles, messages.home.showroomFollowUp, messages.footer.financingGuidance].map((item) => (
                 <span
                   key={item}
-                  className="inline-flex items-center gap-2 rounded-full border bg-white/70 px-4 py-2 shadow-xs"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 shadow-xs backdrop-blur-xl"
                 >
                   <span className="size-1.5 rounded-full bg-primary" />
                   {item}
@@ -121,7 +124,7 @@ function HomePage({ onNavigate }: HomePageProps) {
               src={homeHeroMedia?.image_url ?? supraHeroImage}
               alt={homeHeroMedia?.alt_text ?? 'AutoMarsi hero vehicle'}
               label="Hero car"
-              className="shadow-[0_24px_70px_rgba(31,25,76,0.13)]"
+              className="shadow-[0_30px_100px_rgba(0,0,0,0.45)]"
             />
             <p className="px-5 text-xs font-bold uppercase tracking-[0.24em] text-foreground">
               {messages.home.featuredLocation}

@@ -11,9 +11,9 @@ function FinancingSteps() {
 
   return (
     <section className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div className="grid gap-4 rounded-xl border bg-card p-5 shadow-xs md:grid-cols-[260px_1fr] md:items-center">
+      <div className="grid gap-4 rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-xl md:grid-cols-[260px_1fr] md:items-center">
         <div className="grid gap-1">
-          <p className="text-xs font-semibold uppercase text-red-600">
+          <p className="text-xs font-semibold uppercase tracking-[0.32em] text-primary">
             {messages.financing.steps.eyebrow}
           </p>
           <h2 className="text-xl font-semibold tracking-tight">
@@ -24,13 +24,13 @@ function FinancingSteps() {
         <div className="grid gap-3 md:grid-cols-3">
           {messages.financing.steps.items.map((step, index) => (
             <div key={step.title} className="flex gap-3">
-              <div className="grid size-9 shrink-0 place-items-center rounded-lg bg-muted text-foreground">
+              <div className="grid size-9 shrink-0 place-items-center rounded-2xl bg-primary/15 text-primary">
                 {stepIcons[index]}
               </div>
 
               <div className="grid gap-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-semibold text-red-600">
+                  <span className="text-xs font-semibold text-primary">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   <h3 className="text-sm font-medium">{step.title}</h3>

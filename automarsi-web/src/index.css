@@ -119,6 +119,33 @@
     --sidebar-ring: #406AAF;
 }
 
+.public-shell {
+    color-scheme: dark;
+    --background: #07070b;
+    --foreground: #f7f5f0;
+    --card: #14141c;
+    --card-foreground: #f7f5f0;
+    --popover: #14141c;
+    --popover-foreground: #f7f5f0;
+    --primary: #d5a238;
+    --primary-foreground: #15100a;
+    --secondary: #1b1b24;
+    --secondary-foreground: #f7f5f0;
+    --muted: #191922;
+    --muted-foreground: #96939f;
+    --accent: #211b12;
+    --accent-foreground: #f0c866;
+    --destructive: oklch(0.64 0.2 25);
+    --border: rgb(255 255 255 / 10%);
+    --input: rgb(255 255 255 / 14%);
+    --ring: #d5a238;
+    --chart-1: #d5a238;
+    --chart-2: #8d7a55;
+    --chart-3: #f0c866;
+    --chart-4: #5d5a67;
+    --chart-5: #9d6d20;
+}
+
 .dark {
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);

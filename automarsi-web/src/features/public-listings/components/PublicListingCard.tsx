@@ -41,14 +41,14 @@ function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
     ] ?? listing.fuel_type
 
   return (
-    <article className="group overflow-hidden rounded-[1.75rem] border bg-card text-card-foreground shadow-[0_18px_45px_rgba(31,25,76,0.07)] transition hover:-translate-y-1 hover:shadow-[0_24px_55px_rgba(31,25,76,0.11)]">
+    <article className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/[0.045] text-card-foreground shadow-[0_22px_70px_rgba(0,0,0,0.28)] backdrop-blur-xl transition hover:-translate-y-1 hover:border-primary/35 hover:shadow-[0_28px_90px_rgba(0,0,0,0.4)]">
       <button
         type="button"
         onClick={() => onNavigate(`/inventory/${listing.id}`)}
         className="block w-full text-left"
       >
-        <div className="relative aspect-[4/3] border-b border-dashed bg-slate-200/60">
-          <span className="absolute bottom-4 right-4 z-10 rounded-full bg-foreground/70 px-4 py-2 text-lg font-black text-white shadow-lg md:hidden">
+        <div className="relative aspect-[4/3] border-b border-white/10 bg-white/[0.04]">
+          <span className="absolute bottom-4 right-4 z-10 rounded-full border border-primary/35 bg-background/70 px-4 py-2 text-lg font-black text-primary shadow-lg backdrop-blur-xl md:hidden">
             {formatPrice(listing)}
           </span>
 
@@ -74,10 +74,10 @@ function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
       <div className="grid gap-4 p-5">
         <div className="grid gap-1">
           <div className="flex items-start justify-between gap-4">
-            <h3 className="text-xl font-black leading-tight tracking-[-0.035em]">
+            <h3 className="text-xl font-black uppercase leading-tight tracking-[-0.035em]">
               {listing.title}
             </h3>
-            <p className="hidden shrink-0 text-lg font-black text-primary md:block">
+            <p className="hidden shrink-0 rounded-full border border-primary/35 bg-primary/10 px-3 py-1 text-lg font-black text-primary md:block">
               {formatPrice(listing)}
             </p>
           </div>
@@ -87,20 +87,20 @@ function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
         </div>
 
         <div className="flex flex-wrap gap-2 text-xs text-muted-foreground">
-          <span className="rounded-full border bg-white px-3 py-1">
+          <span className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1">
             {listing.year}
           </span>
-          <span className="rounded-full border bg-white px-3 py-1">
+          <span className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1">
             {listing.kilometers === null
               ? messages.common.mileageUnavailable
               : formatKilometers(listing.kilometers)}
           </span>
 
-          <span className="rounded-full border bg-white px-3 py-1 capitalize">
+          <span className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 capitalize">
             {fuelLabel}
           </span>
 
-          <span className="rounded-full border bg-white px-3 py-1 capitalize">
+          <span className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 capitalize">
             {transmissionLabel}
           </span>
         </div>
@@ -108,7 +108,7 @@ function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
         <button
           type="button"
           onClick={() => onNavigate(`/inventory/${listing.id}`)}
-          className="mt-1 flex items-center justify-between border-t pt-4 text-sm font-semibold text-foreground transition hover:text-primary"
+          className="mt-1 flex items-center justify-between border-t border-white/10 pt-4 text-sm font-semibold text-foreground transition hover:text-primary"
         >
           <span>{messages.inventory.card.viewDetails}</span>
           <span className="inline-flex items-center gap-2 text-muted-foreground">

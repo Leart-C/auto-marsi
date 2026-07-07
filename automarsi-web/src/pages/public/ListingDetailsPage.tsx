@@ -29,7 +29,7 @@ function ListingDetailsPage({
   if (listingQuery.isLoading) {
     return (
       <PublicSection>
-        <div className="rounded-2xl border bg-card p-8 text-sm text-muted-foreground shadow-[0_18px_45px_rgba(31,25,76,0.06)]">
+        <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-8 text-sm text-muted-foreground shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-xl">
           {messages.listingDetails.loading}
         </div>
       </PublicSection>
@@ -55,25 +55,25 @@ function ListingDetailsPage({
   return (
     <PublicSection className="pt-0 md:pt-12">
       <div className="grid gap-5">
-      <div className="hidden md:block">
-        <BackToInventoryButton onNavigate={onNavigate} />
-      </div>
-
-      <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
-        <div className="grid min-w-0 gap-5">
-          <PublicListingGallery listing={listing} />
-          <PublicListingDetailsHeader listing={listing} />
-          <PublicListingFeatures features={listing.features} />
+        <div className="hidden md:block">
+          <BackToInventoryButton onNavigate={onNavigate} />
         </div>
 
-        <aside className="grid h-fit gap-4 lg:sticky lg:top-20">
-          <PublicListingSpecs listing={listing} />
-          <div id="listing-inquiry">
-            <PublicListingInquiryForm listingId={listing.id} />
+        <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
+          <div className="grid min-w-0 gap-5">
+            <PublicListingGallery listing={listing} />
+            <PublicListingDetailsHeader listing={listing} />
+            <PublicListingFeatures features={listing.features} />
           </div>
-          <PublicListingContactReassurance />
-        </aside>
-      </div>
+
+          <aside className="grid h-fit gap-4 lg:sticky lg:top-20">
+            <PublicListingSpecs listing={listing} />
+            <div id="listing-inquiry">
+              <PublicListingInquiryForm listingId={listing.id} />
+            </div>
+            <PublicListingContactReassurance />
+          </aside>
+        </div>
       </div>
 
       <PublicListingMobileCta

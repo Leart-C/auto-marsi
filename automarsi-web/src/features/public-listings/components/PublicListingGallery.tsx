@@ -29,8 +29,8 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
 
   return (
     <div className="grid gap-3">
-      <div className="-mx-4 overflow-hidden border-y bg-card shadow-[0_18px_45px_rgba(31,25,76,0.06)] sm:mx-0 sm:rounded-2xl sm:border">
-        <div className="relative aspect-[4/3] bg-slate-100 sm:aspect-[16/10]">
+      <div className="-mx-4 overflow-hidden border-y border-white/10 bg-white/[0.05] shadow-[0_24px_80px_rgba(0,0,0,0.3)] backdrop-blur-xl sm:mx-0 sm:rounded-[2rem] sm:border">
+        <div className="relative aspect-[4/3] bg-white/[0.04] sm:aspect-[16/10]">
           {selectedImage?.image_url ? (
             <img
               src={selectedImage.image_url}
@@ -41,7 +41,7 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
           ) : (
             <div className="grid size-full place-items-center p-8 text-center">
               <div className="grid max-w-sm justify-items-center gap-3 text-muted-foreground">
-                <div className="grid size-14 place-items-center rounded-full bg-white shadow-xs">
+                <div className="grid size-14 place-items-center rounded-full bg-white/10 shadow-xs">
                   <ImageIcon className="size-6" />
                 </div>
                 <div>
@@ -57,7 +57,7 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
           )}
 
           {images.length > 0 ? (
-            <div className="absolute bottom-3 right-3 rounded-full bg-background/90 px-3 py-1 text-xs font-medium shadow-sm">
+            <div className="absolute bottom-3 right-3 rounded-full border border-white/10 bg-background/70 px-3 py-1 text-xs font-medium shadow-sm backdrop-blur-xl">
               {images.length}{' '}
               {images.length === 1
                 ? messages.listingDetails.imageSingular
@@ -83,8 +83,8 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
                 aria-pressed={isSelected}
                 className={
                   isSelected
-                    ? 'overflow-hidden rounded-xl border-2 border-primary bg-muted'
-                    : 'overflow-hidden rounded-xl border bg-muted transition hover:border-foreground/40'
+                    ? 'overflow-hidden rounded-xl border-2 border-primary bg-white/[0.08]'
+                    : 'overflow-hidden rounded-xl border border-white/10 bg-white/[0.05] transition hover:border-foreground/40'
                 }
               >
                 <span className="block aspect-square">

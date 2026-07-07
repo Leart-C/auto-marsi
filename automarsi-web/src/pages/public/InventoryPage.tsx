@@ -96,7 +96,7 @@ function InventoryHeader({ countLabel }: InventoryHeaderProps) {
   const { messages } = useI18n()
 
   return (
-    <div className="grid gap-5 border-b pb-6 lg:flex lg:items-end lg:justify-between">
+    <div className="grid gap-5 border-b border-white/10 pb-6 lg:flex lg:items-end lg:justify-between">
       <div className="hidden lg:block">
         <PublicSectionHeader
           eyebrow={messages.inventory.eyebrow}
@@ -109,7 +109,7 @@ function InventoryHeader({ countLabel }: InventoryHeaderProps) {
         {messages.nav.inventory}
       </h1>
 
-      <div className="hidden w-fit rounded-full border bg-white/80 px-4 py-2 text-sm font-semibold text-muted-foreground shadow-xs lg:block">
+      <div className="hidden w-fit rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm font-semibold text-muted-foreground shadow-xs backdrop-blur-xl lg:block">
         {countLabel}
       </div>
     </div>
@@ -133,7 +133,7 @@ function InventoryResults({
 
   if (listingsQuery.isLoading) {
     return (
-      <div className="rounded-[1.75rem] border bg-card p-8 text-sm text-muted-foreground shadow-[0_18px_40px_rgba(31,25,76,0.06)]">
+      <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-8 text-sm text-muted-foreground shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-xl">
         {messages.inventory.loadingAvailable}
       </div>
     )
@@ -141,7 +141,7 @@ function InventoryResults({
 
   if (errorMessage) {
     return (
-      <div className="grid gap-3 rounded-[1.75rem] border bg-card p-8 shadow-[0_18px_40px_rgba(31,25,76,0.06)]">
+      <div className="grid gap-3 rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-xl">
         <div className="grid gap-1">
           <p className="font-medium">{messages.inventory.couldNotLoad}</p>
           <p className="text-sm text-muted-foreground">{errorMessage}</p>
@@ -161,7 +161,7 @@ function InventoryResults({
 
   if (!hasListings) {
     return (
-      <div className="rounded-[1.75rem] border bg-card p-8 shadow-[0_18px_40px_rgba(31,25,76,0.06)]">
+      <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-xl">
         <p className="font-medium">{messages.inventory.noVehicles}</p>
         <p className="mt-1 text-sm text-muted-foreground">
           {messages.inventory.noVehiclesDescription}

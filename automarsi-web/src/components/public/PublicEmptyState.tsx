@@ -28,13 +28,13 @@ function PublicEmptyState({
   return (
     <section className="mx-auto grid min-h-[58vh] max-w-3xl place-items-center px-4 py-16 text-center sm:px-6 lg:px-8">
       <div className="grid justify-items-center gap-5">
-        <div className="grid size-14 place-items-center rounded-2xl border bg-card shadow-sm">
-          <Icon className="size-6 text-red-600" />
+        <div className="grid size-14 place-items-center rounded-2xl border border-white/10 bg-white/[0.05] shadow-sm backdrop-blur-xl">
+          <Icon className="size-6 text-primary" />
         </div>
 
         <div className="grid gap-2">
           {eyebrow ? (
-            <p className="text-xs font-semibold uppercase tracking-wide text-red-600">
+            <p className="text-xs font-semibold uppercase tracking-wide text-primary">
               {eyebrow}
             </p>
           ) : null}

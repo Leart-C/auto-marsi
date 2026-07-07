@@ -21,7 +21,7 @@ function PublicMobileSearch({
   return (
     <label
       className={cn(
-        'flex h-14 items-center gap-3 rounded-3xl bg-muted px-5 text-muted-foreground shadow-inner md:hidden',
+        'flex h-14 items-center gap-3 rounded-3xl border border-white/10 bg-white/[0.06] px-5 text-muted-foreground shadow-inner backdrop-blur-xl md:hidden',
         className
       )}
     >

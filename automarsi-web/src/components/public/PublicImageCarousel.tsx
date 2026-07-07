@@ -39,7 +39,7 @@ function PublicImageCarousel({
   return (
     <div
       className={cn(
-        'relative overflow-hidden rounded-[1.75rem] border border-dashed border-slate-300 bg-white/45',
+        'relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] shadow-[0_30px_90px_rgba(0,0,0,0.35)]',
         aspect,
         className
       )}
@@ -61,7 +61,7 @@ function PublicImageCarousel({
           ))}
 
           {visibleImages.length > 1 ? (
-            <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 rounded-full bg-white/80 px-3 py-2 shadow-sm backdrop-blur">
+            <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 rounded-full border border-white/10 bg-background/70 px-3 py-2 shadow-sm backdrop-blur-xl">
               {visibleImages.map((image, index) => (
                 <button
                   key={image.id ?? image.image_url}
@@ -70,7 +70,7 @@ function PublicImageCarousel({
                   onClick={() => setActiveIndex(index)}
                   className={cn(
                     'size-2 rounded-full transition',
-                    index === activeIndex ? 'bg-primary' : 'bg-slate-300'
+                    index === activeIndex ? 'bg-primary' : 'bg-white/35'
                   )}
                 />
               ))}

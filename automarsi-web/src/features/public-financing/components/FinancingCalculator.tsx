@@ -33,9 +33,9 @@ function FinancingCalculator({ onAskAboutEstimate }: FinancingCalculatorProps) {
   const financedAmount = Math.max(vehiclePrice - downPayment, 0)
 
   return (
-    <aside className="rounded-xl border bg-card p-4 shadow-sm lg:sticky lg:top-24">
+    <aside className="rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.3)] backdrop-blur-xl lg:sticky lg:top-24">
       <div className="mb-4 flex items-start gap-3">
-        <div className="grid size-9 shrink-0 place-items-center rounded-lg bg-red-50 text-red-600">
+        <div className="grid size-10 shrink-0 place-items-center rounded-2xl bg-primary/15 text-primary">
           <Calculator className="size-4" />
         </div>
 
@@ -49,14 +49,14 @@ function FinancingCalculator({ onAskAboutEstimate }: FinancingCalculatorProps) {
         </div>
       </div>
 
-      <div className="mb-4 rounded-xl bg-slate-950 p-4 text-white">
-        <p className="text-xs font-medium uppercase text-slate-300">
+      <div className="mb-4 rounded-[1.5rem] bg-gradient-to-br from-primary to-[#9d6d20] p-5 text-primary-foreground shadow-[0_24px_60px_rgba(213,162,56,0.22)]">
+        <p className="text-xs font-black uppercase tracking-[0.2em] text-primary-foreground/80">
           {messages.financing.calculator.estimatedMonthly}
         </p>
-        <p className="mt-1 text-3xl font-semibold">
+        <p className="mt-2 text-4xl font-black tracking-[-0.05em]">
           {formatCurrency(monthlyPayment)}
         </p>
-        <p className="mt-1 text-xs text-slate-300">
+        <p className="mt-1 text-xs text-primary-foreground/80">
           {messages.financing.calculator.financedAmount}:{' '}
           {formatCurrency(financedAmount)}
         </p>
@@ -70,7 +70,7 @@ function FinancingCalculator({ onAskAboutEstimate }: FinancingCalculatorProps) {
             min="0"
             value={vehiclePrice}
             onChange={(event) => setVehiclePrice(Number(event.target.value))}
-            className="h-9 w-full rounded-lg border bg-background px-3 text-sm"
+            className="h-11 w-full rounded-2xl border border-input bg-white/[0.04] px-3 text-sm"
           />
         </label>
 
@@ -82,7 +82,7 @@ function FinancingCalculator({ onAskAboutEstimate }: FinancingCalculatorProps) {
             max={vehiclePrice}
             value={downPayment}
             onChange={(event) => setDownPayment(Number(event.target.value))}
-            className="h-9 w-full rounded-lg border bg-background px-3 text-sm"
+            className="h-11 w-full rounded-2xl border border-input bg-white/[0.04] px-3 text-sm"
           />
           <input
             type="range"
@@ -91,7 +91,7 @@ function FinancingCalculator({ onAskAboutEstimate }: FinancingCalculatorProps) {
             step="500"
             value={downPayment}
             onChange={(event) => setDownPayment(Number(event.target.value))}
-            className="w-full accent-red-600"
+            className="w-full accent-primary"
           />
         </label>
 
@@ -101,7 +101,7 @@ function FinancingCalculator({ onAskAboutEstimate }: FinancingCalculatorProps) {
             <select
               value={months}
               onChange={(event) => setMonths(Number(event.target.value))}
-              className="h-9 w-full min-w-0 rounded-lg border bg-background px-3 text-sm"
+              className="h-11 w-full min-w-0 rounded-2xl border border-input bg-white/[0.04] px-3 text-sm"
             >
               <option value={36}>
                 36 {messages.financing.calculator.months}
@@ -126,13 +126,13 @@ function FinancingCalculator({ onAskAboutEstimate }: FinancingCalculatorProps) {
               step="0.1"
               value={annualRate}
               onChange={(event) => setAnnualRate(Number(event.target.value))}
-              className="h-9 w-full min-w-0 rounded-lg border bg-background px-3 text-sm"
+              className="h-11 w-full min-w-0 rounded-2xl border border-input bg-white/[0.04] px-3 text-sm"
             />
           </label>
         </div>
       </div>
 
-      <div className="mt-4 grid gap-3 border-t pt-3">
+      <div className="mt-4 grid gap-3 border-t border-white/10 pt-3">
         <p className="text-xs leading-5 text-muted-foreground">
           {messages.financing.calculator.note}
         </p>

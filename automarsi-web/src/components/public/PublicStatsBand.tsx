@@ -14,7 +14,7 @@ function PublicStatsBand({ className, items }: PublicStatsBandProps) {
   return (
     <div
       className={cn(
-        'grid rounded-3xl border border-primary/25 bg-white/45 p-6 shadow-[0_18px_45px_rgba(31,25,76,0.04)] sm:grid-cols-2 lg:grid-cols-4',
+        'grid rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:grid-cols-2 lg:grid-cols-4',
         className
       )}
     >

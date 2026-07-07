@@ -14,7 +14,7 @@ function PublicListingFeatures({ features }: PublicListingFeaturesProps) {
   }
 
   return (
-    <section className="rounded-lg border bg-card p-6">
+    <section className="rounded-[1.75rem] border border-white/10 bg-white/[0.05] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.25)] backdrop-blur-xl">
       <h2 className="text-lg font-semibold">
         {messages.listingDetails.features}
       </h2>
@@ -25,7 +25,7 @@ function PublicListingFeatures({ features }: PublicListingFeaturesProps) {
             key={feature.id}
             className="flex items-center gap-2 text-sm text-muted-foreground"
           >
-            <CheckCircle2 className="size-4 text-red-600" />
+            <CheckCircle2 className="size-4 text-primary" />
             {feature.name}
           </div>
         ))}

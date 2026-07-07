@@ -11,14 +11,14 @@ type PublicValueListProps = {
 
 function PublicValueList({ title, items }: PublicValueListProps) {
   return (
-    <div className="rounded-3xl border bg-card p-6 shadow-[0_18px_45px_rgba(31,25,76,0.06)]">
+    <div className="rounded-[2rem] border border-white/10 bg-white/[0.05] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.28)] backdrop-blur-xl">
       {title ? <h3 className="mb-2 text-xl font-black">{title}</h3> : null}
 
       <div className="grid">
         {items.map((item) => (
           <div
             key={item.title}
-            className="grid gap-3 border-b py-5 last:border-b-0 sm:grid-cols-[2.5rem_1fr]"
+            className="grid gap-3 border-b border-white/10 py-5 last:border-b-0 sm:grid-cols-[2.5rem_1fr]"
           >
             <div className="h-0.5 w-8 self-start rounded-full bg-primary sm:mt-3">
               <span className="sr-only">{item.title}</span>
