@@ -8,11 +8,11 @@ type AdminMetricCardProps = {
   detail?: string
   badge?: string
   icon?: LucideIcon
-  tone?: 'gold' | 'green' | 'blue' | 'red' | 'slate'
+  tone?: 'brand' | 'green' | 'blue' | 'red' | 'slate'
 }
 
 const toneStyles = {
-  gold: 'bg-primary/15 text-primary',
+  brand: 'bg-primary/15 text-primary',
   green: 'bg-emerald-100 text-emerald-700',
   blue: 'bg-primary/15 text-primary',
   red: 'bg-red-100 text-red-700',
@@ -25,7 +25,7 @@ function AdminMetricCard({
   detail,
   badge,
   icon: Icon,
-  tone = 'gold',
+  tone = 'brand',
 }: AdminMetricCardProps) {
   return (
     <AdminSurface className="p-4">
