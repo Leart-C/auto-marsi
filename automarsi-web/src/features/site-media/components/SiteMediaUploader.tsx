@@ -1,4 +1,4 @@
-import { ImagePlus, Upload } from 'lucide-react'
+import { ImagePlus, Trash2, Upload } from 'lucide-react'
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/button'
 import type { SiteMedia } from '../types'
@@ -6,23 +6,29 @@ import type { SiteMedia } from '../types'
 type SiteMediaUploaderProps = {
   mediaItems: SiteMedia[]
   isSubmitting: boolean
+  isDeleting: boolean
+  deletingMediaId?: number
   errorMessage: string | null
   emptyLabel: string
   galleryTitle: string
   inputLabel?: string
   uploadLabel?: string
   onSubmit: (payload: { images: File[]; altText: string }) => Promise<void>
+  onDelete: (siteMediaId: number) => Promise<void>
 }
 
 function SiteMediaUploader({
   mediaItems,
   isSubmitting,
+  isDeleting,
+  deletingMediaId,
   errorMessage,
   emptyLabel,
   galleryTitle,
   inputLabel = 'Image',
   uploadLabel = 'Upload image',
   onSubmit,
+  onDelete,
 }: SiteMediaUploaderProps) {
   const [images, setImages] = useState<File[]>([])
   const [altText, setAltText] = useState('')
@@ -56,6 +62,18 @@ function SiteMediaUploader({
     setAltText('')
   }
 
+  async function handleDelete(siteMediaId: number) {
+    const shouldDelete = window.confirm(
+      'Delete this image from the public website?'
+    )
+
+    if (!shouldDelete) {
+      return
+    }
+
+    await onDelete(siteMediaId)
+  }
+
   return (
     <form onSubmit={handleSubmit} className="grid gap-4 p-5">
       {errorMessage ? (
@@ -69,7 +87,7 @@ function SiteMediaUploader({
           {previewUrl ? (
             <img
               src={previewUrl}
-              alt={altText || 'About showroom preview'}
+              alt={altText || 'Site media preview'}
               className="size-full object-cover"
             />
           ) : (
@@ -121,25 +139,51 @@ function SiteMediaUploader({
         <div className="grid gap-3 border-t pt-4">
           <p className="text-sm font-semibold">{galleryTitle}</p>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            {mediaItems.map((media) => (
-              <div
-                key={media.id}
-                className="overflow-hidden rounded-xl border bg-background"
-              >
-                <div className="aspect-[4/3] bg-muted">
-                  {media.image_url ? (
-                    <img
-                      src={media.image_url}
-                      alt={media.alt_text ?? 'About carousel image'}
-                      className="size-full object-cover"
-                    />
-                  ) : null}
+            {mediaItems.map((media) => {
+              const isDeletingCurrentMedia =
+                isDeleting && deletingMediaId === media.id
+
+              return (
+                <div
+                  key={media.id}
+                  className="overflow-hidden rounded-xl border bg-background"
+                >
+                  <div className="aspect-[4/3] bg-muted">
+                    {media.image_url ? (
+                      <img
+                        src={media.image_url}
+                        alt={media.alt_text ?? 'Site media image'}
+                        className="size-full object-cover"
+                      />
+                    ) : null}
+                  </div>
+
+                  <div className="grid gap-3 p-3">
+                    <p className="text-xs text-muted-foreground">
+                      {media.alt_text || 'No alt text'}
+                    </p>
+
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      disabled={isDeleting}
+                      onClick={() => {
+                        if (media.id === null) {
+                          return
+                        }
+
+                        handleDelete(media.id)
+                      }}
+                      className="justify-start text-red-600 hover:text-red-700"
+                    >
+                      <Trash2 className="size-4" />
+                      {isDeletingCurrentMedia ? 'Deleting...' : 'Delete'}
+                    </Button>
+                  </div>
                 </div>
-                <div className="p-3 text-xs text-muted-foreground">
-                  {media.alt_text || 'No alt text'}
-                </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
       ) : null}

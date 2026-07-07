@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SiteMedia\UpdateSiteMediaRequest;
 use App\Http\Resources\SiteMediaResource;
 use App\Models\SiteMedia;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Support\Facades\Storage;
 
 class AdminSiteMediaController extends Controller
 {
@@ -38,5 +40,16 @@ class AdminSiteMediaController extends Controller
         ]);
 
         return new SiteMediaResource($media);
+    }
+
+    public function destroy(SiteMedia $siteMedia): JsonResponse
+    {
+        if ($siteMedia->disk && $siteMedia->path) {
+            Storage::disk($siteMedia->disk)->delete($siteMedia->path);
+        }
+
+        $siteMedia->delete();
+
+        return response()->json(null, 204);
     }
 }

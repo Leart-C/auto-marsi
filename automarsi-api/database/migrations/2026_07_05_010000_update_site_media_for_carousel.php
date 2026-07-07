@@ -19,9 +19,11 @@ return new class extends Migration
             }
         });
 
-        DB::statement(
-            'ALTER TABLE site_media DROP CONSTRAINT IF EXISTS site_media_key_unique'
-        );
+        if (DB::getDriverName() === 'pgsql') {
+            DB::statement(
+                'ALTER TABLE site_media DROP CONSTRAINT IF EXISTS site_media_key_unique'
+            );
+        }
     }
 
     public function down(): void

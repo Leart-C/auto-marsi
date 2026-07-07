@@ -53,25 +53,35 @@ function SiteMediaManager({
   galleryTitle,
   uploadLabel,
 }: SiteMediaManagerProps) {
-  const { mediaItems, mediaQuery, updateMediaMutation, errorMessage } =
-    useAdminSiteMedia(mediaKey)
+  const {
+    mediaItems,
+    mediaQuery,
+    updateMediaMutation,
+    deleteMediaMutation,
+    errorMessage,
+  } = useAdminSiteMedia(mediaKey)
 
   return (
     <DataTableShell title={title} description={description}>
       {mediaQuery.isLoading ? (
-          <div className="p-5 text-sm text-muted-foreground">
-            Loading image...
-          </div>
+        <div className="p-5 text-sm text-muted-foreground">
+          Loading image...
+        </div>
       ) : (
         <SiteMediaUploader
           mediaItems={mediaItems}
           isSubmitting={updateMediaMutation.isPending}
+          isDeleting={deleteMediaMutation.isPending}
+          deletingMediaId={deleteMediaMutation.variables}
           errorMessage={errorMessage}
           emptyLabel={emptyLabel}
           galleryTitle={galleryTitle}
           uploadLabel={uploadLabel}
           onSubmit={async (payload) => {
             await updateMediaMutation.mutateAsync(payload)
+          }}
+          onDelete={async (siteMediaId) => {
+            await deleteMediaMutation.mutateAsync(siteMediaId)
           }}
         />
       )}
