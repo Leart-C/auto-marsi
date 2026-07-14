@@ -59,8 +59,8 @@ function ListingDetailsPage({
           <BackToInventoryButton onNavigate={onNavigate} />
         </div>
 
-        <div className="grid min-w-0 gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
-          <div className="grid min-w-0 gap-5">
+        <div className="grid min-w-0 items-start gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
+          <div className="grid min-w-0 gap-5 self-start">
             <PublicListingGallery listing={listing} />
             <PublicListingDetailsHeader listing={listing} />
             <PublicListingFeatures features={listing.features} />
