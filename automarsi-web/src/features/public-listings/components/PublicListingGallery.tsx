@@ -21,33 +21,51 @@ function getGalleryImages(listing: PublicListing): PublicListingImage[] {
 function PublicListingGallery({ listing }: PublicListingGalleryProps) {
   const { messages } = useI18n()
   const images = useMemo(() => getGalleryImages(listing), [listing])
-  const [selectedImageId, setSelectedImageId] = useState<number | null>(
+  const mainImage = listing.primary_image ?? images[0] ?? null
+  const secondaryImage =
+    images.find((image) => {
+      const text = `${image.alt_text ?? ''}`.toLowerCase()
+
+      return image.id !== mainImage?.id && text.includes('interior')
+    }) ??
+    images.find((image) => image.id !== mainImage?.id) ??
+    null
+  const displayImages = [mainImage, secondaryImage].filter(
+    (image): image is PublicListingImage => image !== null,
+  )
+  const [activeLightboxImageId, setActiveLightboxImageId] = useState<
+    number | null
+  >(
     listing.primary_image?.id ?? images[0]?.id ?? null,
   )
   const [isLightboxOpen, setIsLightboxOpen] = useState(false)
-
-  const selectedImage =
-    images.find((image) => image.id === selectedImageId) ?? images[0] ?? null
-  const sideImages = images
-    .filter((image) => image.id !== selectedImage?.id)
-    .slice(0, 2)
+  const activeLightboxIndex = Math.max(
+    0,
+    images.findIndex((image) => image.id === activeLightboxImageId),
+  )
 
   return (
     <div className="grid gap-3">
-      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_clamp(10rem,15vw,13rem)]">
+      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(12rem,15rem)]">
         <button
           type="button"
-          onClick={() => selectedImage?.image_url && setIsLightboxOpen(true)}
+          onClick={() => {
+            setActiveLightboxImageId(mainImage?.id ?? null)
+
+            if (mainImage?.image_url) {
+              setIsLightboxOpen(true)
+            }
+          }}
           className="-mx-4 overflow-hidden border-y border-white/10 bg-card text-left shadow-[0_22px_70px_rgba(0,0,0,0.28)] sm:mx-0 sm:rounded-lg sm:border"
           aria-label={`${messages.listingDetails.viewImage} ${listing.title}`}
         >
-          <div className="relative aspect-[4/3] overflow-hidden bg-white/[0.04] sm:aspect-[16/9]">
-            {selectedImage?.image_url ? (
+          <div className="relative aspect-[4/3] overflow-hidden bg-white/[0.04]">
+            {mainImage?.image_url ? (
               <img
-                src={selectedImage.image_url}
-                alt={selectedImage.alt_text ?? listing.title}
+                src={mainImage.image_url}
+                alt={mainImage.alt_text ?? listing.title}
                 decoding="async"
-                className="size-full object-cover object-center transition duration-500 hover:scale-[1.02]"
+                className="absolute inset-0 size-full object-cover object-center transition duration-500 hover:scale-[1.02]"
               />
             ) : (
               <div className="grid size-full place-items-center p-8 text-center">
@@ -69,56 +87,57 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
           </div>
         </button>
 
-        {sideImages.length > 0 ? (
-          <div className="hidden grid-rows-2 gap-3 lg:grid">
-            {sideImages.map((image, index) => (
-              <button
-                key={image.id}
-                type="button"
-                onClick={() => {
-                  setSelectedImageId(image.id)
-                  setIsLightboxOpen(true)
-                }}
-                className="group relative overflow-hidden rounded-md border border-white/10 bg-white/[0.04] text-left"
-              >
-                {image.image_url ? (
-                  <img
-                    src={image.image_url}
-                    alt={image.alt_text ?? listing.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="size-full object-cover object-center transition duration-500 group-hover:scale-105"
-                  />
-                ) : (
-                  <span className="grid size-full place-items-center text-xs text-muted-foreground">
-                    {messages.common.noImage}
-                  </span>
-                )}
-                <span className="absolute bottom-2 left-2 rounded bg-background/70 px-2 py-1 text-[0.6rem] font-bold uppercase tracking-[0.12em] text-foreground backdrop-blur">
-                  {index === 0 ? 'Interior' : 'Exterior'}
-                </span>
-              </button>
-            ))}
-          </div>
+        {secondaryImage ? (
+          <button
+            type="button"
+            onClick={() => {
+              setActiveLightboxImageId(secondaryImage.id)
+
+              if (secondaryImage.image_url) {
+                setIsLightboxOpen(true)
+              }
+            }}
+            className="group relative hidden overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] text-left shadow-[0_18px_55px_rgba(0,0,0,0.24)] lg:block"
+          >
+            {secondaryImage.image_url ? (
+              <img
+                src={secondaryImage.image_url}
+                alt={secondaryImage.alt_text ?? listing.title}
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 size-full object-cover object-center transition duration-500 group-hover:scale-105"
+              />
+            ) : (
+              <span className="grid size-full place-items-center text-xs text-muted-foreground">
+                {messages.common.noImage}
+              </span>
+            )}
+            <span className="absolute bottom-3 left-3 rounded bg-background/75 px-2.5 py-1 text-[0.62rem] font-bold uppercase tracking-[0.14em] text-foreground backdrop-blur">
+              Interior
+            </span>
+          </button>
         ) : null}
       </div>
 
-      {images.length > 1 ? (
+      {displayImages.length > 1 ? (
         <div className="public-scrollbar flex snap-x gap-2 overflow-x-auto pb-2 lg:hidden">
-          {images.map((image, index) => {
-            const isSelected = image.id === selectedImage?.id
+          {displayImages.map((image, index) => {
+            const isMainImage = image.id === mainImage?.id
 
             return (
               <button
                 key={image.id}
                 type="button"
-                onClick={() => setSelectedImageId(image.id)}
+                onClick={() => {
+                  setActiveLightboxImageId(image.id)
+                  setIsLightboxOpen(true)
+                }}
                 aria-label={`${messages.listingDetails.viewImage} ${
                   index + 1
                 } ${listing.title}`}
-                aria-pressed={isSelected}
+                aria-pressed={isMainImage}
                 className={
-                  isSelected
+                  isMainImage
                     ? 'size-20 shrink-0 snap-start overflow-hidden rounded-md border-2 border-primary bg-muted'
                     : 'size-20 shrink-0 snap-start overflow-hidden rounded-md border border-white/10 bg-muted transition hover:border-foreground/40'
                 }
@@ -144,13 +163,12 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
 
       <PublicImageLightbox
         images={images}
-        activeIndex={Math.max(
-          0,
-          images.findIndex((image) => image.id === selectedImage?.id),
-        )}
+        activeIndex={activeLightboxIndex}
         label={listing.title}
         open={isLightboxOpen}
-        onActiveIndexChange={(index) => setSelectedImageId(images[index]?.id ?? null)}
+        onActiveIndexChange={(index) =>
+          setActiveLightboxImageId(images[index]?.id ?? null)
+        }
         onClose={() => setIsLightboxOpen(false)}
       />
     </div>
