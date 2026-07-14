@@ -38,6 +38,8 @@ import {
 import type { AdminListingImage } from '../types'
 import type { UpdateAdminListingImagePayload } from '../api/updateAdminListingImage'
 
+const imageLabelPresets = ['Main', 'Interior', 'Exterior'] as const
+
 type ListingImageCardProps = {
   image: AdminListingImage
   isSettingPrimary: boolean
@@ -196,6 +198,20 @@ function ListingImageCard({
                   maxLength={255}
                   placeholder="Front view of the vehicle"
                 />
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {imageLabelPresets.map((label) => (
+                    <Button
+                      key={label}
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="h-7 rounded-full px-3 text-xs"
+                      onClick={() => setAltText(label)}
+                    >
+                      {label}
+                    </Button>
+                  ))}
+                </div>
               </label>
 
               <label className="grid gap-1.5 text-sm font-medium">

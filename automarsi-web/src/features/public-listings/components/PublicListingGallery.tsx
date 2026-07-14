@@ -18,20 +18,29 @@ function getGalleryImages(listing: PublicListing): PublicListingImage[] {
   return listing.primary_image ? [listing.primary_image] : []
 }
 
+function imageText(image: PublicListingImage): string {
+  return `${image.alt_text ?? ''}`.toLowerCase()
+}
+
 function PublicListingGallery({ listing }: PublicListingGalleryProps) {
   const { messages } = useI18n()
   const images = useMemo(() => getGalleryImages(listing), [listing])
   const mainImage = listing.primary_image ?? images[0] ?? null
-  const secondaryImage =
-    images.find((image) => {
-      const text = `${image.alt_text ?? ''}`.toLowerCase()
-
-      return image.id !== mainImage?.id && text.includes('interior')
-    }) ??
-    images.find((image) => image.id !== mainImage?.id) ??
+  const galleryImages = images.filter((image) => image.id !== mainImage?.id)
+  const interiorImage =
+    galleryImages.find((image) => imageText(image).includes('interior')) ??
+    galleryImages[0] ??
     null
-  const displayImages = [mainImage, secondaryImage].filter(
-    (image): image is PublicListingImage => image !== null,
+  const exteriorImage =
+    galleryImages.find((image) => imageText(image).includes('exterior')) ??
+    galleryImages.find((image) => image.id !== interiorImage?.id) ??
+    null
+  const actionImages = [
+    interiorImage ? { image: interiorImage, label: 'Interior' } : null,
+    exteriorImage ? { image: exteriorImage, label: 'Exterior' } : null,
+  ].filter(
+    (item): item is { image: PublicListingImage; label: string } =>
+      item !== null,
   )
   const [activeLightboxImageId, setActiveLightboxImageId] = useState<
     number | null
@@ -47,25 +56,14 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
   return (
     <div className="grid gap-3">
       <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(12rem,15rem)]">
-        <button
-          type="button"
-          onClick={() => {
-            setActiveLightboxImageId(mainImage?.id ?? null)
-
-            if (mainImage?.image_url) {
-              setIsLightboxOpen(true)
-            }
-          }}
-          className="relative -mx-4 aspect-[4/3] self-start overflow-hidden border-y border-white/10 bg-card text-left shadow-[0_22px_70px_rgba(0,0,0,0.28)] sm:mx-0 sm:rounded-lg sm:border"
-          aria-label={`${messages.listingDetails.viewImage} ${listing.title}`}
-        >
+        <div className="relative -mx-4 aspect-[4/3] self-start overflow-hidden border-y border-white/10 bg-card text-left shadow-[0_22px_70px_rgba(0,0,0,0.28)] sm:mx-0 sm:rounded-lg sm:border">
           <div className="absolute inset-0 overflow-hidden bg-white/[0.04]">
             {mainImage?.image_url ? (
               <img
                 src={mainImage.image_url}
                 alt={mainImage.alt_text ?? listing.title}
                 decoding="async"
-                className="absolute inset-0 size-full object-cover object-center transition duration-500 hover:scale-[1.02]"
+                className="absolute inset-0 size-full object-cover object-center"
               />
             ) : (
               <div className="grid size-full place-items-center p-8 text-center">
@@ -85,48 +83,51 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
               </div>
             )}
           </div>
-        </button>
+        </div>
 
-        {secondaryImage ? (
-          <button
-            type="button"
-            onClick={() => {
-              setActiveLightboxImageId(secondaryImage.id)
+        {actionImages.length > 0 ? (
+          <div className="hidden gap-3 self-start lg:grid">
+            {actionImages.map(({ image, label }) => (
+              <button
+                key={`${label}-${image.id}`}
+                type="button"
+                onClick={() => {
+                  setActiveLightboxImageId(image.id)
 
-              if (secondaryImage.image_url) {
-                setIsLightboxOpen(true)
-              }
-            }}
-            className="group relative hidden aspect-[4/3] self-start overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] text-left shadow-[0_18px_55px_rgba(0,0,0,0.24)] lg:block"
-          >
-            {secondaryImage.image_url ? (
-              <img
-                src={secondaryImage.image_url}
-                alt={secondaryImage.alt_text ?? listing.title}
-                loading="lazy"
-                decoding="async"
-                className="absolute inset-0 size-full object-cover object-center transition duration-500 group-hover:scale-105"
-              />
-            ) : (
-              <span className="grid size-full place-items-center text-xs text-muted-foreground">
-                {messages.common.noImage}
-              </span>
-            )}
-            <span className="absolute bottom-3 left-3 rounded bg-background/75 px-2.5 py-1 text-[0.62rem] font-bold uppercase tracking-[0.14em] text-foreground backdrop-blur">
-              Interior
-            </span>
-          </button>
+                  if (image.image_url) {
+                    setIsLightboxOpen(true)
+                  }
+                }}
+                className="group relative aspect-[4/3] overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] text-left shadow-[0_18px_55px_rgba(0,0,0,0.24)]"
+              >
+                {image.image_url ? (
+                  <img
+                    src={image.image_url}
+                    alt={image.alt_text ?? listing.title}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 size-full object-cover object-center transition duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <span className="grid size-full place-items-center text-xs text-muted-foreground">
+                    {messages.common.noImage}
+                  </span>
+                )}
+                <span className="absolute bottom-3 left-3 rounded bg-background/75 px-2.5 py-1 text-[0.62rem] font-bold uppercase tracking-[0.14em] text-foreground backdrop-blur">
+                  {label}
+                </span>
+              </button>
+            ))}
+          </div>
         ) : null}
       </div>
 
-      {displayImages.length > 1 ? (
+      {actionImages.length > 0 ? (
         <div className="public-scrollbar flex snap-x gap-2 overflow-x-auto pb-2 lg:hidden">
-          {displayImages.map((image, index) => {
-            const isMainImage = image.id === mainImage?.id
-
+          {actionImages.map(({ image, label }, index) => {
             return (
               <button
-                key={image.id}
+                key={`${label}-${image.id}`}
                 type="button"
                 onClick={() => {
                   setActiveLightboxImageId(image.id)
@@ -135,12 +136,7 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
                 aria-label={`${messages.listingDetails.viewImage} ${
                   index + 1
                 } ${listing.title}`}
-                aria-pressed={isMainImage}
-                className={
-                  isMainImage
-                    ? 'size-20 shrink-0 snap-start overflow-hidden rounded-md border-2 border-primary bg-muted'
-                    : 'size-20 shrink-0 snap-start overflow-hidden rounded-md border border-white/10 bg-muted transition hover:border-foreground/40'
-                }
+                className="relative size-20 shrink-0 snap-start overflow-hidden rounded-md border border-white/10 bg-muted transition hover:border-foreground/40"
               >
                 {image.image_url ? (
                   <img
@@ -155,6 +151,9 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
                     {messages.common.noImage}
                   </span>
                 )}
+                <span className="absolute bottom-1 left-1 rounded bg-background/75 px-1.5 py-0.5 text-[0.48rem] font-bold uppercase tracking-[0.1em] text-foreground backdrop-blur">
+                  {label}
+                </span>
               </button>
             )
           })}
