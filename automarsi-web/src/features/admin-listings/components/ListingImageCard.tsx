@@ -39,6 +39,25 @@ import type { AdminListingImage } from '../types'
 import type { UpdateAdminListingImagePayload } from '../api/updateAdminListingImage'
 
 const imageLabelPresets = ['Main', 'Interior', 'Exterior'] as const
+type ImageLabelPreset = (typeof imageLabelPresets)[number]
+
+function getImageLabel(image: AdminListingImage): ImageLabelPreset | null {
+  const altText = `${image.alt_text ?? ''}`.toLowerCase()
+
+  if (altText.includes('interior')) {
+    return 'Interior'
+  }
+
+  if (altText.includes('exterior')) {
+    return 'Exterior'
+  }
+
+  if (altText.includes('main') || image.is_primary) {
+    return 'Main'
+  }
+
+  return null
+}
 
 type ListingImageCardProps = {
   image: AdminListingImage
@@ -70,6 +89,7 @@ function ListingImageCard({
   )
 
   const isBusy = isSettingPrimary || isUpdating || isDeleting
+  const imageLabel = getImageLabel(image)
 
   function openEditDialog() {
     setAltText(image.alt_text ?? '')
@@ -101,6 +121,13 @@ function ListingImageCard({
     }
   }
 
+  async function applyLabel(label: ImageLabelPreset) {
+    await onUpdate(image.id, {
+      alt_text: label,
+      sort_order: image.sort_order ?? 0,
+    })
+  }
+
   return (
     <>
       <div className="overflow-hidden rounded-md border bg-card">
@@ -115,6 +142,15 @@ function ListingImageCard({
 
           {image.is_primary ? (
             <Badge className="absolute left-2 top-2">Primary</Badge>
+          ) : null}
+
+          {imageLabel && !image.is_primary ? (
+            <Badge
+              variant="secondary"
+              className="absolute left-2 top-2 bg-background/90"
+            >
+              {imageLabel}
+            </Badge>
           ) : null}
 
           <DropdownMenu>
@@ -174,6 +210,24 @@ function ListingImageCard({
           <p className="text-[11px] text-muted-foreground">
             Gallery position {(image.sort_order ?? 0) + 1}
           </p>
+
+          <div className="mt-2 grid grid-cols-2 gap-1.5">
+            {(['Interior', 'Exterior'] as const).map((label) => (
+              <Button
+                key={label}
+                type="button"
+                variant={imageLabel === label ? 'default' : 'outline'}
+                size="sm"
+                className="h-7 px-2 text-[11px]"
+                disabled={isBusy || imageLabel === label}
+                onClick={() => {
+                  void applyLabel(label).catch(() => undefined)
+                }}
+              >
+                {label}
+              </Button>
+            ))}
+          </div>
         </div>
       </div>
 
