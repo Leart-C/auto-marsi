@@ -56,10 +56,10 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
               setIsLightboxOpen(true)
             }
           }}
-          className="-mx-4 overflow-hidden border-y border-white/10 bg-card text-left shadow-[0_22px_70px_rgba(0,0,0,0.28)] sm:mx-0 sm:rounded-lg sm:border"
+          className="relative -mx-4 aspect-[4/3] self-start overflow-hidden border-y border-white/10 bg-card text-left shadow-[0_22px_70px_rgba(0,0,0,0.28)] sm:mx-0 sm:rounded-lg sm:border"
           aria-label={`${messages.listingDetails.viewImage} ${listing.title}`}
         >
-          <div className="relative aspect-[4/3] overflow-hidden bg-white/[0.04]">
+          <div className="absolute inset-0 overflow-hidden bg-white/[0.04]">
             {mainImage?.image_url ? (
               <img
                 src={mainImage.image_url}
@@ -97,7 +97,7 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
                 setIsLightboxOpen(true)
               }
             }}
-            className="group relative hidden overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] text-left shadow-[0_18px_55px_rgba(0,0,0,0.24)] lg:block"
+            className="group relative hidden aspect-[4/3] self-start overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] text-left shadow-[0_18px_55px_rgba(0,0,0,0.24)] lg:block"
           >
             {secondaryImage.image_url ? (
               <img
