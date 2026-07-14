@@ -14,14 +14,14 @@ function SoldListingCard({ listing }: { listing: PublicListing }) {
 
   return (
     <article className="min-w-[220px] snap-start overflow-hidden rounded-md border border-white/10 bg-card text-card-foreground sm:min-w-0">
-      <div className="relative grid aspect-[4/5] place-items-center bg-muted">
+      <div className="relative aspect-[4/5] overflow-hidden bg-muted">
         {listing.primary_image?.image_url ? (
           <img
             src={listing.primary_image.image_url}
             alt={listing.primary_image.alt_text ?? listing.title}
             loading="lazy"
             decoding="async"
-            className="max-h-full max-w-full object-contain grayscale"
+            className="size-full object-cover object-center grayscale transition duration-500 hover:scale-105"
           />
         ) : (
           <div className="grid size-full place-items-center bg-white/[0.04] text-muted-foreground">

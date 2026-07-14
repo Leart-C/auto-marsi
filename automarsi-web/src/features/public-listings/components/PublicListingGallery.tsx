@@ -41,13 +41,13 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
           className="-mx-4 overflow-hidden border-y border-white/10 bg-card text-left shadow-[0_22px_70px_rgba(0,0,0,0.28)] sm:mx-0 sm:rounded-lg sm:border"
           aria-label={`${messages.listingDetails.viewImage} ${listing.title}`}
         >
-          <div className="relative grid aspect-[4/3] place-items-center bg-white/[0.04] sm:aspect-[16/10]">
+          <div className="relative aspect-[4/3] overflow-hidden bg-white/[0.04] sm:aspect-[16/10]">
             {selectedImage?.image_url ? (
               <img
                 src={selectedImage.image_url}
                 alt={selectedImage.alt_text ?? listing.title}
                 decoding="async"
-                className="max-h-full max-w-full object-contain"
+                className="size-full object-cover object-center transition duration-500 hover:scale-[1.02]"
               />
             ) : (
               <div className="grid size-full place-items-center p-8 text-center">
@@ -79,7 +79,7 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
                   setSelectedImageId(image.id)
                   setIsLightboxOpen(true)
                 }}
-                className="group relative grid overflow-hidden rounded-md border border-white/10 bg-white/[0.04] text-left"
+                className="group relative overflow-hidden rounded-md border border-white/10 bg-white/[0.04] text-left"
               >
                 {image.image_url ? (
                   <img
@@ -87,7 +87,7 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
                     alt={image.alt_text ?? listing.title}
                     loading="lazy"
                     decoding="async"
-                    className="max-h-full max-w-full place-self-center object-contain"
+                    className="size-full object-cover object-center transition duration-500 group-hover:scale-105"
                   />
                 ) : (
                   <span className="grid size-full place-items-center text-xs text-muted-foreground">
@@ -129,7 +129,7 @@ function PublicListingGallery({ listing }: PublicListingGalleryProps) {
                     alt={image.alt_text ?? listing.title}
                     loading="lazy"
                     decoding="async"
-                    className="max-h-full max-w-full object-contain"
+                    className="size-full object-cover object-center"
                   />
                 ) : (
                   <span className="grid size-full place-items-center text-xs text-muted-foreground">

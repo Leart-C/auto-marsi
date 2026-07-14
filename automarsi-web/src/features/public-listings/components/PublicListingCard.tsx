@@ -47,14 +47,14 @@ function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
         onClick={() => onNavigate(`/inventory/${listing.id}`)}
         className="block w-full text-left"
       >
-        <div className="relative grid aspect-[4/3] place-items-center bg-muted">
+        <div className="relative aspect-[4/3] overflow-hidden bg-muted">
           {listing.primary_image?.image_url ? (
             <img
               src={listing.primary_image.image_url}
               alt={listing.primary_image.alt_text ?? listing.title}
               loading="lazy"
               decoding="async"
-              className="max-h-full max-w-full object-contain"
+              className="size-full object-cover object-center transition duration-500 group-hover:scale-105"
             />
           ) : (
             <div className="grid size-full place-items-center bg-white/[0.04] text-muted-foreground">

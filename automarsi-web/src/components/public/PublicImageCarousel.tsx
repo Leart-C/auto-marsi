@@ -91,7 +91,7 @@ function PublicImageCarousel({
                 loading={index === 0 ? 'eager' : 'lazy'}
                 decoding="async"
                 draggable={false}
-                className="size-full shrink-0 select-none [object-fit:scale-down]"
+                className="size-full shrink-0 select-none object-cover object-center"
               />
             ))}
           </div>
