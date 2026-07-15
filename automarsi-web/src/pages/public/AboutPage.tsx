@@ -8,7 +8,9 @@ import { useI18n } from '@/i18n/useI18n'
 function AboutPage() {
   const { messages } = useI18n()
   const aboutMediaQuery = usePublicSiteMedia('about_showroom')
-  const heroImage = aboutMediaQuery.data?.[0]?.image_url ?? supraHeroImage
+  const heroImage = aboutMediaQuery.isLoading
+    ? null
+    : aboutMediaQuery.data?.[0]?.image_url ?? supraHeroImage
   const carouselImages =
     aboutMediaQuery.data && aboutMediaQuery.data.length > 0
       ? aboutMediaQuery.data
@@ -27,11 +29,15 @@ function AboutPage() {
     <div>
       <section className="relative -mt-16 min-h-[64svh] overflow-hidden pt-16">
         <div className="absolute inset-0 public-image-fade">
-          <PublicFadingImage
-            src={heroImage}
-            alt={messages.about.showroomLabel}
-            className="size-full object-cover"
-          />
+          {heroImage ? (
+            <PublicFadingImage
+              src={heroImage}
+              alt={messages.about.showroomLabel}
+              className="size-full object-cover"
+            />
+          ) : (
+            <div className="size-full bg-background" />
+          )}
         </div>
 
         <div className="relative z-10 mx-auto flex min-h-[64svh] max-w-7xl items-end px-4 pb-10 sm:px-6 lg:px-8">

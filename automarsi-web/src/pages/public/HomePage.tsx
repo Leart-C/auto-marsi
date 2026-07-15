@@ -16,16 +16,23 @@ function HomePage({ onNavigate }: HomePageProps) {
   const { messages } = useI18n()
   const homeHeroMediaQuery = usePublicSiteMedia('home_hero')
   const heroMedia = homeHeroMediaQuery.data?.[0]
+  const heroImage = homeHeroMediaQuery.isLoading
+    ? null
+    : heroMedia?.image_url ?? supraHeroImage
 
   return (
     <div>
       <section className="relative -mt-16 min-h-[calc(100svh-5rem)] overflow-hidden pt-16">
         <div className="absolute inset-0 public-image-fade">
-          <PublicFadingImage
-            src={heroMedia?.image_url ?? supraHeroImage}
-            alt={heroMedia?.alt_text ?? 'AutoMarsi hero vehicle'}
-            className="size-full object-cover"
-          />
+          {heroImage ? (
+            <PublicFadingImage
+              src={heroImage}
+              alt={heroMedia?.alt_text ?? 'AutoMarsi hero vehicle'}
+              className="size-full object-cover"
+            />
+          ) : (
+            <div className="size-full bg-background" />
+          )}
         </div>
 
         <div className="relative z-10 mx-auto flex min-h-[calc(100svh-5rem)] max-w-7xl items-end px-4 pb-10 sm:px-6 lg:px-8">
