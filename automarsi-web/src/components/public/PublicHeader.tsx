@@ -1,4 +1,4 @@
-import { Phone } from 'lucide-react'
+import { ArrowUpRight, Phone } from 'lucide-react'
 import { useI18n } from '@/i18n/useI18n'
 import { cn } from '@/lib/utils'
 import LanguageToggle from './LanguageToggle'
@@ -26,22 +26,33 @@ function PublicHeader({ currentPath, onNavigate }: PublicHeaderProps) {
           aria-label={messages.common.brand}
           className="flex h-12 shrink-0 items-center gap-2 text-left"
         >
-          <span className="size-1.5 rounded-full bg-primary shadow-[0_0_18px_rgba(215,170,82,0.8)]" />
-          <span className="text-xs font-black uppercase tracking-[0.22em]">
+          <span className="brand-mark" aria-hidden="true">
+            M<span />
+          </span>
+          <span className="text-base font-semibold uppercase tracking-[-0.04em]">
             {messages.common.brand}
           </span>
         </button>
 
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav
+          aria-label={messages.common.browse}
+          className="hidden items-center gap-1 md:flex"
+        >
           {navigationItems.map((item) => (
             <button
               key={item.path}
               type="button"
               onClick={() => onNavigate(item.path)}
+              aria-current={
+                currentPath === item.path ||
+                (item.path === '/inventory' &&
+                  currentPath.startsWith('/inventory/'))
+                  ? 'page'
+                  : undefined
+              }
               className={cn(
                 'rounded-full px-3 py-2 text-xs font-semibold text-muted-foreground transition hover:bg-white/8 hover:text-foreground',
-                currentPath === item.path &&
-                  'bg-white/8 text-foreground'
+                currentPath === item.path && 'bg-white/8 text-foreground',
               )}
             >
               {item.label}
@@ -50,10 +61,14 @@ function PublicHeader({ currentPath, onNavigate }: PublicHeaderProps) {
         </nav>
 
         <div className="hidden items-center gap-3 text-xs text-muted-foreground lg:flex">
-          <span className="inline-flex items-center gap-1.5 rounded-md border border-white/10 px-3 py-2">
+          <a
+            href={`tel:${messages.contact.phone.replace(/\s/g, '')}`}
+            className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2.5 transition hover:border-primary hover:text-primary"
+          >
             <Phone className="size-3.5" />
             {messages.contact.phone}
-          </span>
+            <ArrowUpRight className="size-3.5" />
+          </a>
           <LanguageToggle />
         </div>
 

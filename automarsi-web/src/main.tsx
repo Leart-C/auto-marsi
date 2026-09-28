@@ -9,10 +9,6 @@ import App from './App.tsx'
 
 const publishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
 
-if (!publishableKey) {
-  throw new Error('Missing VITE_CLERK_PUBLISHABLE_KEY')
-}
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -24,15 +20,23 @@ const queryClient = new QueryClient({
   },
 })
 
+const application = (
+  <QueryClientProvider client={queryClient}>
+    <I18nProvider>
+      <App />
+    </I18nProvider>
+    <Toaster position="top-right" richColors closeButton />
+  </QueryClientProvider>
+)
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ClerkProvider publishableKey={publishableKey}>
-      <QueryClientProvider client={queryClient}>
-        <I18nProvider>
-          <App />
-        </I18nProvider>
-        <Toaster position="top-right" richColors closeButton />
-      </QueryClientProvider>
-    </ClerkProvider>
+    {publishableKey ? (
+      <ClerkProvider publishableKey={publishableKey}>
+        {application}
+      </ClerkProvider>
+    ) : (
+      application
+    )}
   </StrictMode>,
 )

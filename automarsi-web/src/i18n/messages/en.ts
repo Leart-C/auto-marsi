@@ -76,9 +76,11 @@ export const en = {
     mobileFinancingAction: 'Calculate payment',
     mobileContactAction: 'Write to us',
     heroEyebrow: 'AutoMarsi · Prishtina',
-    heroTitle: 'Cars that tell their story.',
+    heroTitle: 'Your next chapter.',
+    heroAccent: 'Your next drive.',
+    searchEyebrow: 'Find your next car',
     heroDescription:
-      'Explore available vehicles, ask for details, and get a clear response from our showroom team before you visit.',
+      'Exceptional cars. A personal experience. Find the vehicle that feels like you, right here in Prishtina.',
     browseInventory: 'View the collection',
     contactTeam: 'Contact team',
     showroomCtaTitle: 'Visit the showroom. Test the car.',
@@ -86,21 +88,24 @@ export const en = {
     showroomFollowUp: 'Showroom follow-up',
     featuredLocation: 'Featured · Prishtina',
     whyEyebrow: 'Why AutoMarsi',
-    whyTitle: 'A practical way to move from browsing to visiting.',
+    whyTitle: 'A better drive starts with confidence.',
     whyDescription:
       'The public website and admin workflow work together so customers see active vehicles and the team can manage every inquiry clearly.',
     trustItems: [
       {
         title: 'Selected vehicles',
-        description: 'Active listings are managed from the AutoMarsi dashboard.',
+        description:
+          'Discover our collection, with the details and photos you need to make your shortlist.',
       },
       {
         title: 'Clear follow-up',
-        description: 'Every inquiry reaches the team for proper response.',
+        description:
+          'Talk directly with our team about the car, its availability, and your next steps.',
       },
       {
         title: 'Showroom support',
-        description: 'Customers can ask, compare, and visit with confidence.',
+        description:
+          'See it in person. Take a closer look and find the right fit for your everyday life.',
       },
     ],
     stats: {
@@ -114,7 +119,7 @@ export const en = {
     eyebrow: 'Inventory',
     title: 'Find the right vehicle.',
     description:
-      'Use filters to browse active vehicles published by the AutoMarsi team.',
+      'Explore the collection. Filter by make, budget, and the details that matter to you.',
     loadingVehicles: 'Loading vehicles',
     loadingAvailable: 'Loading available vehicles...',
     vehicleFound: 'vehicle found',
@@ -164,7 +169,7 @@ export const en = {
     },
     featured: {
       eyebrow: 'Collection',
-      title: 'Active vehicles',
+      title: 'Find your next obsession.',
       description: '',
       viewAll: 'View all inventory',
       loading: 'Loading selected vehicles...',
@@ -264,8 +269,7 @@ export const en = {
     title: 'A practical autosallon with a clear customer flow.',
     description:
       'AutoMarsi connects real active vehicles with customers who want clear information before visiting the showroom.',
-    body:
-      'The public website is connected to the admin workflow, so listings, inquiries, and showroom follow-up stay organized from the first customer message.',
+    body: 'The public website is connected to the admin workflow, so listings, inquiries, and showroom follow-up stay organized from the first customer message.',
     browseVehicles: 'Browse vehicles',
     contactTeam: 'Contact the team',
     mattersEyebrow: 'What matters',
@@ -283,7 +287,8 @@ export const en = {
     principles: [
       {
         title: 'Selected inventory',
-        description: 'Customers see active vehicles prepared for real interest.',
+        description:
+          'Customers see active vehicles prepared for real interest.',
       },
       {
         title: 'Clear communication',
@@ -361,8 +366,7 @@ export const en = {
     title: 'Plan the next step before you visit.',
     description:
       'Use this page as guidance before speaking with AutoMarsi. The estimate helps you prepare better questions, not receive guaranteed approval.',
-    body:
-      'Financing depends on real terms, customer details, vehicle price, and the final offer reviewed by the customer. Nothing on this page is saved or sent to a bank.',
+    body: 'Financing depends on real terms, customer details, vehicle price, and the final offer reviewed by the customer. Nothing on this page is saved or sent to a bank.',
     browseVehicles: 'Browse vehicles',
     askAboutFinancing: 'Ask about financing',
     prepareTitle: 'Prepare the right questions before you visit.',
@@ -375,15 +379,18 @@ export const en = {
     highlights: [
       {
         title: 'No hard promise',
-        description: 'This is a planning estimate before real terms are reviewed.',
+        description:
+          'This is a planning estimate before real terms are reviewed.',
       },
       {
         title: 'Fast showroom follow-up',
-        description: 'Send your question and the team can continue the conversation.',
+        description:
+          'Send your question and the team can continue the conversation.',
       },
       {
         title: 'Clear preparation',
-        description: 'Arrive with budget, term, and vehicle questions already organized.',
+        description:
+          'Arrive with budget, term, and vehicle questions already organized.',
       },
     ],
     calculator: {
@@ -396,8 +403,7 @@ export const en = {
       term: 'Term',
       rate: 'Rate %',
       months: 'mo',
-      note:
-        'Estimate only. Final terms, rates, approval, and monthly payments are reviewed separately.',
+      note: 'Estimate only. Final terms, rates, approval, and monthly payments are reviewed separately.',
       askAboutEstimate: 'Ask about estimate',
     },
     steps: {
@@ -427,4 +433,4 @@ export const en = {
       contactTeam: 'Contact the team',
     },
   },
-} 
+}

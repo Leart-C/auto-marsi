@@ -1,3 +1,4 @@
+import { invalidateInventory } from '../utils/invalidateInventory'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useAdminToken } from '@/hooks/useAdminToken'
@@ -20,9 +21,7 @@ export function useListingEditForm({
 }: UseListingEditFormParams) {
   const queryClient = useQueryClient()
   const { getAdminToken } = useAdminToken()
-  const fields = useListingFormFields(() =>
-    listingToFormState(listing)
-  )
+  const fields = useListingFormFields(() => listingToFormState(listing))
 
   const updateListingMutation = useMutation({
     mutationFn: async () => {
@@ -35,23 +34,14 @@ export function useListingEditForm({
       })
     },
     onSuccess: async () => {
-      await Promise.all([
-        queryClient.invalidateQueries({
-          queryKey: ['admin', 'listings', String(listing.id)],
-        }),
-        queryClient.invalidateQueries({
-          queryKey: ['admin', 'listings'],
-        }),
-      ])
+      await invalidateInventory(queryClient)
 
       toast.success('Listing updated successfully.')
       onUpdated()
     },
     onError: (error) => {
       toast.error(
-        error instanceof Error
-          ? error.message
-          : 'Failed to update listing.'
+        error instanceof Error ? error.message : 'Failed to update listing.',
       )
     },
   })
@@ -62,7 +52,8 @@ export function useListingEditForm({
     await updateListingMutation.mutateAsync()
   }
 
-  const errorMessage = fields.optionsErrorMessage ??
+  const errorMessage =
+    fields.optionsErrorMessage ??
     (updateListingMutation.error instanceof Error
       ? updateListingMutation.error.message
       : null)

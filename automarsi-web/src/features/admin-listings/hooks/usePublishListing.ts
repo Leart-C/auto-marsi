@@ -1,3 +1,4 @@
+import { invalidateInventory } from '../utils/invalidateInventory'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useAdminToken } from '@/hooks/useAdminToken'
@@ -7,9 +8,7 @@ type UsePublishListingParams = {
   listingId: string
 }
 
-export function usePublishListing({
-  listingId,
-}: UsePublishListingParams) {
+export function usePublishListing({ listingId }: UsePublishListingParams) {
   const queryClient = useQueryClient()
   const { getAdminToken } = useAdminToken()
 
@@ -23,22 +22,15 @@ export function usePublishListing({
       })
     },
     onSuccess: async (listing) => {
-      queryClient.setQueryData(
-        ['admin', 'listings', listingId],
-        listing
-      )
+      queryClient.setQueryData(['admin', 'listings', listingId], listing)
 
-      await queryClient.invalidateQueries({
-        queryKey: ['admin', 'listings'],
-      })
+      await invalidateInventory(queryClient)
 
       toast.success('Listing published successfully.')
     },
     onError: (error) => {
       toast.error(
-        error instanceof Error
-          ? error.message
-          : 'Failed to publish listing.'
+        error instanceof Error ? error.message : 'Failed to publish listing.',
       )
     },
   })

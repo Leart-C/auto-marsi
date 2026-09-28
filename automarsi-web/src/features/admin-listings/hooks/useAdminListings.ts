@@ -1,3 +1,4 @@
+import { invalidateInventory } from '../utils/invalidateInventory'
 import { useAuth } from '@clerk/clerk-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
@@ -93,9 +94,7 @@ export function useAdminListings({
       })
     },
     onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: ['admin', 'listings'],
-      })
+      await invalidateInventory(queryClient)
 
       toast.success('Listing deleted successfully.')
     },
@@ -123,9 +122,7 @@ export function useAdminListings({
       })
     },
     onSuccess: async (_, variables) => {
-      await queryClient.invalidateQueries({
-        queryKey: ['admin', 'listings'],
-      })
+      await invalidateInventory(queryClient)
 
       toast.success(`Listing marked as ${variables.status}.`)
     },

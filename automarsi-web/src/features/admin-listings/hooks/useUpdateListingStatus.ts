@@ -1,3 +1,4 @@
+import { invalidateInventory } from '../utils/invalidateInventory'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useAdminToken } from '@/hooks/useAdminToken'
@@ -29,14 +30,7 @@ export function useUpdateListingStatus({
       return status
     },
     onSuccess: async (status) => {
-      await Promise.all([
-        queryClient.invalidateQueries({
-          queryKey: ['admin', 'listings', listingId],
-        }),
-        queryClient.invalidateQueries({
-          queryKey: ['admin', 'listings'],
-        }),
-      ])
+      await invalidateInventory(queryClient)
 
       toast.success(`Listing marked as ${status}.`)
     },
@@ -44,7 +38,7 @@ export function useUpdateListingStatus({
       toast.error(
         error instanceof Error
           ? error.message
-          : 'Failed to update listing status.'
+          : 'Failed to update listing status.',
       )
     },
   })

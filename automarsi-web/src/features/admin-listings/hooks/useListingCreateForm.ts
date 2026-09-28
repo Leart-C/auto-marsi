@@ -1,4 +1,5 @@
-import { useMutation } from '@tanstack/react-query'
+import { invalidateInventory } from '../utils/invalidateInventory'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { useAdminToken } from '@/hooks/useAdminToken'
 import { createAdminListing } from '../api/createAdminListing'
@@ -16,11 +17,11 @@ type UseListingCreateFormParams = {
 export function useListingCreateForm({
   onCreated,
 }: UseListingCreateFormParams) {
+  const queryClient = useQueryClient()
   const { getAdminToken } = useAdminToken()
-  const fields = useListingFormFields(
-    initialListingFormState,
-    { autoGenerateTitle: true }
-  )
+  const fields = useListingFormFields(initialListingFormState, {
+    autoGenerateTitle: true,
+  })
 
   const createListingMutation = useMutation({
     mutationFn: async () => {
@@ -31,14 +32,15 @@ export function useListingCreateForm({
         payload: buildListingPayload(fields.formState),
       })
     },
-    onSuccess: (createdListing) => {
+    onSuccess: async (createdListing) => {
+      await invalidateInventory(queryClient)
       fields.resetForm(initialListingFormState)
       toast.success('Listing saved. Add its photos next.')
       onCreated(createdListing)
     },
     onError: (error) => {
       toast.error(
-        error instanceof Error ? error.message : 'Failed to create listing.'
+        error instanceof Error ? error.message : 'Failed to create listing.',
       )
     },
   })
@@ -49,7 +51,8 @@ export function useListingCreateForm({
     await createListingMutation.mutateAsync()
   }
 
-  const errorMessage = fields.optionsErrorMessage ??
+  const errorMessage =
+    fields.optionsErrorMessage ??
     (createListingMutation.error instanceof Error
       ? createListingMutation.error.message
       : null)

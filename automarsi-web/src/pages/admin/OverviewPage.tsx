@@ -4,6 +4,8 @@ import {
   CircleGauge,
   MessageSquareText,
   RefreshCw,
+  ArrowUpRight,
+  Plus,
 } from 'lucide-react'
 import EmptyState from '@/components/admin/EmptyState'
 import LoadingState from '@/components/admin/LoadingState'
@@ -37,7 +39,7 @@ function OverviewPage({ onNavigate }: OverviewPageProps) {
     <section className="grid gap-5">
       <PageHeader
         eyebrow="Dashboard"
-        title="Overview"
+        title="Your showroom, at a glance."
         description="Inventory and customer activity at a glance."
         action={
           <Button
@@ -67,6 +69,45 @@ function OverviewPage({ onNavigate }: OverviewPageProps) {
 
       {!overviewQuery.isLoading && !errorMessage && overview ? (
         <>
+          <div className="relative overflow-hidden rounded-2xl bg-[#152321] p-6 text-white sm:p-8">
+            <div
+              className="pointer-events-none absolute -right-12 -top-24 size-72 rounded-full border-[40px] border-[#d2f86a]/5"
+              aria-hidden="true"
+            />
+            <div className="relative flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
+              <div>
+                <p className="text-[10px] uppercase tracking-[0.24em] text-[#d2f86a]">
+                  The next move
+                </p>
+                <h2 className="mt-3 text-2xl font-medium tracking-tight">
+                  {overview.newInquiries > 0
+                    ? `${overview.newInquiries} new ${overview.newInquiries === 1 ? 'conversation' : 'conversations'} to start.`
+                    : 'Ready for your next customer.'}
+                </h2>
+                <p className="mt-2 text-sm text-white/60">
+                  {overview.draftListings} draft vehicles ·{' '}
+                  {overview.openAppointments} open appointments
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  className="rounded-full bg-[#d2f86a] text-[#172313] hover:bg-[#e0ff94]"
+                  onClick={() => onNavigate('/admin/inquiries')}
+                >
+                  Open inquiries
+                  <ArrowUpRight className="size-4" />
+                </Button>
+                <Button
+                  className="rounded-full border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white"
+                  variant="outline"
+                  onClick={() => onNavigate('/admin/listings/new')}
+                >
+                  <Plus className="size-4" />
+                  Add a vehicle
+                </Button>
+              </div>
+            </div>
+          </div>
           <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <OverviewKpiCard
               label="Total listings"

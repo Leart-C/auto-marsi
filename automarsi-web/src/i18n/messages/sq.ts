@@ -78,9 +78,11 @@ export const sq: typeof en = {
     mobileFinancingAction: 'Llogarit kestin',
     mobileContactAction: 'Na shkruaj',
     heroEyebrow: 'Autosallon · Prishtinë',
-    heroTitle: 'Vetura që tregojnë historinë e tyre.',
+    heroTitle: 'Kapitulli yt i ri.',
+    heroAccent: 'Vetura jote e re.',
+    searchEyebrow: 'Gjej veturën tënde',
     heroDescription:
-      'Shfleto veturat e disponueshme, kerko detaje dhe merr pergjigje te qarte nga ekipi yne para vizites.',
+      'Vetura të veçanta. Përvojë personale. Gjej veturën që të përshtatet, këtu në Prishtinë.',
     browseInventory: 'Shiko koleksionin',
     contactTeam: 'Kontakto ekipin',
     showroomCtaTitle: 'Vizito sallonin. Provo veturën.',
@@ -88,20 +90,22 @@ export const sq: typeof en = {
     showroomFollowUp: 'Percjellje nga salloni',
     featuredLocation: 'Featured · Prishtine',
     whyEyebrow: 'Pse AutoMarsi',
-    whyTitle: 'Menyre praktike per te kaluar nga shfletimi te vizita.',
+    whyTitle: 'Një rrugëtim i mirë fillon me besim.',
     whyDescription:
       'Faqja publike dhe paneli admin punojne bashke, qe klientet te shohin vetura aktive dhe ekipi te menaxhoje cdo kerkese qarte.',
     trustItems: [
       {
         title: 'Vetura te perzgjedhura',
-        description: 'Listimet aktive menaxhohen nga paneli AutoMarsi.',
+        description:
+          'Zbulo koleksionin tonë, me fotografi dhe detaje që të ndihmojnë të zgjedhësh.',
       },
       {
         title: 'Percjellje e qarte',
-        description: 'Cdo kerkese arrin te ekipi per pergjigje te duhur.',
+        description:
+          'Bisedo drejtpërdrejt me ekipin për veturën, disponueshmërinë dhe hapat e radhës.',
       },
       {
-        title: 'Mbeshtejte nga salloni',
+        title: 'Mbështetje nga salloni',
         description:
           'Klientet mund te pyesin, krahasojne dhe vizitojne me besim.',
       },
@@ -167,7 +171,7 @@ export const sq: typeof en = {
     },
     featured: {
       eyebrow: 'Koleksioni',
-      title: 'Vetura aktive',
+      title: 'Gjej veturën që të frymëzon.',
       description: '',
       viewAll: 'Shiko te gjitha veturat',
       loading: 'Duke ngarkuar veturat e perzgjedhura...',
@@ -181,8 +185,7 @@ export const sq: typeof en = {
         'Veturat e shitura qendrojne te ndara nga inventari i disponueshem dhe tregojne historine e sallonit qe klientet mund t’i besojne.',
       askSimilar: 'Pyet per vetura te ngjashme',
       loading: 'Duke ngarkuar veturat e shitura se fundmi...',
-      couldNotLoad:
-        'Veturat e shitura se fundmi nuk mund te ngarkohen tani.',
+      couldNotLoad: 'Veturat e shitura se fundmi nuk mund te ngarkohen tani.',
       soldBadge: 'E shitur',
       recentlySoldFallback: 'E shitur se fundmi',
     },
@@ -223,8 +226,7 @@ export const sq: typeof en = {
       condition: 'Gjendja',
       engine: 'Motori',
       power: 'Fuqia',
-      note:
-        'Disponueshmeria dhe detajet finale konfirmohen nga AutoMarsi.',
+      note: 'Disponueshmeria dhe detajet finale konfirmohen nga AutoMarsi.',
     },
     inquiry: {
       title: 'Pyet per kete veture',
@@ -270,8 +272,7 @@ export const sq: typeof en = {
     title: 'Autosallon praktik me proces te qarte per klientin.',
     description:
       'AutoMarsi lidh veturat reale aktive me klientet qe duan informacion te qarte para vizites ne sallon.',
-    body:
-      'Faqja publike eshte e lidhur me procesin admin, qe listimet, kerkesat dhe percjellja nga salloni te mbeten te organizuara qe nga mesazhi i pare.',
+    body: 'Faqja publike eshte e lidhur me procesin admin, qe listimet, kerkesat dhe percjellja nga salloni te mbeten te organizuara qe nga mesazhi i pare.',
     browseVehicles: 'Shfleto veturat',
     contactTeam: 'Kontakto ekipin',
     mattersEyebrow: 'Cfare ka rendesi',
@@ -280,7 +281,8 @@ export const sq: typeof en = {
     showroomLabel: 'Salloni ne Prishtine',
     processEyebrow: 'Procesi yne',
     processTitle: 'Nga interesi online te vizita ne sallon.',
-    processDescription: 'Proces i thjeshte qe mban klientin dhe ekipin te qarte.',
+    processDescription:
+      'Proces i thjeshte qe mban klientin dhe ekipin te qarte.',
     ctaEyebrow: 'Vizito AutoMarsi',
     ctaTitle: 'Fillo me nje veture qe te pelqen.',
     ctaDescription:
@@ -294,8 +296,7 @@ export const sq: typeof en = {
       },
       {
         title: 'Komunikim i qarte',
-        description:
-          'Pyetjet dhe kerkesat per vizite hyjne ne procesin admin.',
+        description: 'Pyetjet dhe kerkesat per vizite hyjne ne procesin admin.',
       },
       {
         title: 'Percjellje njerezore',
@@ -369,8 +370,7 @@ export const sq: typeof en = {
     title: 'Planifiko hapin e radhes para vizites.',
     description:
       'Perdor kete faqe si udhezim para bisedes me AutoMarsi. Vleresimi te ndihmon te pergatisesh pyetje me te mira, jo aprovim te garantuar.',
-    body:
-      'Financimi varet nga kushtet reale, te dhenat e klientit, cmimi i vetures dhe oferta finale qe shqyrtohet nga klienti. Asgje ne kete faqe nuk ruhet ose dergohet ne banke.',
+    body: 'Financimi varet nga kushtet reale, te dhenat e klientit, cmimi i vetures dhe oferta finale qe shqyrtohet nga klienti. Asgje ne kete faqe nuk ruhet ose dergohet ne banke.',
     browseVehicles: 'Shfleto veturat',
     askAboutFinancing: 'Pyet per financim',
     prepareTitle: 'Pergatit pyetjet e duhura para vizites.',
@@ -388,8 +388,7 @@ export const sq: typeof en = {
       },
       {
         title: 'Percjellje e shpejte',
-        description:
-          'Dergo pyetjen dhe ekipi mund ta vazhdoje biseden me ty.',
+        description: 'Dergo pyetjen dhe ekipi mund ta vazhdoje biseden me ty.',
       },
       {
         title: 'Pergatitje e qarte',
@@ -407,8 +406,7 @@ export const sq: typeof en = {
       term: 'Afati',
       rate: 'Norma %',
       months: 'muaj',
-      note:
-        'Vetem vleresim. Kushtet finale, normat, aprovimi dhe pagesat mujore shqyrtohen veqmas.',
+      note: 'Vetem vleresim. Kushtet finale, normat, aprovimi dhe pagesat mujore shqyrtohen veqmas.',
       askAboutEstimate: 'Pyet per vleresimin',
     },
     steps: {

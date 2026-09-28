@@ -17,7 +17,9 @@ type ListingsPageProps = {
 
 function ListingsPage({ onNavigate }: ListingsPageProps) {
   const [search, setSearch] = useState('')
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState(
+    () => new URLSearchParams(window.location.search).get('status') ?? '',
+  )
   const [condition, setCondition] = useState('')
   const [makeId, setMakeId] = useState('')
   const [carModelId, setCarModelId] = useState('')
@@ -88,6 +90,30 @@ function ListingsPage({ onNavigate }: ListingsPageProps) {
           </>
         }
       />
+
+      <div
+        className="flex flex-wrap gap-2"
+        aria-label="Filter listings by status"
+      >
+        {['', 'active', 'draft', 'sold', 'archived'].map((value) => (
+          <button
+            key={value}
+            type="button"
+            aria-pressed={status === value}
+            onClick={() => {
+              setStatus(value)
+              resetPage()
+            }}
+            className={`rounded-full border px-4 py-2 text-xs font-semibold transition ${status === value ? 'border-primary bg-primary text-primary-foreground' : 'bg-card text-muted-foreground hover:border-primary hover:text-primary'}`}
+          >
+            {value === ''
+              ? 'All vehicles'
+              : value === 'active'
+                ? 'Published'
+                : value.charAt(0).toUpperCase() + value.slice(1)}
+          </button>
+        ))}
+      </div>
 
       <DataTableShell
         title="Car listings"

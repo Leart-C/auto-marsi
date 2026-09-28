@@ -33,15 +33,21 @@ function formatCount(value: number) {
 
 function InventoryPage({ onNavigate }: InventoryPageProps) {
   const { messages } = useI18n()
-  const [filters, setFilters] =
-    useState<PublicListingFiltersType>(initialFilters)
+  const [filters, setFilters] = useState<PublicListingFiltersType>(() => {
+    const params = new URLSearchParams(window.location.search)
+    return {
+      ...initialFilters,
+      search: params.get('search') ?? '',
+      body_type: params.get('body_type') ?? '',
+    }
+  })
 
   const { listings, meta, listingsQuery, errorMessage } = usePublicListings({
     filters,
   })
 
   const vehiclesFoundLabel = meta
-    ? `${formatCount(listings.length)}/${formatCount(meta.total)}`
+    ? `${formatCount(meta.total)} ${Number(meta.total) === 1 ? messages.inventory.vehicleFound : messages.inventory.vehiclesFound}`
     : messages.inventory.loadingVehicles
 
   return (
@@ -99,6 +105,7 @@ function InventoryHeader({ countLabel }: InventoryHeaderProps) {
     <div className="grid gap-5 border-b border-white/10 pb-6 lg:flex lg:items-end lg:justify-between">
       <div className="hidden lg:block">
         <PublicSectionHeader
+          as="h1"
           eyebrow={messages.inventory.eyebrow}
           title={messages.inventory.title}
           description={messages.inventory.description}

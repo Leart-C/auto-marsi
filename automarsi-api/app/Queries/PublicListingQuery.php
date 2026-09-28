@@ -36,17 +36,17 @@ class PublicListingQuery
             ->when(
                 $filters['fuel_type'] ?? null,
                 fn($query, $fuelType) =>
-                $query->where('fuel_type', $fuelType)
+                $query->whereRaw('lower(fuel_type) = ?', [strtolower($fuelType)])
             )
             ->when(
                 $filters['transmission'] ?? null,
                 fn($query, $transmission) =>
-                $query->where('transmission', $transmission)
+                $query->whereRaw('lower(transmission) = ?', [strtolower($transmission)])
             )
             ->when(
                 $filters['body_type'] ?? null,
                 fn($query, $bodyType) =>
-                $query->where('body_type', $bodyType)
+                $query->whereRaw('lower(body_type) = ?', [strtolower($bodyType)])
             )
             ->when(isset($filters['search']) && $filters['search'] !== null, function ($query) use ($filters) {
                 $search = '%' . strtolower($filters['search']) . '%';

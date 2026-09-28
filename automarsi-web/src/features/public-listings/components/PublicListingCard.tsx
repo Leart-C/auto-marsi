@@ -1,4 +1,4 @@
-import { Car } from 'lucide-react'
+import { ArrowUpRight, Car, Fuel, Gauge, Settings2 } from 'lucide-react'
 import { useI18n } from '@/i18n/useI18n'
 import type { PublicListing } from '../types'
 
@@ -6,102 +6,94 @@ type PublicListingCardProps = {
   listing: PublicListing
   onNavigate: (path: string) => void
 }
-
-function formatPrice(listing: PublicListing): string {
-  const amount = Number(listing.price)
-
-  if (Number.isNaN(amount)) {
-    return `${listing.price} ${listing.currency}`
-  }
-
-  return new Intl.NumberFormat('de-DE', {
+function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
+  const { messages } = useI18n()
+  const label = (value: string) =>
+    messages.inventory.values[
+      value.toLowerCase() as keyof typeof messages.inventory.values
+    ] ?? value
+  const price = new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: listing.currency,
     maximumFractionDigits: 0,
-  }).format(amount)
-}
-
-function formatKilometers(kilometers: number | null): string {
-  if (kilometers === null) {
-    return 'Mileage unavailable'
-  }
-
-  return `${new Intl.NumberFormat('de-DE').format(kilometers)} km`
-}
-
-function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
-  const { messages } = useI18n()
-  const transmissionLabel =
-    messages.inventory.values[
-      listing.transmission as keyof typeof messages.inventory.values
-    ] ?? listing.transmission
-  const fuelLabel =
-    messages.inventory.values[
-      listing.fuel_type as keyof typeof messages.inventory.values
-    ] ?? listing.fuel_type
-
+  }).format(Number(listing.price))
   return (
-    <article className="group h-fit overflow-hidden rounded-lg border border-white/10 bg-card text-card-foreground shadow-[0_22px_60px_rgba(0,0,0,0.3)] transition duration-300 hover:-translate-y-1 hover:border-primary/35">
-      <button
-        type="button"
-        onClick={() => onNavigate(`/inventory/${listing.id}`)}
-        className="block w-full text-left"
+    <article className="vehicle-card group">
+      <a
+        href={`/inventory/${listing.id}`}
+        onClick={(event) => {
+          if (
+            event.button === 0 &&
+            !event.metaKey &&
+            !event.ctrlKey &&
+            !event.shiftKey &&
+            !event.altKey
+          ) {
+            event.preventDefault()
+            onNavigate(`/inventory/${listing.id}`)
+          }
+        }}
+        className="block"
       >
-        <div className="relative aspect-[16/12] overflow-hidden bg-muted">
+        <div className="relative aspect-[16/10] overflow-hidden bg-muted">
           {listing.primary_image?.image_url ? (
             <img
               src={listing.primary_image.image_url}
               alt={listing.primary_image.alt_text ?? listing.title}
               loading="lazy"
               decoding="async"
-              className="size-full object-cover object-center transition duration-500 group-hover:scale-105"
+              className="size-full object-cover transition duration-500 group-hover:scale-105"
             />
           ) : (
-            <div className="grid size-full place-items-center bg-white/[0.04] text-muted-foreground">
-              <div className="grid justify-items-center gap-2">
-                <Car className="size-8 opacity-55" />
-                <span className="text-sm">{listing.title}</span>
-              </div>
+            <div className="grid size-full place-content-center gap-2 text-center text-muted-foreground">
+              <Car className="mx-auto size-10" />
+              <span className="text-xs">
+                {messages.common.photosComingSoon}
+              </span>
             </div>
           )}
-
-          <div className="absolute inset-0 bg-gradient-to-t from-background/92 via-background/18 to-transparent" />
-
-          <div className="absolute inset-x-0 bottom-0 grid gap-2 p-4">
-            <div className="flex items-end justify-between gap-3">
-              <div className="min-w-0">
-                <h3 className="truncate text-lg font-black leading-tight">
-                  {listing.title}
-                </h3>
-                <p className="mt-1 text-xs text-muted-foreground">
-                  {listing.year} ·{' '}
-                  {listing.kilometers === null
-                    ? messages.common.mileageUnavailable
-                    : formatKilometers(listing.kilometers)}
-                </p>
-              </div>
-
-              <p className="shrink-0 text-sm font-black text-primary">
-                {formatPrice(listing)}
-              </p>
-            </div>
-
-            <div className="flex min-w-0 items-center gap-2 overflow-hidden text-[0.7rem] text-muted-foreground">
-              <span className="shrink-0 capitalize">{fuelLabel}</span>
-              <span className="size-1 shrink-0 rounded-full bg-white/25" />
-              <span className="shrink-0 capitalize">{transmissionLabel}</span>
-              {listing.body_type ? (
-                <>
-                  <span className="size-1 shrink-0 rounded-full bg-white/25" />
-                  <span className="truncate">{listing.body_type}</span>
-                </>
-              ) : null}
-            </div>
+          <span className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/60 px-3 py-1.5 text-[10px] font-semibold tracking-wider text-white backdrop-blur-md">
+            {listing.year}
+          </span>
+          <span className="absolute bottom-4 right-4 grid size-9 place-items-center rounded-full bg-white text-black transition group-hover:bg-primary">
+            <ArrowUpRight className="size-4" />
+          </span>
+        </div>
+        <div className="p-5">
+          <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+            {listing.make?.name ?? 'AutoMarsi'}
+            {listing.body_type ? ` / ${label(listing.body_type)}` : ''}
+          </p>
+          <h3 className="mt-2 text-xl font-medium leading-snug tracking-tight">
+            {listing.title}
+          </h3>
+          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1.5">
+              <Gauge className="size-3.5" />
+              {listing.kilometers === null
+                ? messages.common.mileageUnavailable
+                : `${new Intl.NumberFormat('de-DE').format(listing.kilometers)} km`}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Fuel className="size-3.5" />
+              {label(listing.fuel_type)}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Settings2 className="size-3.5" />
+              {label(listing.transmission)}
+            </span>
+          </div>
+          <div className="mt-5 flex items-center justify-between gap-3 border-t border-white/10 pt-4">
+            <p className="text-xl font-semibold tracking-tight text-primary">
+              {price}
+            </p>
+            <span className="text-xs text-muted-foreground group-hover:text-foreground">
+              {messages.inventory.card.viewDetails}
+            </span>
           </div>
         </div>
-      </button>
+      </a>
     </article>
   )
 }
-
 export default PublicListingCard

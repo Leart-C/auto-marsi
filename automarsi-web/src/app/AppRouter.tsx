@@ -26,6 +26,19 @@ function AppRouter({ currentPath, onNavigate }: AppRouterProps) {
     )
   }
 
+  if (!import.meta.env.VITE_CLERK_PUBLISHABLE_KEY) {
+    return (
+      <main className="grid min-h-screen place-content-center gap-4 p-8 text-center">
+        <ShieldCheck className="mx-auto size-10 text-primary" />
+        <h1 className="text-2xl font-semibold">Admin sign-in is unavailable</h1>
+        <p className="text-muted-foreground">
+          The authentication configuration needs to be completed.
+        </p>
+        <Button onClick={() => onNavigate('/')}>Back to showroom</Button>
+      </main>
+    )
+  }
+
   return (
     <>
       <SignedOut>

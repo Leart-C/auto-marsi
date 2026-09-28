@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react'
 import AppRouter from '@/app/AppRouter'
 
 function App() {
-  const [currentPath, setCurrentPath] = useState(window.location.pathname)
+  const [currentPath, setCurrentPath] = useState(
+    window.location.pathname + window.location.search,
+  )
 
   useEffect(() => {
     function handlePopState() {
-      setCurrentPath(window.location.pathname)
+      setCurrentPath(window.location.pathname + window.location.search)
     }
 
     window.addEventListener('popstate', handlePopState)
@@ -23,9 +25,16 @@ function App() {
 
     window.history.pushState(null, '', path)
     setCurrentPath(path)
+    window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
-  return <AppRouter currentPath={currentPath} onNavigate={navigateTo} />
+  return (
+    <AppRouter
+      key={currentPath}
+      currentPath={currentPath.split('?')[0]}
+      onNavigate={navigateTo}
+    />
+  )
 }
 
 export default App

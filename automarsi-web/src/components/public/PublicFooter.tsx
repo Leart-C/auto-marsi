@@ -47,14 +47,20 @@ function PublicFooter({ onNavigate }: PublicFooterProps) {
             {messages.footer.contact}
           </h3>
           <div className="grid gap-2 text-sm text-slate-400">
-            <span className="inline-flex items-center gap-2">
+            <a
+              href={`tel:${messages.contact.phone.replace(/\s/g, '')}`}
+              className="inline-flex items-center gap-2 hover:text-primary"
+            >
               <Phone className="size-4" />
               {messages.contact.phone}
-            </span>
-            <span className="inline-flex items-center gap-2">
+            </a>
+            <a
+              href={`mailto:${messages.contact.email}`}
+              className="inline-flex items-center gap-2 break-all hover:text-primary"
+            >
               <Mail className="size-4" />
               {messages.contact.email}
-            </span>
+            </a>
             <span className="inline-flex items-center gap-2">
               <MapPin className="size-4" />
               {messages.contact.location}

@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils'
 
 type PublicSectionHeaderProps = {
+  as?: 'h1' | 'h2'
   eyebrow?: string
   title: string
   description?: string
@@ -8,6 +9,7 @@ type PublicSectionHeaderProps = {
 }
 
 function PublicSectionHeader({
+  as: Heading = 'h2',
   eyebrow,
   title,
   description,
@@ -21,9 +23,9 @@ function PublicSectionHeader({
         </p>
       ) : null}
 
-      <h2 className="text-3xl font-black leading-[0.98] text-foreground sm:text-4xl lg:text-5xl">
+      <Heading className="text-3xl font-medium tracking-[-0.045em] leading-[1.08] text-foreground sm:text-4xl lg:text-5xl">
         {title}
-      </h2>
+      </Heading>
 
       {description ? (
         <p className="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
