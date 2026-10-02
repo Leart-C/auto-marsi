@@ -59,6 +59,7 @@ function PublicImageLightbox({
   return (
     <Dialog open={open} onOpenChange={(nextOpen) => { if (!nextOpen) onClose() }}>
     <DialogContent
+      fullScreen
       showCloseButton={false}
       aria-describedby={undefined}
       className="public-image-lightbox"
