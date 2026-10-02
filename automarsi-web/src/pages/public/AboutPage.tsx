@@ -62,7 +62,7 @@ function AboutPage() {
           />
 
           <p className="mx-auto max-w-xl text-sm leading-7 text-muted-foreground">
-            {messages.about.body}
+            {/* {messages.about.body} */}
           </p>
         </div>
       </PublicSection>
