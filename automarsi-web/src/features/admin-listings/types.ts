@@ -1,3 +1,4 @@
+import type { PaginationMeta } from '@/shared/api/types'
 export type ListingMakeOption = {
   id: number
   name: string
@@ -112,13 +113,6 @@ export type AdminListing = {
   primary_image: AdminListingImage | null
   images: AdminListingImage[]
   features: AdminListingFeature[]
-}
-
-export type PaginationMeta = {
-  current_page: number
-  last_page: number
-  per_page: number
-  total: number
 }
 
 export type AdminListingsResponse = {

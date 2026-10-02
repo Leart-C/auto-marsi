@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import type { Language, Messages } from './messages'
+import type { Language, Messages } from '@/i18n/messages/index'
 
 export type I18nContextValue = {
   language: Language

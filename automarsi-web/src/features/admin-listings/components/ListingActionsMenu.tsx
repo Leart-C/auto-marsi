@@ -1,3 +1,4 @@
+import { routes } from '@/shared/config/routes'
 import { useState } from 'react'
 import {
   Archive,
@@ -9,7 +10,7 @@ import {
   Pencil,
   Trash2,
 } from 'lucide-react'
-import { buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '@/shared/ui/button'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,16 +20,16 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
+} from '@/shared/ui/alert-dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import type { AdminListingStatusAction } from '../api/updateAdminListingStatus'
-import type { AdminListing } from '../types'
+} from '@/shared/ui/dropdown-menu'
+import type { AdminListingStatusAction } from '@/features/admin-listings/api/updateAdminListingStatus'
+import type { AdminListing } from '@/features/admin-listings/types'
 
 type ListingActionsMenuProps = {
   listing: AdminListing
@@ -81,7 +82,7 @@ function ListingActionsMenu({
         <DropdownMenuContent align="end" className="w-48">
           <DropdownMenuItem
             className="gap-2"
-            onClick={() => onNavigate(`/admin/listings/${listing.id}`)}
+            onClick={() => onNavigate(routes.admin.listing(listing.id))}
           >
             <Eye className="size-4 text-muted-foreground" />
             View
@@ -89,7 +90,7 @@ function ListingActionsMenu({
 
           <DropdownMenuItem
             className="gap-2"
-            onClick={() => onNavigate(`/admin/listings/${listing.id}/edit`)}
+            onClick={() => onNavigate(routes.admin.editListing(listing.id))}
           >
             <Pencil className="size-4 text-muted-foreground" />
             Edit
@@ -97,7 +98,7 @@ function ListingActionsMenu({
 
           <DropdownMenuItem
             className="gap-2"
-            onClick={() => onNavigate(`/admin/listings/${listing.id}/images`)}
+            onClick={() => onNavigate(routes.admin.listingImages(listing.id))}
           >
             <Images className="size-4 text-muted-foreground" />
             Manage images

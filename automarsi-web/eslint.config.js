@@ -27,8 +27,8 @@ export default defineConfig([
   },
   {
     files: [
-      'src/components/ui/badge.tsx',
-      'src/components/ui/button.tsx',
+      'src/shared/ui/badge.tsx',
+      'src/shared/ui/button.tsx',
       'src/features/admin-catalog/features/components/VehicleFeatureIcon.tsx',
     ],
     rules: {

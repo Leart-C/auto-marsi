@@ -1,3 +1,4 @@
+import type { PaginationMeta } from '@/shared/api/types'
 export type PublicListingMake = {
   id: number
   name: string
@@ -74,12 +75,7 @@ export type PublicListingFilters = {
 
 export type PublicListingsResponse = {
   data: PublicListing[]
-  meta: {
-    current_page: number
-    last_page: number
-    per_page: number
-    total: number
-  }
+  meta: PaginationMeta
 }
 
 export type PublicListingResponse = {

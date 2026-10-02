@@ -1,5 +1,5 @@
-import type { PublicListing } from '../types'
-import PublicListingCard from './PublicListingCard'
+import type { PublicListing } from '@/features/public-listings/types'
+import PublicListingCard from '@/features/public-listings/components/PublicListingCard'
 
 type PublicListingGridProps = {
   listings: PublicListing[]

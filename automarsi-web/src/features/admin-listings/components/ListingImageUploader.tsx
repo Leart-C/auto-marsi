@@ -1,7 +1,7 @@
 import { ImagePlus, Upload, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import AnimatedStateIcon from '@/components/admin/AnimatedStateIcon'
-import { Button } from '@/components/ui/button'
+import AnimatedStateIcon from '@/shared/components/admin/AnimatedStateIcon'
+import { Button } from '@/shared/ui/button'
 
 const acceptedTypes = ['image/jpeg', 'image/png', 'image/webp']
 const maximumFileSize = 5 * 1024 * 1024

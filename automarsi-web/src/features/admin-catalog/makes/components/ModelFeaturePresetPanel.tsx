@@ -1,15 +1,15 @@
 import { Plus, Save, Search, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import EmptyState from '@/components/admin/EmptyState'
-import LoadingState from '@/components/admin/LoadingState'
-import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
+import EmptyState from '@/shared/components/admin/EmptyState'
+import LoadingState from '@/shared/components/admin/LoadingState'
+import { Button } from '@/shared/ui/button'
+import { Checkbox } from '@/shared/ui/checkbox'
 import VehicleFeatureIcon from '@/features/admin-catalog/features/components/VehicleFeatureIcon'
 import { suggestVehicleFeatureIcon } from '@/features/admin-catalog/features/components/VehicleFeatureIcon'
 import VehicleFeatureIconPicker from '@/features/admin-catalog/features/components/VehicleFeatureIconPicker'
 import type { AdminVehicleFeature } from '@/features/admin-catalog/features/types'
-import { useCarModelFeaturePreset } from '../hooks/useCarModelFeaturePreset'
-import type { AdminModel } from '../types'
+import { useCarModelFeaturePreset } from '@/features/admin-catalog/makes/hooks/useCarModelFeaturePreset'
+import type { AdminModel } from '@/features/admin-catalog/makes/types'
 
 type ModelFeaturePresetPanelProps = {
   model: AdminModel

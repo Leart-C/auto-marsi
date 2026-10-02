@@ -6,9 +6,9 @@ import type {
   AdminVehicleFeature,
   CreateAdminVehicleFeaturePayload,
 } from '@/features/admin-catalog/features/types'
-import { useAdminToken } from '@/hooks/useAdminToken'
-import { getCarModelFeatureSuggestions } from '../api/getCarModelFeatureSuggestions'
-import { updateCarModelFeatureSuggestions } from '../api/updateCarModelFeatureSuggestions'
+import { useAdminToken } from '@/shared/hooks/useAdminToken'
+import { getCarModelFeatureSuggestions } from '@/features/admin-catalog/makes/api/getCarModelFeatureSuggestions'
+import { updateCarModelFeatureSuggestions } from '@/features/admin-catalog/makes/api/updateCarModelFeatureSuggestions'
 
 type UseCarModelFeaturePresetParams = {
   modelId: number

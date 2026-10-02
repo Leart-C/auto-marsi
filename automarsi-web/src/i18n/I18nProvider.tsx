@@ -1,11 +1,11 @@
 import { useMemo, useState, type ReactNode } from 'react'
-import { I18nContext, type I18nContextValue } from './i18nContext'
+import { I18nContext, type I18nContextValue } from '@/i18n/i18nContext'
 import {
   defaultLanguage,
   isLanguage,
   messages,
   type Language,
-} from './messages'
+} from '@/i18n/messages/index'
 
 const storageKey = 'automarsi.language.v2'
 

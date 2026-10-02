@@ -1,16 +1,17 @@
+import { queryPolicy } from '@/shared/config/queryPolicy'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import { useAdminToken } from '@/hooks/useAdminToken'
-import { createAdminVehicleFeature } from '../api/createAdminVehicleFeature'
-import { deleteAdminVehicleFeature } from '../api/deleteAdminVehicleFeature'
-import { getAdminVehicleFeatures } from '../api/getAdminVehicleFeatures'
-import { installDefaultVehicleFeatures } from '../api/installDefaultVehicleFeatures'
-import { updateAdminVehicleFeature } from '../api/updateAdminVehicleFeature'
+import { useAdminToken } from '@/shared/hooks/useAdminToken'
+import { createAdminVehicleFeature } from '@/features/admin-catalog/features/api/createAdminVehicleFeature'
+import { deleteAdminVehicleFeature } from '@/features/admin-catalog/features/api/deleteAdminVehicleFeature'
+import { getAdminVehicleFeatures } from '@/features/admin-catalog/features/api/getAdminVehicleFeatures'
+import { installDefaultVehicleFeatures } from '@/features/admin-catalog/features/api/installDefaultVehicleFeatures'
+import { updateAdminVehicleFeature } from '@/features/admin-catalog/features/api/updateAdminVehicleFeature'
 import type {
   AdminVehicleFeature,
   CreateAdminVehicleFeaturePayload,
   UpdateAdminVehicleFeaturePayload,
-} from '../types'
+} from '@/features/admin-catalog/features/types'
 
 export function useVehicleFeaturesCatalog() {
   const queryClient = useQueryClient()
@@ -23,7 +24,7 @@ export function useVehicleFeaturesCatalog() {
   const featuresQuery = useQuery({
     queryKey: ['admin', 'catalog', 'vehicle-features'],
     enabled: isAuthReady,
-    staleTime: 5 * 60_000,
+    staleTime: queryPolicy.catalogStaleTime,
     queryFn: async () => {
       const token = await getAdminToken()
 

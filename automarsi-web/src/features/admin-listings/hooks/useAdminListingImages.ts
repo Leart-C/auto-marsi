@@ -1,14 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { deleteAdminListingImage } from '../api/deleteAdminListingImage'
-import { getAdminListingImages } from '../api/getAdminListingImages'
-import { setPrimaryListingImage } from '../api/setPrimaryListingImage'
+import { deleteAdminListingImage } from '@/features/admin-listings/api/deleteAdminListingImage'
+import { getAdminListingImages } from '@/features/admin-listings/api/getAdminListingImages'
+import { setPrimaryListingImage } from '@/features/admin-listings/api/setPrimaryListingImage'
 import {
   updateAdminListingImage,
   type UpdateAdminListingImagePayload,
-} from '../api/updateAdminListingImage'
-import { uploadAdminListingImages } from '../api/uploadAdminListingImages'
-import { useAdminToken } from '@/hooks/useAdminToken'
+} from '@/features/admin-listings/api/updateAdminListingImage'
+import { uploadAdminListingImages } from '@/features/admin-listings/api/uploadAdminListingImages'
+import { useAdminToken } from '@/shared/hooks/useAdminToken'
 
 type UseAdminListingImagesParams = {
   listingId: string

@@ -1,8 +1,9 @@
+import { routes } from '@/shared/config/routes'
 import { ArrowLeft, Images } from 'lucide-react'
-import EmptyState from '@/components/admin/EmptyState'
-import LoadingState from '@/components/admin/LoadingState'
-import PageHeader from '@/components/admin/PageHeader'
-import { Button } from '@/components/ui/button'
+import EmptyState from '@/shared/components/admin/EmptyState'
+import LoadingState from '@/shared/components/admin/LoadingState'
+import PageHeader from '@/shared/components/admin/PageHeader'
+import { Button } from '@/shared/ui/button'
 import ListingEditPanel from '@/features/admin-listings/components/ListingEditPanel'
 import { useAdminListing } from '@/features/admin-listings/hooks/useAdminListing'
 
@@ -30,7 +31,7 @@ function ListingEditPage({
               type="button"
               variant="outline"
               onClick={() =>
-                onNavigate(`/admin/listings/${listingId}`)
+                onNavigate(routes.admin.listing(listingId))
               }
             >
               <ArrowLeft />
@@ -41,7 +42,7 @@ function ListingEditPage({
               type="button"
               variant="secondary"
               onClick={() =>
-                onNavigate(`/admin/listings/${listingId}/images`)
+                onNavigate(routes.admin.listingImages(listingId))
               }
             >
               <Images />
@@ -67,10 +68,10 @@ function ListingEditPage({
           key={listing.id}
           listing={listing}
           onCancel={() =>
-            onNavigate(`/admin/listings/${listingId}`)
+            onNavigate(routes.admin.listing(listingId))
           }
           onUpdated={() =>
-            onNavigate(`/admin/listings/${listingId}`)
+            onNavigate(routes.admin.listing(listingId))
           }
         />
       ) : null}

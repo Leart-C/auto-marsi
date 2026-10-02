@@ -1,6 +1,7 @@
+import { routes } from '@/shared/config/routes'
 import { ArrowLeft } from 'lucide-react'
-import PageHeader from '@/components/admin/PageHeader'
-import { Button } from '@/components/ui/button'
+import PageHeader from '@/shared/components/admin/PageHeader'
+import { Button } from '@/shared/ui/button'
 import ListingCreatePanel from '@/features/admin-listings/components/ListingCreatePanel'
 import ListingWorkflowSteps from '@/features/admin-listings/components/ListingWorkflowSteps'
 
@@ -21,7 +22,7 @@ function ListingsCreatePage({
           <Button
             type="button"
             variant="outline"
-            onClick={() => onNavigate('/admin/listings')}
+            onClick={() => onNavigate(routes.admin.listings)}
           >
             <ArrowLeft />
             Back to listings
@@ -34,9 +35,9 @@ function ListingsCreatePage({
       </div>
 
       <ListingCreatePanel
-        onCancel={() => onNavigate('/admin/listings')}
+        onCancel={() => onNavigate(routes.admin.listings)}
         onCreated={(listing) =>
-          onNavigate(`/admin/listings/${listing.id}/images`)
+          onNavigate(routes.admin.listingImages(listing.id))
         }
       />
     </section>

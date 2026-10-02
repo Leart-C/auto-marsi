@@ -1,7 +1,7 @@
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/utils'
 import VehicleFeatureIcon, {
   vehicleFeatureIconOptions,
-} from './VehicleFeatureIcon'
+} from '@/features/admin-catalog/features/components/VehicleFeatureIcon'
 
 type VehicleFeatureIconPickerProps = {
   value: string

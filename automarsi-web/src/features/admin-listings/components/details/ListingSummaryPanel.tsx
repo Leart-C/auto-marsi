@@ -1,15 +1,15 @@
 import { CalendarDays, CarFront, MapPin } from 'lucide-react'
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/shared/ui/badge'
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import type { AdminListing } from '../../types'
-import ListingStatusBadge from '../ListingStatusBadge'
-import { formatPrice, formatValue } from './listingDetailsFormatters'
-import { getListingVisibilityDetails } from './listingVisibility'
+} from '@/shared/ui/card'
+import type { AdminListing } from '@/features/admin-listings/types'
+import ListingStatusBadge from '@/features/admin-listings/components/ListingStatusBadge'
+import { formatPrice, formatValue } from '@/features/admin-listings/utils/listingDetailsFormatters'
+import { getListingVisibilityDetails } from '@/features/admin-listings/utils/listingVisibility'
 
 type ListingSummaryPanelProps = {
   listing: AdminListing

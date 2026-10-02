@@ -1,0 +1,72 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/geist';
+@import './theme.css';
+@import './surfaces.css';
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  html {
+    @apply font-sans;
+  }
+  button,
+  a,
+  [role='button'] {
+    cursor: pointer;
+  }
+  button:disabled,
+  [aria-disabled='true'] {
+    cursor: not-allowed;
+  }
+}
+
+@layer utilities {
+  .public-image-fade::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        180deg,
+        rgb(8 9 11 / 0%) 0%,
+        rgb(8 9 11 / 48%) 72%,
+        #0b0e11 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgb(8 9 11 / 82%) 0%,
+        rgb(8 9 11 / 18%) 52%,
+        rgb(8 9 11 / 56%) 100%
+      );
+    pointer-events: none;
+  }
+
+  .public-scrollbar {
+    scrollbar-color: rgb(215 170 82 / 55%) transparent;
+    scrollbar-width: thin;
+  }
+
+  .public-scrollbar::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+  }
+
+  .public-scrollbar::-webkit-scrollbar-thumb {
+    background: rgb(215 170 82 / 55%);
+    border-radius: 999px;
+  }
+
+  .admin-scrollbar {
+    scrollbar-color: color-mix(in oklch, var(--foreground) 16%, transparent)
+      transparent;
+    scrollbar-width: thin;
+  }
+}
+

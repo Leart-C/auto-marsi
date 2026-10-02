@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import FormField from '@/components/admin/FormField'
-import { Button } from '@/components/ui/button'
-import { suggestVehicleFeatureIcon } from './VehicleFeatureIcon'
-import VehicleFeatureIconPicker from './VehicleFeatureIconPicker'
+import FormField from '@/shared/components/admin/FormField'
+import { Button } from '@/shared/ui/button'
+import { suggestVehicleFeatureIcon } from '@/features/admin-catalog/features/components/VehicleFeatureIcon'
+import VehicleFeatureIconPicker from '@/features/admin-catalog/features/components/VehicleFeatureIconPicker'
 
 type CreateVehicleFeatureFormProps = {
   isSubmitting: boolean

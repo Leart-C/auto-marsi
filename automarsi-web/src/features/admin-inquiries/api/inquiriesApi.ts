@@ -1,4 +1,5 @@
-import { adminApi } from '@/lib/adminApi'
+import { ADMIN_PAGE_SIZE } from '@/shared/api/pagination'
+import { adminApi } from '@/shared/api/adminApi'
 import type {
   AdminAppointmentResponse,
   AppointmentStatus,
@@ -7,7 +8,7 @@ import type {
   AdminInquiryResponse,
   AdminInquiriesResponse,
   InquiryStatus,
-} from '../types'
+} from '@/features/admin-inquiries/types'
 
 type GetAdminInquiriesParams = {
   token: string
@@ -24,7 +25,7 @@ export function getAdminInquiries({
   status,
   listingId,
   page = 1,
-  perPage = 15,
+  perPage = ADMIN_PAGE_SIZE,
 }: GetAdminInquiriesParams) {
   return adminApi<AdminInquiriesResponse>({
     token,

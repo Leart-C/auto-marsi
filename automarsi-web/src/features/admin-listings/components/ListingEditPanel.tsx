@@ -1,6 +1,6 @@
-import type { AdminListing } from '../types'
-import { useListingEditForm } from '../hooks/useListingEditForm'
-import ListingForm from './ListingForm'
+import type { AdminListing } from '@/features/admin-listings/types'
+import { useListingEditForm } from '@/features/admin-listings/hooks/useListingEditForm'
+import ListingForm from '@/features/admin-listings/components/ListingForm'
 
 type ListingEditPanelProps = {
   listing: AdminListing

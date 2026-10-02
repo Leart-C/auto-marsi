@@ -1,5 +1,5 @@
-import AdminStatusPill from '@/components/admin/AdminStatusPill'
-import type { AppointmentStatus } from '../types'
+import AdminStatusPill from '@/shared/components/admin/AdminStatusPill'
+import type { AppointmentStatus } from '@/features/admin-appointments/types'
 
 type AppointmentStatusBadgeProps = {
   status: AppointmentStatus

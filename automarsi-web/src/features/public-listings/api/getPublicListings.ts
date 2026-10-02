@@ -1,8 +1,9 @@
-import { publicApi } from '@/lib/publicApi'
+import { PUBLIC_LISTINGS_PAGE_SIZE } from '@/features/public-listings/constants'
+import { publicApi } from '@/shared/api/publicApi'
 import type {
   PublicListingFilters,
   PublicListingsResponse,
-} from '../types'
+} from '@/features/public-listings/types'
 
 export function getPublicListings(filters: PublicListingFilters) {
   return publicApi<PublicListingsResponse>({
@@ -18,7 +19,7 @@ export function getPublicListings(filters: PublicListingFilters) {
       fuel_type: filters.fuel_type,
       transmission: filters.transmission,
       body_type: filters.body_type,
-      per_page: filters.per_page ?? 9,
+      per_page: filters.per_page ?? PUBLIC_LISTINGS_PAGE_SIZE,
     },
   })
 }

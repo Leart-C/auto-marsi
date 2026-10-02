@@ -1,3 +1,4 @@
+import { routes } from '@/shared/config/routes'
 import {
   ArrowLeft,
   Archive,
@@ -8,10 +9,10 @@ import {
   Pencil,
   Send,
 } from 'lucide-react'
-import EmptyState from '@/components/admin/EmptyState'
-import LoadingState from '@/components/admin/LoadingState'
-import PageHeader from '@/components/admin/PageHeader'
-import { Button } from '@/components/ui/button'
+import EmptyState from '@/shared/components/admin/EmptyState'
+import LoadingState from '@/shared/components/admin/LoadingState'
+import PageHeader from '@/shared/components/admin/PageHeader'
+import { Button } from '@/shared/ui/button'
 import ListingDetails from '@/features/admin-listings/components/ListingDetails'
 import ListingWorkflowSteps from '@/features/admin-listings/components/ListingWorkflowSteps'
 import { useAdminListing } from '@/features/admin-listings/hooks/useAdminListing'
@@ -52,7 +53,7 @@ function ListingViewPage({ listingId, onNavigate }: ListingViewPageProps) {
             <Button
               type="button"
               variant="outline"
-              onClick={() => onNavigate('/admin/listings')}
+              onClick={() => onNavigate(routes.admin.listings)}
             >
               <ArrowLeft />
               Back to listings
@@ -62,7 +63,7 @@ function ListingViewPage({ listingId, onNavigate }: ListingViewPageProps) {
               <Button
                 type="button"
                 variant="outline"
-                onClick={() => onNavigate(`/inventory/${listingId}`)}
+                onClick={() => onNavigate(routes.listing(listingId))}
               >
                 <ExternalLink />
                 Public page
@@ -72,7 +73,7 @@ function ListingViewPage({ listingId, onNavigate }: ListingViewPageProps) {
             <Button
               type="button"
               variant="outline"
-              onClick={() => onNavigate(`/admin/listings/${listingId}/images`)}
+              onClick={() => onNavigate(routes.admin.listingImages(listingId))}
             >
               <Images />
               Manage images
@@ -81,7 +82,7 @@ function ListingViewPage({ listingId, onNavigate }: ListingViewPageProps) {
               type="button"
               variant="outline"
               onClick={() =>
-                onNavigate(`/admin/listings/${listingId}/edit`)
+                onNavigate(routes.admin.editListing(listingId))
               }
             >
               <Pencil />
@@ -155,7 +156,7 @@ function ListingViewPage({ listingId, onNavigate }: ListingViewPageProps) {
             variant="outline"
             size="sm"
             onClick={() =>
-              onNavigate(`/admin/listings/${listingId}/images`)
+              onNavigate(routes.admin.listingImages(listingId))
             }
           >
             <Images />

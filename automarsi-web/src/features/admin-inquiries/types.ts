@@ -1,3 +1,4 @@
+import type { PaginationMeta } from '@/shared/api/types'
 export const inquiryStatuses = ['new', 'read', 'closed'] as const
 
 export type InquiryStatus = (typeof inquiryStatuses)[number]
@@ -26,12 +27,7 @@ export type AdminInquiry = {
 
 export type AdminInquiriesResponse = {
   data: AdminInquiry[]
-  meta: {
-    current_page: number
-    last_page: number
-    per_page: number
-    total: number
-  }
+  meta: PaginationMeta
 }
 
 export type AdminInquiryResponse = {

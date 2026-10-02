@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import { Eye, MoreHorizontal, Pencil } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
+} from '@/shared/ui/dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@/shared/ui/dropdown-menu'
 import {
   Table,
   TableBody,
@@ -21,10 +21,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import type { AdminAppointment, AppointmentStatus } from '../types'
-import { appointmentStatuses } from '../types'
-import AppointmentStatusBadge from './AppointmentStatusBadge'
+} from '@/shared/ui/table'
+import type { AdminAppointment, AppointmentStatus } from '@/features/admin-appointments/types'
+import { appointmentStatuses } from '@/features/admin-appointments/types'
+import AppointmentStatusBadge from '@/features/admin-appointments/components/AppointmentStatusBadge'
 
 type AppointmentsTableProps = {
   appointments: AdminAppointment[]

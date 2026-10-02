@@ -1,8 +1,9 @@
+import { adminApi } from '@/shared/api/adminApi'
 import type {
   AdminVehicleFeature,
   AdminVehicleFeatureResponse,
   CreateAdminVehicleFeaturePayload,
-} from '../types'
+} from '@/features/admin-catalog/features/types'
 
 type CreateAdminVehicleFeatureParams = {
   token: string
@@ -13,23 +14,12 @@ export async function createAdminVehicleFeature({
   token,
   payload,
 }: CreateAdminVehicleFeatureParams): Promise<AdminVehicleFeature> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const response = await fetch(`${apiUrl}/admin/vehicle-features`, {
+  const response = await adminApi<AdminVehicleFeatureResponse>({
+    path: `/admin/vehicle-features`,
+    token,
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
+    body: payload,
+    errorMessage: 'Failed to create vehicle feature.',
   })
-
-  if (!response.ok) {
-    throw new Error('Failed to create vehicle feature.')
-  }
-
-  const data = (await response.json()) as AdminVehicleFeatureResponse
-
-  return data.data
+  return response.data
 }

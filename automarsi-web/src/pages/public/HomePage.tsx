@@ -1,3 +1,4 @@
+import { routes } from '@/shared/config/routes'
 import {
   ArrowDown,
   ArrowUpRight,
@@ -8,8 +9,8 @@ import {
   CarFront,
 } from 'lucide-react'
 import { useState } from 'react'
-import PublicSection from '@/components/public/PublicSection'
-import { Button } from '@/components/ui/button'
+import PublicSection from '@/shared/components/public/PublicSection'
+import { Button } from '@/shared/ui/button'
 import supraHeroImage from '@/assets/home-hero-supra.jpg'
 import FeaturedListingsSection from '@/features/public-listings/components/FeaturedListingsSection'
 import RecentlySoldSection from '@/features/public-listings/components/RecentlySoldSection'
@@ -54,27 +55,32 @@ function HomePage({ onNavigate }: HomePageProps) {
             <br />
             <span className="text-primary">{messages.home.heroAccent}</span>
           </h1>
-          <p className="mt-6 max-w-sm text-sm leading-7 text-white/65 sm:text-base">
-            {messages.home.heroDescription}
+          <p className="showroom-hero-description mt-6 max-w-sm text-sm leading-7 text-white/65 sm:text-base">
+            <span className="md:hidden">
+              {messages.home.mobileHeroDescription}
+            </span>
+            <span className="hidden md:inline">
+              {messages.home.heroDescription}
+            </span>
           </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          <div className="showroom-hero-actions mt-8 flex flex-wrap items-center gap-4">
             <Button
               size="lg"
-              onClick={() => onNavigate('/inventory')}
+              onClick={() => onNavigate(routes.inventory)}
               className="h-12 rounded-full px-6 font-semibold"
             >
               {messages.home.browseInventory}
               <ArrowUpRight className="ml-3 size-4" />
             </Button>
             <button
-              className="flex items-center gap-2 p-2 text-sm text-white/80 hover:text-primary"
-              onClick={() => onNavigate('/contact')}
+              className="hidden items-center gap-2 p-2 text-sm text-white/80 hover:text-primary md:flex"
+              onClick={() => onNavigate(routes.contact)}
             >
               {messages.home.contactTeam}
               <ArrowUpRight className="size-4" />
             </button>
           </div>
-          <div className="mt-12 flex items-center gap-2 text-xs text-white/50">
+          <div className="showroom-hero-location mt-12 flex items-center gap-2 text-xs text-white/50">
             <MapPin className="size-3.5" />
             {messages.contact.location}
           </div>
@@ -94,7 +100,7 @@ function HomePage({ onNavigate }: HomePageProps) {
           role="search"
           onSubmit={(event) => {
             event.preventDefault()
-            onNavigate(`/inventory?search=${encodeURIComponent(search.trim())}`)
+            onNavigate(routes.inventorySearch({ search: search.trim() }))
           }}
         >
           <div className="hidden border-r border-white/10 pr-8 md:block">
@@ -112,7 +118,9 @@ function HomePage({ onNavigate }: HomePageProps) {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder={messages.home.mobileSearchPlaceholder}
-              className="h-12 w-full min-w-0 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+              type="search"
+              enterKeyHint="search"
+              className="h-12 w-full min-w-0 bg-transparent text-base outline-none placeholder:text-muted-foreground md:text-sm"
             />
           </label>
           <Button type="submit" className="h-12 rounded-full px-5">
@@ -142,7 +150,7 @@ function HomePage({ onNavigate }: HomePageProps) {
           {messages.home.trustItems.map((item, index) => {
             const Icon = trustIcons[index]
             return (
-              <div key={item.title} className="bg-card p-7">
+              <div key={item.title} className="showroom-trust-item bg-card p-7">
                 <div className="mb-7 flex items-center justify-between">
                   <Icon className="size-6 text-primary" />
                   <span className="font-mono text-xs text-muted-foreground">
@@ -170,7 +178,7 @@ function HomePage({ onNavigate }: HomePageProps) {
           <Button
             size="lg"
             className="h-12 w-fit shrink-0 rounded-full px-6"
-            onClick={() => onNavigate('/contact')}
+            onClick={() => onNavigate(routes.contact)}
           >
             {messages.home.contactTeam}
             <ArrowUpRight className="size-4" />

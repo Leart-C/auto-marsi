@@ -1,8 +1,8 @@
-import { invalidateInventory } from '../utils/invalidateInventory'
+import { invalidateInventory } from '@/features/admin-listings/utils/invalidateInventory'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { useAdminToken } from '@/hooks/useAdminToken'
-import { publishAdminListing } from '../api/publishAdminListing'
+import { useAdminToken } from '@/shared/hooks/useAdminToken'
+import { publishAdminListing } from '@/features/admin-listings/api/publishAdminListing'
 
 type UsePublishListingParams = {
   listingId: string

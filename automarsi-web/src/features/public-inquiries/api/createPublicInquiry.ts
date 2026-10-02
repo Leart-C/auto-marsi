@@ -1,8 +1,8 @@
-import { publicApi } from '@/lib/publicApi'
+import { publicApi } from '@/shared/api/publicApi'
 import type {
   CreatePublicInquiryPayload,
   CreatePublicInquiryResponse,
-} from '../types'
+} from '@/features/public-inquiries/types'
 
 type CreatePublicInquiryParams = {
   payload: CreatePublicInquiryPayload

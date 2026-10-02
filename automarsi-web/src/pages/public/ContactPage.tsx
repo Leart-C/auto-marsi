@@ -1,5 +1,5 @@
 import { Mail, MapPin, Phone } from 'lucide-react'
-import PublicSection from '@/components/public/PublicSection'
+import PublicSection from '@/shared/components/public/PublicSection'
 import supraHeroImage from '@/assets/home-hero-supra.jpg'
 import PublicContactInquiryForm from '@/features/public-inquiries/components/PublicContactInquiryForm'
 import { usePublicSiteMedia } from '@/features/site-media/hooks/usePublicSiteMedia'

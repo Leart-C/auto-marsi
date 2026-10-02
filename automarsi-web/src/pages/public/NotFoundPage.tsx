@@ -1,5 +1,5 @@
 import { RouteOff } from 'lucide-react'
-import PublicEmptyState from '@/components/public/PublicEmptyState'
+import PublicEmptyState from '@/shared/components/public/PublicEmptyState'
 import { useI18n } from '@/i18n/useI18n'
 
 type NotFoundPageProps = {

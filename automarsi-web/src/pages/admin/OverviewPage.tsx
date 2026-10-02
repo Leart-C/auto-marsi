@@ -1,3 +1,4 @@
+import { routes } from '@/shared/config/routes'
 import {
   CalendarClock,
   CarFront,
@@ -7,10 +8,10 @@ import {
   ArrowUpRight,
   Plus,
 } from 'lucide-react'
-import EmptyState from '@/components/admin/EmptyState'
-import LoadingState from '@/components/admin/LoadingState'
-import PageHeader from '@/components/admin/PageHeader'
-import { Button } from '@/components/ui/button'
+import EmptyState from '@/shared/components/admin/EmptyState'
+import LoadingState from '@/shared/components/admin/LoadingState'
+import PageHeader from '@/shared/components/admin/PageHeader'
+import { Button } from '@/shared/ui/button'
 import AppointmentStatusBadge from '@/features/admin-appointments/components/AppointmentStatusBadge'
 import InquiryStatusBadge from '@/features/admin-inquiries/components/InquiryStatusBadge'
 import InventoryStatusChart from '@/features/admin-overview/components/InventoryStatusChart'
@@ -92,7 +93,7 @@ function OverviewPage({ onNavigate }: OverviewPageProps) {
               <div className="flex flex-wrap gap-3">
                 <Button
                   className="rounded-full bg-[#d2f86a] text-[#172313] hover:bg-[#e0ff94]"
-                  onClick={() => onNavigate('/admin/inquiries')}
+                  onClick={() => onNavigate(routes.admin.inquiries)}
                 >
                   Open inquiries
                   <ArrowUpRight className="size-4" />
@@ -100,7 +101,7 @@ function OverviewPage({ onNavigate }: OverviewPageProps) {
                 <Button
                   className="rounded-full border-white/20 bg-transparent text-white hover:bg-white/10 hover:text-white"
                   variant="outline"
-                  onClick={() => onNavigate('/admin/listings/new')}
+                  onClick={() => onNavigate(routes.admin.newListing)}
                 >
                   <Plus className="size-4" />
                   Add a vehicle
@@ -154,7 +155,7 @@ function OverviewPage({ onNavigate }: OverviewPageProps) {
                   type="button"
                   variant="ghost"
                   className="w-full"
-                  onClick={() => onNavigate('/admin/listings')}
+                  onClick={() => onNavigate(routes.admin.listings)}
                 >
                   Open inventory
                 </Button>
@@ -175,7 +176,7 @@ function OverviewPage({ onNavigate }: OverviewPageProps) {
                     <button
                       key={appointment.id}
                       type="button"
-                      onClick={() => onNavigate('/admin/appointments')}
+                      onClick={() => onNavigate(routes.admin.appointments)}
                       className="grid w-full grid-cols-[1fr_auto] gap-4 border-b px-4 py-3 text-left last:border-b-0 hover:bg-muted/40"
                     >
                       <span className="min-w-0">
@@ -210,7 +211,7 @@ function OverviewPage({ onNavigate }: OverviewPageProps) {
                   <button
                     key={inquiry.id}
                     type="button"
-                    onClick={() => onNavigate('/admin/inquiries')}
+                    onClick={() => onNavigate(routes.admin.inquiries)}
                     className="flex items-start justify-between gap-4 border-b px-4 py-3 text-left hover:bg-muted/40 md:odd:border-r"
                   >
                     <span className="min-w-0">

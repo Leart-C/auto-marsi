@@ -16,9 +16,9 @@ import {
   AlertDialogHeader,
   AlertDialogMedia,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+} from '@/shared/ui/alert-dialog'
+import { Badge } from '@/shared/ui/badge'
+import { Button } from '@/shared/ui/button'
 import {
   Dialog,
   DialogClose,
@@ -27,16 +27,16 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
+} from '@/shared/ui/dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import type { AdminListingImage } from '../types'
-import type { UpdateAdminListingImagePayload } from '../api/updateAdminListingImage'
+} from '@/shared/ui/dropdown-menu'
+import type { AdminListingImage } from '@/features/admin-listings/types'
+import type { UpdateAdminListingImagePayload } from '@/features/admin-listings/api/updateAdminListingImage'
 
 const imageLabelPresets = ['Main', 'Interior', 'Exterior'] as const
 type ImageLabelPreset = (typeof imageLabelPresets)[number]

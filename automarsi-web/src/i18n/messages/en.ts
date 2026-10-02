@@ -1,5 +1,6 @@
 export const en = {
   common: {
+    close: 'Close',
     brand: 'AutoMarsi',
     browse: 'Browse',
     language: 'Language',
@@ -20,7 +21,6 @@ export const en = {
     inventory: 'Inventory',
     about: 'About',
     services: 'Services',
-    financing: 'Financing',
     contact: 'Contact',
   },
   footer: {
@@ -28,7 +28,6 @@ export const en = {
     company: 'Company',
     contact: 'Contact',
     allVehicles: 'All vehicles',
-    financingGuidance: 'Financing guidance',
     contactTeam: 'Contact team',
     description:
       'Selected vehicles, clear communication, and showroom follow-up for drivers across Kosovo.',
@@ -50,7 +49,7 @@ export const en = {
     eyebrow: 'Contact',
     title: 'Ask before you visit.',
     description:
-      'Send a question about availability, financing, trade-in, or a showroom visit. The AutoMarsi team will follow up clearly.',
+      'Send a question about availability, trade-in, or a showroom visit. The AutoMarsi team will follow up clearly.',
     nextEyebrow: 'What happens next',
     nextDescription:
       'Your message becomes an inquiry in the admin dashboard. The team reviews it, responds, and schedules a showroom visit if needed.',
@@ -67,13 +66,12 @@ export const en = {
       general: 'General question',
       availability: 'Vehicle availability',
       visit: 'Book a showroom visit',
-      financing: 'Financing question',
     },
   },
   home: {
+    mobileHeroDescription: 'Exceptional cars. A personal experience, here in Prishtina.',
     mobileWelcome: 'Welcome',
     mobileSearchPlaceholder: 'Search make, model...',
-    mobileFinancingAction: 'Calculate payment',
     mobileContactAction: 'Write to us',
     heroEyebrow: 'AutoMarsi · Prishtina',
     heroTitle: 'Your next chapter.',
@@ -129,6 +127,8 @@ export const en = {
     noVehiclesDescription:
       'Try changing the make, model, price, or keyword filters.',
     filters: {
+      showVehicles: 'Show vehicles',
+      description: 'Choose the details that matter to you.',
       title: 'Filters',
       all: 'All',
       reset: 'Reset',
@@ -195,6 +195,9 @@ export const en = {
     },
   },
   listingDetails: {
+    previousImage: 'Previous image',
+    nextImage: 'Next image',
+    aboutVehicle: 'About this vehicle',
     loading: 'Loading vehicle details...',
     couldNotLoad: 'Could not load this vehicle.',
     notFound: 'Vehicle not found.',
@@ -233,7 +236,6 @@ export const en = {
       intentLabel: 'I want to',
       askQuestion: 'Ask a question',
       bookViewing: 'Book a viewing',
-      discussFinancing: 'Discuss financing',
       messagePlaceholder: 'I am interested in this vehicle...',
       successToast: 'Inquiry sent successfully.',
       send: 'Send inquiry',
@@ -307,7 +309,7 @@ export const en = {
       {
         title: 'Customer asks',
         description:
-          'The customer sends a question, viewing request, or financing interest.',
+          'The customer sends a question or viewing request.',
       },
       {
         title: 'Team follows up',
@@ -326,7 +328,7 @@ export const en = {
     needHelp: 'Need help?',
     askBeforeVisit: 'Ask before you visit.',
     helpDescription:
-      'Send a question about availability, financing, trade-in, or showroom follow-up.',
+      'Send a question about availability, trade-in, or showroom follow-up.',
     sendInquiry: 'Send inquiry',
     items: [
       {
@@ -345,11 +347,6 @@ export const en = {
           'Customers can ask the team about possible trade-in steps before visiting.',
       },
       {
-        title: 'Financing guidance',
-        description:
-          'We help customers prepare the right questions before reviewing real terms.',
-      },
-      {
         title: 'Purchase support',
         description:
           'The team helps with practical purchase steps, documents, and registration direction.',
@@ -360,77 +357,5 @@ export const en = {
           'Customers can stay in contact for questions and service direction after purchase.',
       },
     ],
-  },
-  financing: {
-    eyebrow: 'Financing',
-    title: 'Plan the next step before you visit.',
-    description:
-      'Use this page as guidance before speaking with AutoMarsi. The estimate helps you prepare better questions, not receive guaranteed approval.',
-    body: 'Financing depends on real terms, customer details, vehicle price, and the final offer reviewed by the customer. Nothing on this page is saved or sent to a bank.',
-    browseVehicles: 'Browse vehicles',
-    askAboutFinancing: 'Ask about financing',
-    prepareTitle: 'Prepare the right questions before you visit.',
-    prepareItems: [
-      'Vehicle price and down payment range',
-      'Preferred monthly payment',
-      'Trade-in or current vehicle details',
-      'Questions about documents and timing',
-    ],
-    highlights: [
-      {
-        title: 'No hard promise',
-        description:
-          'This is a planning estimate before real terms are reviewed.',
-      },
-      {
-        title: 'Fast showroom follow-up',
-        description:
-          'Send your question and the team can continue the conversation.',
-      },
-      {
-        title: 'Clear preparation',
-        description:
-          'Arrive with budget, term, and vehicle questions already organized.',
-      },
-    ],
-    calculator: {
-      title: 'Budget planner',
-      description: 'Estimate a rough monthly payment.',
-      estimatedMonthly: 'Estimated monthly payment',
-      financedAmount: 'Financed amount',
-      vehiclePrice: 'Vehicle price',
-      downPayment: 'Down payment',
-      term: 'Term',
-      rate: 'Rate %',
-      months: 'mo',
-      note: 'Estimate only. Final terms, rates, approval, and monthly payments are reviewed separately.',
-      askAboutEstimate: 'Ask about estimate',
-    },
-    steps: {
-      eyebrow: 'How it works',
-      title: 'A simple conversation, not a promise.',
-      items: [
-        {
-          title: 'Choose vehicle',
-          description: 'Start from active inventory.',
-        },
-        {
-          title: 'Ask clearly',
-          description: 'Send questions through contact.',
-        },
-        {
-          title: 'Review terms',
-          description: 'Compare real terms before deciding.',
-        },
-      ],
-    },
-    cta: {
-      eyebrow: 'Financing questions',
-      title: 'Start with the vehicle you like.',
-      description:
-        'Browse active inventory or contact the AutoMarsi team to ask about availability, showroom follow-up, and financing guidance.',
-      viewInventory: 'View inventory',
-      contactTeam: 'Contact the team',
-    },
   },
 }

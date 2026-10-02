@@ -1,4 +1,8 @@
-import type { AdminModel, AdminModelsResponse } from '../types'
+import { adminApi } from '@/shared/api/adminApi'
+import type {
+  AdminModel,
+  AdminModelsResponse,
+} from '@/features/admin-catalog/makes/types'
 
 type GetAdminModelsParams = {
   token: string
@@ -9,27 +13,11 @@ export async function getAdminModels({
   token,
   makeId,
 }: GetAdminModelsParams): Promise<AdminModel[]> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const queryParams = new URLSearchParams({
-    make_id: String(makeId),
+  const response = await adminApi<AdminModelsResponse>({
+    path: `/admin/car-models`,
+    token,
+    query: { make_id: makeId },
+    errorMessage: 'Failed to load models.',
   })
-
-  const response = await fetch(
-    `${apiUrl}/admin/car-models?${queryParams.toString()}`,
-    {
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-
-  if (!response.ok) {
-    throw new Error('Failed to load models.')
-  }
-
-  const data = (await response.json()) as AdminModelsResponse
-
-  return data.data
+  return response.data
 }

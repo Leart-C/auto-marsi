@@ -1,11 +1,11 @@
 import { RefreshCcw } from 'lucide-react'
 import { useState } from 'react'
-import DataTableShell from '@/components/admin/DataTableShell'
-import EmptyState from '@/components/admin/EmptyState'
-import LoadingState from '@/components/admin/LoadingState'
-import PageHeader from '@/components/admin/PageHeader'
-import PaginationControls from '@/components/admin/PaginationControls'
-import { Button } from '@/components/ui/button'
+import DataTableShell from '@/shared/components/admin/DataTableShell'
+import EmptyState from '@/shared/components/admin/EmptyState'
+import LoadingState from '@/shared/components/admin/LoadingState'
+import PageHeader from '@/shared/components/admin/PageHeader'
+import PaginationControls from '@/shared/components/admin/PaginationControls'
+import { Button } from '@/shared/ui/button'
 import AppointmentFormDialog from '@/features/admin-appointments/components/AppointmentFormDialog'
 import InquiriesKanban from '@/features/admin-inquiries/components/InquiriesKanban'
 import { useAdminInquiries } from '@/features/admin-inquiries/hooks/useAdminInquiries'
@@ -15,7 +15,7 @@ import type {
 } from '@/features/admin-inquiries/types'
 import AdminListingSelect from '@/features/admin-listings/components/AdminListingSelect'
 import { useAdminListingOptions } from '@/features/admin-listings/hooks/useAdminListingOptions'
-import { useDebouncedValue } from '@/hooks/useDebouncedValue'
+import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue'
 
 function InquiriesPage() {
   const [search, setSearch] = useState('')

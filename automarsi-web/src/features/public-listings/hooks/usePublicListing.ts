@@ -1,5 +1,6 @@
+import { queryPolicy } from '@/shared/config/queryPolicy'
 import { useQuery } from '@tanstack/react-query'
-import { getPublicListing } from '../api/getPublicListing'
+import { getPublicListing } from '@/features/public-listings/api/getPublicListing'
 
 type UsePublicListingParams = {
   listingId: number
@@ -10,7 +11,7 @@ export function usePublicListing({ listingId }: UsePublicListingParams) {
     queryKey: ['public', 'listing', listingId],
     enabled: Number.isFinite(listingId) && listingId > 0,
     queryFn: () => getPublicListing({ listingId }),
-    staleTime: 60_000,
+    staleTime: queryPolicy.publicStaleTime,
   })
 
   return {

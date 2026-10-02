@@ -1,4 +1,5 @@
-import type { AdminListingImage } from '../types'
+import { adminApi } from '@/shared/api/adminApi'
+import type { AdminListingImage } from '@/features/admin-listings/types'
 
 type AdminListingImagesResponse = {
   data: AdminListingImage[]
@@ -13,23 +14,10 @@ export async function getAdminListingImages({
   token,
   listingId,
 }: GetAdminListingImagesParams): Promise<AdminListingImage[]> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const response = await fetch(
-    `${apiUrl}/admin/listings/${listingId}/images`,
-    {
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-
-  if (!response.ok) {
-    throw new Error('Failed to load listing images.')
-  }
-
-  const data = (await response.json()) as AdminListingImagesResponse
-
-  return data.data
+  const response = await adminApi<AdminListingImagesResponse>({
+    path: `/admin/listings/${listingId}/images`,
+    token,
+    errorMessage: 'Failed to load listing images.',
+  })
+  return response.data
 }

@@ -1,13 +1,15 @@
-import { invalidateInventory } from '../utils/invalidateInventory'
+import { EMPTY_PAGINATION, ADMIN_PAGE_SIZE } from '@/shared/api/pagination'
+import { queryPolicy } from '@/shared/config/queryPolicy'
+import { invalidateInventory } from '@/features/admin-listings/utils/invalidateInventory'
 import { useAuth } from '@clerk/clerk-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { deleteAdminListing } from '../api/deleteAdminListing'
-import { getAdminListings } from '../api/getAdminListings'
+import { deleteAdminListing } from '@/features/admin-listings/api/deleteAdminListing'
+import { getAdminListings } from '@/features/admin-listings/api/getAdminListings'
 import {
   updateAdminListingStatus,
   type AdminListingStatusAction,
-} from '../api/updateAdminListingStatus'
+} from '@/features/admin-listings/api/updateAdminListingStatus'
 
 type UseAdminListingsFilters = {
   search?: string
@@ -20,13 +22,6 @@ type UseAdminListingsFilters = {
   perPage?: number
 }
 
-const emptyMeta = {
-  current_page: 1,
-  last_page: 1,
-  per_page: 15,
-  total: 0,
-}
-
 export function useAdminListings({
   search = '',
   status = '',
@@ -35,7 +30,7 @@ export function useAdminListings({
   carModelId = '',
   isFeatured = '',
   page = 1,
-  perPage = 15,
+  perPage = ADMIN_PAGE_SIZE,
 }: UseAdminListingsFilters = {}) {
   const { getToken, isLoaded, isSignedIn } = useAuth()
   const queryClient = useQueryClient()
@@ -66,7 +61,7 @@ export function useAdminListings({
       },
     ],
     enabled: isLoaded && isSignedIn,
-    staleTime: 20_000,
+    staleTime: queryPolicy.inventoryStaleTime,
     queryFn: async () => {
       const token = await getAuthToken()
 
@@ -146,7 +141,7 @@ export function useAdminListings({
   }
 
   const listings = listingsQuery.data?.data ?? []
-  const meta = listingsQuery.data?.meta ?? emptyMeta
+  const meta = listingsQuery.data?.meta ?? EMPTY_PAGINATION
   const errorMessage =
     listingsQuery.error instanceof Error ? listingsQuery.error.message : null
 

@@ -8,8 +8,8 @@ import {
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Button } from '@/components/ui/button'
-import type { AdminListingImage } from '../types'
+import { Button } from '@/shared/ui/button'
+import type { AdminListingImage } from '@/features/admin-listings/types'
 
 type ListingImageLightboxProps = {
   images: AdminListingImage[]

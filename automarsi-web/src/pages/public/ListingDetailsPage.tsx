@@ -1,7 +1,8 @@
+import { routes } from '@/shared/config/routes'
 import { ArrowLeft, SearchX } from 'lucide-react'
-import PublicEmptyState from '@/components/public/PublicEmptyState'
-import PublicSection from '@/components/public/PublicSection'
-import { Button } from '@/components/ui/button'
+import PublicEmptyState from '@/shared/components/public/PublicEmptyState'
+import PublicSection from '@/shared/components/public/PublicSection'
+import { Button } from '@/shared/ui/button'
 import PublicListingContactReassurance from '@/features/public-listings/components/PublicListingContactReassurance'
 import PublicListingDetailsHeader from '@/features/public-listings/components/PublicListingDetailsHeader'
 import PublicListingFeatures from '@/features/public-listings/components/PublicListingFeatures'
@@ -53,9 +54,9 @@ function ListingDetailsPage({
   }
 
   return (
-    <PublicSection className="pt-0 md:pt-12">
+    <PublicSection className="pb-28 pt-4 md:py-12">
       <div className="grid gap-5">
-        <div className="hidden md:block">
+        <div>
           <BackToInventoryButton onNavigate={onNavigate} />
         </div>
 
@@ -68,7 +69,7 @@ function ListingDetailsPage({
 
           <aside className="grid h-fit gap-4 lg:sticky lg:top-20">
             <PublicListingSpecs listing={listing} />
-            <div id="listing-inquiry">
+            <div id="listing-inquiry" className="scroll-mt-24">
               <PublicListingInquiryForm listingId={listing.id} />
             </div>
             <PublicListingContactReassurance />
@@ -99,7 +100,7 @@ function BackToInventoryButton({ onNavigate }: BackToInventoryButtonProps) {
       type="button"
       variant="ghost"
       className="w-fit px-0 text-muted-foreground hover:bg-transparent hover:text-foreground"
-      onClick={() => onNavigate('/inventory')}
+      onClick={() => onNavigate(routes.inventory)}
     >
       <ArrowLeft className="size-4" />
       {messages.listingDetails.backToInventory}

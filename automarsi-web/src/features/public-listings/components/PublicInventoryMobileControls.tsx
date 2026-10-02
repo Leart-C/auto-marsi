@@ -1,7 +1,8 @@
-import PublicMobileSearch from '@/components/public/PublicMobileSearch'
+import PublicInventoryFilterSheet from '@/features/public-listings/components/PublicInventoryFilterSheet'
+import PublicMobileSearch from '@/shared/components/public/PublicMobileSearch'
 import { useI18n } from '@/i18n/useI18n'
-import { cn } from '@/lib/utils'
-import type { PublicListingFilters } from '../types'
+import { cn } from '@/shared/lib/utils'
+import type { PublicListingFilters } from '@/features/public-listings/types'
 
 type PublicInventoryMobileControlsProps = {
   filters: PublicListingFilters
@@ -48,10 +49,11 @@ function PublicInventoryMobileControls({
               key={type.label}
               type="button"
               onClick={() => updateFilter('body_type', type.value)}
+              aria-pressed={isActive}
               className={cn(
-                'shrink-0 rounded-2xl border border-white/10 bg-white/[0.06] px-5 py-3 text-base font-bold text-foreground/80 transition',
+                'min-h-11 shrink-0 rounded-full border border-white/10 bg-white/[0.04] px-5 py-2 text-sm font-medium text-foreground/80 transition',
                 isActive &&
-                  'border-primary/40 bg-primary text-primary-foreground shadow-[0_14px_35px_rgba(213,162,56,0.22)]'
+                  'border-primary/40 bg-primary text-primary-foreground',
               )}
             >
               {type.label}
@@ -60,9 +62,15 @@ function PublicInventoryMobileControls({
         })}
       </div>
 
-      <p className="px-1 text-base font-semibold text-muted-foreground">
-        {countLabel}
-      </p>
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-sm text-muted-foreground" aria-live="polite">
+          {countLabel}
+        </p>
+        <PublicInventoryFilterSheet
+          filters={filters}
+          onFiltersChange={onFiltersChange}
+        />
+      </div>
     </div>
   )
 }

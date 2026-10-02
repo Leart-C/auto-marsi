@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react'
-import AdminMetricCard from '@/components/admin/AdminMetricCard'
+import AdminMetricCard from '@/shared/components/admin/AdminMetricCard'
 
 type OverviewKpiCardProps = {
   label: string

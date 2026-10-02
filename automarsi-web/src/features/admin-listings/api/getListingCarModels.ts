@@ -1,25 +1,16 @@
-import type { ListingCarModelOption } from '../types'
+import { publicApi } from '@/shared/api/publicApi'
+import type { ListingCarModelOption } from '@/features/admin-listings/types'
 
 type CarModelsResponse = {
   data: ListingCarModelOption[]
 }
 
 export async function getListingCarModels(
-  makeId: number
+  makeId: number,
 ): Promise<ListingCarModelOption[]> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const response = await fetch(`${apiUrl}/makes/${makeId}/models`, {
-    headers: {
-      Accept: 'application/json',
-    },
+  const response = await publicApi<CarModelsResponse>({
+    path: `/makes/${makeId}/models`,
+    errorMessage: 'Failed to load car models.',
   })
-
-  if (!response.ok) {
-    throw new Error('Failed to load car models.')
-  }
-
-  const data = (await response.json()) as CarModelsResponse
-
-  return data.data
+  return response.data
 }

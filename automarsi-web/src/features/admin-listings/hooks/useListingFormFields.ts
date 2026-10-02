@@ -1,12 +1,13 @@
+import { queryPolicy } from '@/shared/config/queryPolicy'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
-import { getListingCarModels } from '../api/getListingCarModels'
-import { getListingMakes } from '../api/getListingMakes'
+import { getListingCarModels } from '@/features/admin-listings/api/getListingCarModels'
+import { getListingMakes } from '@/features/admin-listings/api/getListingMakes'
 import {
   buildGeneratedListingTitle,
   type ListingFormState,
-} from '../form/listingFormState'
-import { useListingEquipment } from './useListingEquipment'
+} from '@/features/admin-listings/form/listingFormState'
+import { useListingEquipment } from '@/features/admin-listings/hooks/useListingEquipment'
 
 type ListingFormStateInitializer =
   | ListingFormState
@@ -30,14 +31,14 @@ export function useListingFormFields(
   const makesQuery = useQuery({
     queryKey: ['listing-form', 'makes'],
     queryFn: getListingMakes,
-    staleTime: 5 * 60_000,
+    staleTime: queryPolicy.catalogStaleTime,
   })
 
   const carModelsQuery = useQuery({
     queryKey: ['listing-form', 'car-models', selectedMakeId],
     enabled: selectedMakeId > 0,
     queryFn: () => getListingCarModels(selectedMakeId),
-    staleTime: 5 * 60_000,
+    staleTime: queryPolicy.catalogStaleTime,
   })
 
   const equipment = useListingEquipment({

@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import AdminSurface from '@/components/admin/AdminSurface'
+import AdminSurface from '@/shared/components/admin/AdminSurface'
 
 type OverviewPanelProps = {
   title: string

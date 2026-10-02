@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
-import { createPublicInquiry } from '../api/createPublicInquiry'
-import type { CreatePublicInquiryPayload } from '../types'
+import { createPublicInquiry } from '@/features/public-inquiries/api/createPublicInquiry'
+import type { CreatePublicInquiryPayload } from '@/features/public-inquiries/types'
 
 export function useCreatePublicInquiry() {
   return useMutation({

@@ -1,8 +1,8 @@
 import { ListChecks } from 'lucide-react'
-import type { ListingFormState } from '../../form/listingFormState'
-import type { ListingEquipmentFormProps } from '../../hooks/useListingEquipment'
-import ListingEquipmentPicker from '../ListingEquipmentPicker'
-import ListingFormSection from './ListingFormSection'
+import type { ListingFormState } from '@/features/admin-listings/form/listingFormState'
+import type { ListingEquipmentFormProps } from '@/features/admin-listings/hooks/useListingEquipment'
+import ListingEquipmentPicker from '@/features/admin-listings/components/ListingEquipmentPicker'
+import ListingFormSection from '@/features/admin-listings/components/form/ListingFormSection'
 
 type ListingEquipmentFieldsProps = {
   modelName: string | null

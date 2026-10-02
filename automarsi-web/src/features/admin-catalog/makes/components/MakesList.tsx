@@ -1,6 +1,6 @@
 import { CarFront, Pencil, Trash2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import type { AdminMake } from '../types'
+import { Button } from '@/shared/ui/button'
+import type { AdminMake } from '@/features/admin-catalog/makes/types'
 
 type MakesListProps = {
   makes: AdminMake[]

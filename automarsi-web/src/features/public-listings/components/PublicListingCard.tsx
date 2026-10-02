@@ -1,6 +1,7 @@
+import { routes } from '@/shared/config/routes'
 import { ArrowUpRight, Car, Fuel, Gauge, Settings2 } from 'lucide-react'
 import { useI18n } from '@/i18n/useI18n'
-import type { PublicListing } from '../types'
+import type { PublicListing } from '@/features/public-listings/types'
 
 type PublicListingCardProps = {
   listing: PublicListing
@@ -20,7 +21,7 @@ function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
   return (
     <article className="vehicle-card group">
       <a
-        href={`/inventory/${listing.id}`}
+        href={routes.listing(listing.id)}
         onClick={(event) => {
           if (
             event.button === 0 &&
@@ -30,7 +31,7 @@ function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
             !event.altKey
           ) {
             event.preventDefault()
-            onNavigate(`/inventory/${listing.id}`)
+            onNavigate(routes.listing(listing.id))
           }
         }}
         className="block"
@@ -59,7 +60,7 @@ function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
             <ArrowUpRight className="size-4" />
           </span>
         </div>
-        <div className="p-5">
+        <div className="vehicle-card-content p-5">
           <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
             {listing.make?.name ?? 'AutoMarsi'}
             {listing.body_type ? ` / ${label(listing.body_type)}` : ''}
@@ -67,7 +68,7 @@ function PublicListingCard({ listing, onNavigate }: PublicListingCardProps) {
           <h3 className="mt-2 text-xl font-medium leading-snug tracking-tight">
             {listing.title}
           </h3>
-          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted-foreground">
+          <div className="vehicle-card-specs mt-4 flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted-foreground">
             <span className="flex items-center gap-1.5">
               <Gauge className="size-3.5" />
               {listing.kilometers === null

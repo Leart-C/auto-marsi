@@ -1,20 +1,37 @@
+import { useEffect, useState } from 'react'
 import { MessageSquare, Phone } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/ui/button'
 import { useI18n } from '@/i18n/useI18n'
 
 type PublicListingMobileCtaProps = {
   onContactClick: () => void
 }
 
-function PublicListingMobileCta({ onContactClick }: PublicListingMobileCtaProps) {
+function PublicListingMobileCta({
+  onContactClick,
+}: PublicListingMobileCtaProps) {
   const { messages } = useI18n()
+  const [isInquiryVisible, setIsInquiryVisible] = useState(false)
+
+  useEffect(() => {
+    const form = document.getElementById('listing-inquiry')
+    if (!form) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsInquiryVisible(entry.isIntersecting),
+      { rootMargin: '-80px 0px -160px 0px' },
+    )
+    observer.observe(form)
+    return () => observer.disconnect()
+  }, [])
+
+  if (isInquiryVisible) return null
 
   return (
-    <div className="fixed inset-x-0 bottom-[4.8rem] z-40 border-t border-white/10 bg-background/88 px-4 py-3 shadow-[0_-18px_45px_rgba(0,0,0,0.45)] backdrop-blur-2xl md:hidden">
-      <div className="mx-auto grid max-w-md grid-cols-[64px_1fr] gap-3">
+    <div className="mobile-listing-actions fixed inset-x-0 z-40 px-4 py-2 md:hidden">
+      <div className="mx-auto grid max-w-md grid-cols-[52px_1fr] gap-2 rounded-2xl border border-white/10 bg-background/95 p-2 shadow-xl backdrop-blur-2xl">
         <a
           href={`tel:${messages.contact.phone.replaceAll(' ', '')}`}
-          className="grid h-14 place-items-center rounded-2xl border border-white/10 bg-white/[0.06] text-primary shadow-sm"
+          className="grid h-12 place-items-center rounded-2xl border border-white/10 bg-white/[0.06] text-primary shadow-sm"
           aria-label={messages.contact.phone}
         >
           <Phone className="size-5" />
@@ -23,7 +40,7 @@ function PublicListingMobileCta({ onContactClick }: PublicListingMobileCtaProps)
         <Button
           type="button"
           size="lg"
-          className="h-14 rounded-2xl text-base font-black"
+          className="h-12 rounded-2xl text-sm font-semibold"
           onClick={onContactClick}
         >
           <MessageSquare className="size-5" />

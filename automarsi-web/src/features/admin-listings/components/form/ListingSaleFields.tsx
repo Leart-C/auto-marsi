@@ -1,15 +1,15 @@
 import { BadgeEuro } from 'lucide-react'
-import FormField from '@/components/admin/FormField'
+import FormField from '@/shared/components/admin/FormField'
 import {
   conditionOptions,
   listingStatusOptions,
-} from '../../form/listingOptions'
+} from '@/features/admin-listings/form/listingOptions'
 import {
   formatPriceInput,
   normalizePriceInput,
   type ListingFormState,
-} from '../../form/listingFormState'
-import ListingFormSection from './ListingFormSection'
+} from '@/features/admin-listings/form/listingFormState'
+import ListingFormSection from '@/features/admin-listings/components/form/ListingFormSection'
 
 type ListingSaleFieldsProps = {
   formState: ListingFormState

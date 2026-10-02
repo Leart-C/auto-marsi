@@ -1,16 +1,16 @@
 import { LoaderCircle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import type { ListingFormState } from '../form/listingFormState'
-import type { ListingEquipmentFormProps } from '../hooks/useListingEquipment'
+import { Button } from '@/shared/ui/button'
+import type { ListingFormState } from '@/features/admin-listings/form/listingFormState'
+import type { ListingEquipmentFormProps } from '@/features/admin-listings/hooks/useListingEquipment'
 import type {
   ListingCarModelOption,
   ListingMakeOption,
-} from '../types'
-import ListingEquipmentFields from './form/ListingEquipmentFields'
-import ListingNotesFields from './form/ListingNotesFields'
-import ListingSaleFields from './form/ListingSaleFields'
-import ListingSpecificationFields from './form/ListingSpecificationFields'
-import ListingVehicleFields from './form/ListingVehicleFields'
+} from '@/features/admin-listings/types'
+import ListingEquipmentFields from '@/features/admin-listings/components/form/ListingEquipmentFields'
+import ListingNotesFields from '@/features/admin-listings/components/form/ListingNotesFields'
+import ListingSaleFields from '@/features/admin-listings/components/form/ListingSaleFields'
+import ListingSpecificationFields from '@/features/admin-listings/components/form/ListingSpecificationFields'
+import ListingVehicleFields from '@/features/admin-listings/components/form/ListingVehicleFields'
 
 type ListingFormProps = {
   formState: ListingFormState

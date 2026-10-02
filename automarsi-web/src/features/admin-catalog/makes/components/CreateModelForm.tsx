@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import FormField from '@/components/admin/FormField'
-import { Button } from '@/components/ui/button'
+import FormField from '@/shared/components/admin/FormField'
+import { Button } from '@/shared/ui/button'
 
 type CreateModelFormProps = {
   makeName: string

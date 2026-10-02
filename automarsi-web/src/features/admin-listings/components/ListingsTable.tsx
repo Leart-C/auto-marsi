@@ -5,11 +5,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import type { AdminListingStatusAction } from '../api/updateAdminListingStatus'
-import type { AdminListing } from '../types'
-import ListingActionsMenu from './ListingActionsMenu'
-import ListingStatusBadge from './ListingStatusBadge'
+} from '@/shared/ui/table'
+import type { AdminListingStatusAction } from '@/features/admin-listings/api/updateAdminListingStatus'
+import type { AdminListing } from '@/features/admin-listings/types'
+import ListingActionsMenu from '@/features/admin-listings/components/ListingActionsMenu'
+import ListingStatusBadge from '@/features/admin-listings/components/ListingStatusBadge'
 
 type ListingsTableProps = {
   listings: AdminListing[]

@@ -1,4 +1,4 @@
-import AdminStatusPill from '@/components/admin/AdminStatusPill'
+import AdminStatusPill from '@/shared/components/admin/AdminStatusPill'
 
 type ListingStatusBadgeProps = {
   status: string

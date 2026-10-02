@@ -1,4 +1,5 @@
-import type { AdminListingsResponse } from '../types'
+import { adminApi } from '@/shared/api/adminApi'
+import type { AdminListingsResponse } from '@/features/admin-listings/types'
 
 type GetAdminListingsParams = {
   token: string
@@ -23,52 +24,19 @@ export async function getAdminListings({
   carModelId,
   isFeatured,
 }: GetAdminListingsParams): Promise<AdminListingsResponse> {
-  const apiUrl = import.meta.env.VITE_API_URL
-  const queryParams = new URLSearchParams()
-
-  queryParams.set('page', String(page))
-
-  if (perPage) {
-    queryParams.set('per_page', String(perPage))
-  }
-
-  if (search) {
-    queryParams.set('search', search)
-  }
-
-  if (status) {
-    queryParams.set('status', status)
-  }
-
-  if (condition) {
-    queryParams.set('condition', condition)
-  }
-
-  if (makeId) {
-    queryParams.set('make_id', makeId)
-  }
-
-  if (carModelId) {
-    queryParams.set('car_model_id', carModelId)
-  }
-
-  if (isFeatured) {
-    queryParams.set('is_featured', isFeatured)
-  }
-
-  const response = await fetch(
-    `${apiUrl}/admin/listings?${queryParams.toString()}`,
-    {
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-
-  if (!response.ok) {
-    throw new Error('Failed to load admin listings.')
-  }
-
-  return response.json()
+  return adminApi<AdminListingsResponse>({
+    token,
+    path: '/admin/listings',
+    query: {
+      page,
+      per_page: perPage,
+      search,
+      status,
+      condition,
+      make_id: makeId,
+      car_model_id: carModelId,
+      is_featured: isFeatured,
+    },
+    errorMessage: 'Failed to load admin listings.',
+  })
 }

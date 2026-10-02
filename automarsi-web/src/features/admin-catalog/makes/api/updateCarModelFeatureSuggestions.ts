@@ -1,3 +1,4 @@
+import { adminApi } from '@/shared/api/adminApi'
 import type {
   AdminVehicleFeature,
   AdminVehicleFeaturesResponse,
@@ -14,28 +15,12 @@ export async function updateCarModelFeatureSuggestions({
   modelId,
   featureIds,
 }: UpdateCarModelFeatureSuggestionsParams): Promise<AdminVehicleFeature[]> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const response = await fetch(
-    `${apiUrl}/admin/car-models/${modelId}/feature-suggestions`,
-    {
-      method: 'PUT',
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        feature_ids: featureIds,
-      }),
-    }
-  )
-
-  if (!response.ok) {
-    throw new Error('Failed to update model feature suggestions.')
-  }
-
-  const data = (await response.json()) as AdminVehicleFeaturesResponse
-
-  return data.data
+  const response = await adminApi<AdminVehicleFeaturesResponse>({
+    path: `/admin/car-models/${modelId}/feature-suggestions`,
+    token,
+    method: 'PUT',
+    body: { feature_ids: featureIds },
+    errorMessage: 'Failed to update model feature suggestions.',
+  })
+  return response.data
 }

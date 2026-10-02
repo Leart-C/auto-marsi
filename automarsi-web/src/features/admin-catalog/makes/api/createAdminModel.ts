@@ -1,8 +1,9 @@
+import { adminApi } from '@/shared/api/adminApi'
 import type {
   AdminModel,
   CreateAdminModelPayload,
   CreateAdminModelResponse,
-} from '../types'
+} from '@/features/admin-catalog/makes/types'
 
 type CreateAdminModelParams = {
   token: string
@@ -13,23 +14,12 @@ export async function createAdminModel({
   token,
   payload,
 }: CreateAdminModelParams): Promise<AdminModel> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const response = await fetch(`${apiUrl}/admin/car-models`, {
+  const response = await adminApi<CreateAdminModelResponse>({
+    path: `/admin/car-models`,
+    token,
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
+    body: payload,
+    errorMessage: 'Failed to create model.',
   })
-
-  if (!response.ok) {
-    throw new Error('Failed to create model.')
-  }
-
-  const data = (await response.json()) as CreateAdminModelResponse
-
-  return data.data
+  return response.data
 }

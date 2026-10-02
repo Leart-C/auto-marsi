@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
-import { getAdminListing } from '../api/getAdminListing'
-import { useAdminToken } from '@/hooks/useAdminToken'
+import { getAdminListing } from '@/features/admin-listings/api/getAdminListing'
+import { useAdminToken } from '@/shared/hooks/useAdminToken'
 
 type UseAdminListingParams = {
   listingId: string

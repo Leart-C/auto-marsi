@@ -1,5 +1,5 @@
 import { Edit, Trash2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/ui/button'
 import {
   Table,
   TableBody,
@@ -7,9 +7,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import type { AdminVehicleFeature } from '../types'
-import VehicleFeatureIcon from './VehicleFeatureIcon'
+} from '@/shared/ui/table'
+import type { AdminVehicleFeature } from '@/features/admin-catalog/features/types'
+import VehicleFeatureIcon from '@/features/admin-catalog/features/components/VehicleFeatureIcon'
 
 type VehicleFeaturesTableProps = {
   features: AdminVehicleFeature[]

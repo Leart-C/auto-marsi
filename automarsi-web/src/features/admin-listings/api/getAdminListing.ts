@@ -1,4 +1,8 @@
-import type { AdminListing, CreateAdminListingResponse } from '../types'
+import { adminApi } from '@/shared/api/adminApi'
+import type {
+  AdminListing,
+  CreateAdminListingResponse,
+} from '@/features/admin-listings/types'
 
 type GetAdminListingParams = {
   token: string
@@ -9,20 +13,10 @@ export async function getAdminListing({
   token,
   listingId,
 }: GetAdminListingParams): Promise<AdminListing> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const response = await fetch(`${apiUrl}/admin/listings/${listingId}`, {
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
+  const response = await adminApi<CreateAdminListingResponse>({
+    path: `/admin/listings/${listingId}`,
+    token,
+    errorMessage: 'Failed to load listing.',
   })
-
-  if (!response.ok) {
-    throw new Error('Failed to load listing.')
-  }
-
-  const data = (await response.json()) as CreateAdminListingResponse
-
-  return data.data
+  return response.data
 }

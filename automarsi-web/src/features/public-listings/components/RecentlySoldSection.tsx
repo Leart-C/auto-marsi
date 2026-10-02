@@ -1,8 +1,9 @@
+import { routes } from '@/shared/config/routes'
 import { BadgeCheck, Car } from 'lucide-react'
-import PublicSection from '@/components/public/PublicSection'
+import PublicSection from '@/shared/components/public/PublicSection'
 import { useI18n } from '@/i18n/useI18n'
-import type { PublicListing } from '../types'
-import { useRecentlySoldListings } from '../hooks/useRecentlySoldListings'
+import type { PublicListing } from '@/features/public-listings/types'
+import { useRecentlySoldListings } from '@/features/public-listings/hooks/useRecentlySoldListings'
 
 type RecentlySoldSectionProps = {
   onNavigate: (path: string) => void
@@ -82,7 +83,7 @@ function RecentlySoldSection({ onNavigate }: RecentlySoldSectionProps) {
 
           <button
             type="button"
-            onClick={() => onNavigate('/contact')}
+            onClick={() => onNavigate(routes.contact)}
             className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-white/10 bg-white/[0.04] px-4 text-sm font-medium transition hover:bg-white/[0.08]"
           >
             <BadgeCheck className="size-4" />

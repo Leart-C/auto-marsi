@@ -1,7 +1,8 @@
+import { adminApi } from '@/shared/api/adminApi'
 import type {
   AdminVehicleFeature,
   AdminVehicleFeaturesResponse,
-} from '../types'
+} from '@/features/admin-catalog/features/types'
 
 type InstallDefaultVehicleFeaturesParams = {
   token: string
@@ -10,21 +11,11 @@ type InstallDefaultVehicleFeaturesParams = {
 export async function installDefaultVehicleFeatures({
   token,
 }: InstallDefaultVehicleFeaturesParams): Promise<AdminVehicleFeature[]> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const response = await fetch(`${apiUrl}/admin/vehicle-features/defaults`, {
+  const response = await adminApi<AdminVehicleFeaturesResponse>({
+    path: `/admin/vehicle-features/defaults`,
+    token,
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
+    errorMessage: 'Failed to install default vehicle features.',
   })
-
-  if (!response.ok) {
-    throw new Error('Failed to install default vehicle features.')
-  }
-
-  const data = (await response.json()) as AdminVehicleFeaturesResponse
-
-  return data.data
+  return response.data
 }

@@ -1,7 +1,7 @@
 import { ImagePlus, Trash2, Upload } from 'lucide-react'
 import { useEffect, useMemo, useState, type FormEvent } from 'react'
-import { Button } from '@/components/ui/button'
-import type { SiteMedia } from '../types'
+import { Button } from '@/shared/ui/button'
+import type { SiteMedia } from '@/features/site-media/types'
 
 type SiteMediaUploaderProps = {
   mediaItems: SiteMedia[]

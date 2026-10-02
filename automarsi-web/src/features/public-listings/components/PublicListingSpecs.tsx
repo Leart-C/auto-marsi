@@ -1,24 +1,12 @@
+import { formatVehiclePrice as formatPrice } from '@/shared/lib/formatters'
 import { Gauge, MapPin } from 'lucide-react'
 import { useI18n } from '@/i18n/useI18n'
-import type { PublicListing } from '../types'
+import type { PublicListing } from '@/features/public-listings/types'
 
 type PublicListingSpecsProps = {
   listing: PublicListing
 }
 
-function formatPrice(price: string, currency: string): string {
-  const amount = Number(price)
-
-  if (Number.isNaN(amount)) {
-    return `${price} ${currency}`
-  }
-
-  return new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency,
-    maximumFractionDigits: 0,
-  }).format(amount)
-}
 
 function formatKilometers(kilometers: number | null): string {
   if (kilometers === null) {

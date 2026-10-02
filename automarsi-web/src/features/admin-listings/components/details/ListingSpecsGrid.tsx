@@ -11,9 +11,9 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import type { AdminListing } from '../../types'
-import { formatKilometers, formatValue } from './listingDetailsFormatters'
+} from '@/shared/ui/card'
+import type { AdminListing } from '@/features/admin-listings/types'
+import { formatKilometers, formatValue } from '@/features/admin-listings/utils/listingDetailsFormatters'
 
 type ListingSpecsGridProps = {
   listing: AdminListing

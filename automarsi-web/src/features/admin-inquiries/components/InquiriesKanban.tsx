@@ -1,9 +1,9 @@
 import { CalendarPlus, CheckCircle2, Eye } from 'lucide-react'
-import AdminAvatar from '@/components/admin/AdminAvatar'
-import AdminBoardColumn from '@/components/admin/AdminBoardColumn'
-import { Button } from '@/components/ui/button'
-import type { AdminInquiry, InquiryStatus } from '../types'
-import InquiryStatusBadge from './InquiryStatusBadge'
+import AdminAvatar from '@/shared/components/admin/AdminAvatar'
+import AdminBoardColumn from '@/shared/components/admin/AdminBoardColumn'
+import { Button } from '@/shared/ui/button'
+import type { AdminInquiry, InquiryStatus } from '@/features/admin-inquiries/types'
+import InquiryStatusBadge from '@/features/admin-inquiries/components/InquiryStatusBadge'
 
 type InquiriesKanbanProps = {
   inquiries: AdminInquiry[]

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { Clock, Send } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/ui/button'
 import { useCreatePublicInquiry } from '@/features/public-inquiries/hooks/useCreatePublicInquiry'
 import { useI18n } from '@/i18n/useI18n'
 
@@ -9,7 +9,7 @@ type PublicListingInquiryFormProps = {
   listingId: number
 }
 
-type InquiryIntent = 'question' | 'viewing' | 'financing'
+type InquiryIntent = 'question' | 'viewing'
 
 type InquiryFormState = {
   name: string
@@ -48,7 +48,6 @@ function PublicListingInquiryForm({ listingId }: PublicListingInquiryFormProps) 
     const intentLabels: Record<InquiryIntent, string> = {
       question: messages.listingDetails.inquiry.askQuestion,
       viewing: messages.listingDetails.inquiry.bookViewing,
-      financing: messages.listingDetails.inquiry.discussFinancing,
     }
     const intentLabel = intentLabels[formState.intent]
 
@@ -153,9 +152,6 @@ function PublicListingInquiryForm({ listingId }: PublicListingInquiryFormProps) 
           </option>
           <option value="viewing">
             {messages.listingDetails.inquiry.bookViewing}
-          </option>
-          <option value="financing">
-            {messages.listingDetails.inquiry.discussFinancing}
           </option>
         </select>
       </label>

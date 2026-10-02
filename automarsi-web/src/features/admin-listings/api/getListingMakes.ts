@@ -1,23 +1,14 @@
-import type { ListingMakeOption } from '../types'
+import { publicApi } from '@/shared/api/publicApi'
+import type { ListingMakeOption } from '@/features/admin-listings/types'
 
 type MakesResponse = {
   data: ListingMakeOption[]
 }
 
 export async function getListingMakes(): Promise<ListingMakeOption[]> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const response = await fetch(`${apiUrl}/makes`, {
-    headers: {
-      Accept: 'application/json',
-    },
+  const response = await publicApi<MakesResponse>({
+    path: `/makes`,
+    errorMessage: 'Failed to load makes.',
   })
-
-  if (!response.ok) {
-    throw new Error('Failed to load makes.')
-  }
-
-  const data = (await response.json()) as MakesResponse
-
-  return data.data
+  return response.data
 }

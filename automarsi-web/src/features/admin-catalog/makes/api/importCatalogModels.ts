@@ -1,8 +1,9 @@
+import { adminApi } from '@/shared/api/adminApi'
 import type {
   AdminModel,
   ImportCatalogModelsPayload,
   ImportCatalogModelsResponse,
-} from '../types'
+} from '@/features/admin-catalog/makes/types'
 
 type ImportCatalogModelsParams = {
   token: string
@@ -13,23 +14,12 @@ export async function importCatalogModels({
   token,
   payload,
 }: ImportCatalogModelsParams): Promise<AdminModel[]> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const response = await fetch(`${apiUrl}/admin/catalog-import/models`, {
+  const response = await adminApi<ImportCatalogModelsResponse>({
+    path: `/admin/catalog-import/models`,
+    token,
     method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
+    body: payload,
+    errorMessage: 'Failed to import models.',
   })
-
-  if (!response.ok) {
-    throw new Error('Failed to import models.')
-  }
-
-  const data = (await response.json()) as ImportCatalogModelsResponse
-
-  return data.data
+  return response.data
 }

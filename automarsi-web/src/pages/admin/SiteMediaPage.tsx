@@ -1,5 +1,5 @@
-import DataTableShell from '@/components/admin/DataTableShell'
-import PageHeader from '@/components/admin/PageHeader'
+import DataTableShell from '@/shared/components/admin/DataTableShell'
+import PageHeader from '@/shared/components/admin/PageHeader'
 import SiteMediaUploader from '@/features/site-media/components/SiteMediaUploader'
 import { useAdminSiteMedia } from '@/features/site-media/hooks/useAdminSiteMedia'
 

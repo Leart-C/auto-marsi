@@ -1,11 +1,11 @@
 import { CalendarPlus, RefreshCcw } from 'lucide-react'
 import { useState } from 'react'
-import DataTableShell from '@/components/admin/DataTableShell'
-import EmptyState from '@/components/admin/EmptyState'
-import LoadingState from '@/components/admin/LoadingState'
-import PageHeader from '@/components/admin/PageHeader'
-import PaginationControls from '@/components/admin/PaginationControls'
-import { Button } from '@/components/ui/button'
+import DataTableShell from '@/shared/components/admin/DataTableShell'
+import EmptyState from '@/shared/components/admin/EmptyState'
+import LoadingState from '@/shared/components/admin/LoadingState'
+import PageHeader from '@/shared/components/admin/PageHeader'
+import PaginationControls from '@/shared/components/admin/PaginationControls'
+import { Button } from '@/shared/ui/button'
 import AppointmentFormDialog from '@/features/admin-appointments/components/AppointmentFormDialog'
 import AppointmentsSchedule from '@/features/admin-appointments/components/AppointmentsSchedule'
 import { useAdminAppointments } from '@/features/admin-appointments/hooks/useAdminAppointments'
@@ -15,7 +15,7 @@ import type {
 } from '@/features/admin-appointments/types'
 import AdminListingSelect from '@/features/admin-listings/components/AdminListingSelect'
 import { useAdminListingOptions } from '@/features/admin-listings/hooks/useAdminListingOptions'
-import { useDebouncedValue } from '@/hooks/useDebouncedValue'
+import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue'
 
 function AppointmentsPage() {
   const [search, setSearch] = useState('')

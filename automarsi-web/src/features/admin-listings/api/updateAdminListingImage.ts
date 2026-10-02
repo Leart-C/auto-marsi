@@ -1,4 +1,5 @@
-import type { AdminListingImage } from '../types'
+import { adminApi } from '@/shared/api/adminApi'
+import type { AdminListingImage } from '@/features/admin-listings/types'
 
 type AdminListingImageResponse = {
   data: AdminListingImage
@@ -20,23 +21,12 @@ export async function updateAdminListingImage({
   imageId,
   payload,
 }: UpdateAdminListingImageParams): Promise<AdminListingImage> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const response = await fetch(`${apiUrl}/admin/listing-images/${imageId}`, {
+  const response = await adminApi<AdminListingImageResponse>({
+    path: `/admin/listing-images/${imageId}`,
+    token,
     method: 'PATCH',
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
+    body: payload,
+    errorMessage: 'Failed to update listing image.',
   })
-
-  if (!response.ok) {
-    throw new Error('Failed to update listing image.')
-  }
-
-  const data = (await response.json()) as AdminListingImageResponse
-
-  return data.data
+  return response.data
 }

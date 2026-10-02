@@ -1,6 +1,6 @@
 import { CheckCircle2 } from 'lucide-react'
 import { useI18n } from '@/i18n/useI18n'
-import type { PublicListingFeature } from '../types'
+import type { PublicListingFeature } from '@/features/public-listings/types'
 
 type PublicListingFeaturesProps = {
   features: PublicListingFeature[]

@@ -1,15 +1,16 @@
+import { routes } from '@/shared/config/routes'
 import { Plus, RefreshCw } from 'lucide-react'
 import { useState } from 'react'
-import DataTableShell from '../../components/admin/DataTableShell'
-import EmptyState from '../../components/admin/EmptyState'
-import LoadingState from '../../components/admin/LoadingState'
-import PageHeader from '../../components/admin/PageHeader'
-import PaginationControls from '../../components/admin/PaginationControls'
-import { Button } from '@/components/ui/button'
+import DataTableShell from '@/shared/components/admin/DataTableShell'
+import EmptyState from '@/shared/components/admin/EmptyState'
+import LoadingState from '@/shared/components/admin/LoadingState'
+import PageHeader from '@/shared/components/admin/PageHeader'
+import PaginationControls from '@/shared/components/admin/PaginationControls'
+import { Button } from '@/shared/ui/button'
 import AdminListingsFilters from '@/features/admin-listings/components/AdminListingsFilters'
 import ListingsTable from '@/features/admin-listings/components/ListingsTable'
 import { useAdminListings } from '@/features/admin-listings/hooks/useAdminListings'
-import { useDebouncedValue } from '@/hooks/useDebouncedValue'
+import { useDebouncedValue } from '@/shared/hooks/useDebouncedValue'
 
 type ListingsPageProps = {
   onNavigate: (path: string) => void
@@ -82,7 +83,7 @@ function ListingsPage({ onNavigate }: ListingsPageProps) {
 
             <Button
               type="button"
-              onClick={() => onNavigate('/admin/listings/new')}
+              onClick={() => onNavigate(routes.admin.newListing)}
             >
               <Plus />
               Add listing

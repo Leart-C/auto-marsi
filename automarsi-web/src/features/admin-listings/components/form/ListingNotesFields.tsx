@@ -1,7 +1,7 @@
 import { AlignLeft } from 'lucide-react'
-import FormField from '@/components/admin/FormField'
-import type { ListingFormState } from '../../form/listingFormState'
-import ListingFormSection from './ListingFormSection'
+import FormField from '@/shared/components/admin/FormField'
+import type { ListingFormState } from '@/features/admin-listings/form/listingFormState'
+import ListingFormSection from '@/features/admin-listings/components/form/ListingFormSection'
 
 type ListingNotesFieldsProps = {
   formState: ListingFormState

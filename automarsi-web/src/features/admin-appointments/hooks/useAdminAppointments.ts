@@ -1,16 +1,18 @@
+import { EMPTY_PAGINATION } from '@/shared/api/pagination'
+import { queryPolicy } from '@/shared/config/queryPolicy'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { useAdminToken } from '@/hooks/useAdminToken'
+import { useAdminToken } from '@/shared/hooks/useAdminToken'
 import {
   createAdminAppointment,
   getAdminAppointments,
   updateAdminAppointment,
   updateAdminAppointmentStatus,
-} from '../api/appointmentsApi'
+} from '@/features/admin-appointments/api/appointmentsApi'
 import type {
   AppointmentFormPayload,
   AppointmentStatus,
-} from '../types'
+} from '@/features/admin-appointments/types'
 
 type UseAdminAppointmentsParams = {
   search: string
@@ -37,7 +39,7 @@ export function useAdminAppointments({
   const appointmentsQuery = useQuery({
     queryKey,
     enabled: isAuthReady,
-    staleTime: 15_000,
+    staleTime: queryPolicy.activityStaleTime,
     queryFn: async () => {
       const token = await getAdminToken()
 
@@ -134,12 +136,7 @@ export function useAdminAppointments({
 
   return {
     appointments: appointmentsQuery.data?.data ?? [],
-    meta: appointmentsQuery.data?.meta ?? {
-      current_page: 1,
-      last_page: 1,
-      per_page: 15,
-      total: 0,
-    },
+    meta: appointmentsQuery.data?.meta ?? EMPTY_PAGINATION,
     appointmentsQuery,
     updateStatusMutation,
     createAppointmentMutation,

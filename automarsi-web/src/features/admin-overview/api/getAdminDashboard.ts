@@ -1,6 +1,6 @@
 import type { AdminAppointment } from '@/features/admin-appointments/types'
 import type { AdminInquiry } from '@/features/admin-inquiries/types'
-import { adminApi } from '@/lib/adminApi'
+import { adminApi } from '@/shared/api/adminApi'
 
 export type AdminDashboardData = {
   listings: {

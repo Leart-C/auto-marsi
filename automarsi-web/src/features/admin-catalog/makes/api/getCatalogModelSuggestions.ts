@@ -1,7 +1,8 @@
+import { adminApi } from '@/shared/api/adminApi'
 import type {
   CatalogModelSuggestion,
   CatalogModelSuggestionsResponse,
-} from '../types'
+} from '@/features/admin-catalog/makes/types'
 
 type GetCatalogModelSuggestionsParams = {
   token: string
@@ -12,27 +13,11 @@ export async function getCatalogModelSuggestions({
   token,
   make,
 }: GetCatalogModelSuggestionsParams): Promise<CatalogModelSuggestion[]> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const queryParams = new URLSearchParams({
-    make,
+  const response = await adminApi<CatalogModelSuggestionsResponse>({
+    path: `/admin/catalog-import/models`,
+    token,
+    query: { make },
+    errorMessage: 'Failed to load model suggestions.',
   })
-
-  const response = await fetch(
-    `${apiUrl}/admin/catalog-import/models?${queryParams.toString()}`,
-    {
-      headers: {
-        Accept: 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  )
-
-  if (!response.ok) {
-    throw new Error('Failed to load model suggestions.')
-  }
-
-  const data = (await response.json()) as CatalogModelSuggestionsResponse
-
-  return data.data
+  return response.data
 }

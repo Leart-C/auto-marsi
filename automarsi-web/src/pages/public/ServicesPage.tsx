@@ -1,6 +1,6 @@
+import { routes } from '@/shared/config/routes'
 import {
   ArrowRight,
-  BadgeCheck,
   Car,
   ClipboardCheck,
   FileCheck2,
@@ -8,11 +8,11 @@ import {
   MessageSquare,
   Wrench,
 } from 'lucide-react'
-import PublicCtaBand from '@/components/public/PublicCtaBand'
-import PublicInfoCard from '@/components/public/PublicInfoCard'
-import PublicSection from '@/components/public/PublicSection'
-import PublicSectionHeader from '@/components/public/PublicSectionHeader'
-import { Button } from '@/components/ui/button'
+import PublicCtaBand from '@/shared/components/public/PublicCtaBand'
+import PublicInfoCard from '@/shared/components/public/PublicInfoCard'
+import PublicSection from '@/shared/components/public/PublicSection'
+import PublicSectionHeader from '@/shared/components/public/PublicSectionHeader'
+import { Button } from '@/shared/ui/button'
 import { useI18n } from '@/i18n/useI18n'
 
 type ServicesPageProps = {
@@ -25,7 +25,6 @@ function ServicesPage({ onNavigate }: ServicesPageProps) {
     <Car className="size-5" />,
     <ClipboardCheck className="size-5" />,
     <Handshake className="size-5" />,
-    <BadgeCheck className="size-5" />,
     <FileCheck2 className="size-5" />,
     <Wrench className="size-5" />,
   ]
@@ -42,7 +41,7 @@ function ServicesPage({ onNavigate }: ServicesPageProps) {
         />
 
         <div className="flex flex-wrap gap-3">
-          <Button type="button" onClick={() => onNavigate('/inventory')}>
+          <Button type="button" onClick={() => onNavigate(routes.inventory)}>
             {messages.services.browseCars}
             <ArrowRight className="size-4" />
           </Button>
@@ -50,7 +49,7 @@ function ServicesPage({ onNavigate }: ServicesPageProps) {
           <Button
             type="button"
             variant="outline"
-            onClick={() => onNavigate('/contact')}
+            onClick={() => onNavigate(routes.contact)}
           >
             {messages.services.contactUs}
           </Button>

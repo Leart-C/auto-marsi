@@ -1,11 +1,11 @@
 import { Settings2 } from 'lucide-react'
-import FormField from '@/components/admin/FormField'
+import FormField from '@/shared/components/admin/FormField'
 import {
   fuelTypeOptions,
   transmissionOptions,
-} from '../../form/listingOptions'
-import type { ListingFormState } from '../../form/listingFormState'
-import ListingFormSection from './ListingFormSection'
+} from '@/features/admin-listings/form/listingOptions'
+import type { ListingFormState } from '@/features/admin-listings/form/listingFormState'
+import ListingFormSection from '@/features/admin-listings/components/form/ListingFormSection'
 
 type ListingSpecificationFieldsProps = {
   formState: ListingFormState

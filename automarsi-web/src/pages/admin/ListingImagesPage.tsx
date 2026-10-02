@@ -1,9 +1,10 @@
+import { routes } from '@/shared/config/routes'
 import { ArrowLeft, ArrowRight, ImageOff } from 'lucide-react'
-import DataTableShell from '@/components/admin/DataTableShell'
-import EmptyState from '@/components/admin/EmptyState'
-import LoadingState from '@/components/admin/LoadingState'
-import PageHeader from '@/components/admin/PageHeader'
-import { Button } from '@/components/ui/button'
+import DataTableShell from '@/shared/components/admin/DataTableShell'
+import EmptyState from '@/shared/components/admin/EmptyState'
+import LoadingState from '@/shared/components/admin/LoadingState'
+import PageHeader from '@/shared/components/admin/PageHeader'
+import { Button } from '@/shared/ui/button'
 import ListingImageCard from '@/features/admin-listings/components/ListingImageCard'
 import ListingImageUploader from '@/features/admin-listings/components/ListingImageUploader'
 import ListingWorkflowSteps from '@/features/admin-listings/components/ListingWorkflowSteps'
@@ -70,7 +71,7 @@ function ListingImagesPage({ listingId, onNavigate }: ListingImagesPageProps) {
               type="button"
               variant="outline"
               onClick={() =>
-                onNavigate(`/admin/listings/${listingId}/edit`)
+                onNavigate(routes.admin.editListing(listingId))
               }
             >
               <ArrowLeft />
@@ -79,7 +80,7 @@ function ListingImagesPage({ listingId, onNavigate }: ListingImagesPageProps) {
 
             <Button
               type="button"
-              onClick={() => onNavigate(`/admin/listings/${listingId}`)}
+              onClick={() => onNavigate(routes.admin.listing(listingId))}
             >
               Review listing
               <ArrowRight />

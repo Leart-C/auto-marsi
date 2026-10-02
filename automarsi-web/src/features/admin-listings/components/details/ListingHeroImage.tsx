@@ -1,6 +1,6 @@
 import { Images } from 'lucide-react'
-import { Card } from '@/components/ui/card'
-import type { AdminListing, AdminListingImage } from '../../types'
+import { Card } from '@/shared/ui/card'
+import type { AdminListing, AdminListingImage } from '@/features/admin-listings/types'
 
 type ListingHeroImageProps = {
   listing: AdminListing

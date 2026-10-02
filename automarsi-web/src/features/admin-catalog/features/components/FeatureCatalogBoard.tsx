@@ -1,8 +1,8 @@
 import { Edit, Plus, Trash2 } from 'lucide-react'
-import AdminSurface from '@/components/admin/AdminSurface'
-import { Button } from '@/components/ui/button'
-import type { AdminVehicleFeature } from '../types'
-import VehicleFeatureIcon from './VehicleFeatureIcon'
+import AdminSurface from '@/shared/components/admin/AdminSurface'
+import { Button } from '@/shared/ui/button'
+import type { AdminVehicleFeature } from '@/features/admin-catalog/features/types'
+import VehicleFeatureIcon from '@/features/admin-catalog/features/components/VehicleFeatureIcon'
 
 type FeatureCatalogBoardProps = {
   features: AdminVehicleFeature[]

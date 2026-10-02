@@ -1,8 +1,9 @@
+import { adminApi } from '@/shared/api/adminApi'
 import type {
   AdminMake,
   CreateAdminMakePayload,
   CreateAdminMakeResponse,
-} from '../types'
+} from '@/features/admin-catalog/makes/types'
 
 type UpdateAdminMakeParams = {
   token: string
@@ -15,23 +16,12 @@ export async function updateAdminMake({
   makeId,
   payload,
 }: UpdateAdminMakeParams): Promise<AdminMake> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const response = await fetch(`${apiUrl}/admin/makes/${makeId}`, {
+  const response = await adminApi<CreateAdminMakeResponse>({
+    path: `/admin/makes/${makeId}`,
+    token,
     method: 'PATCH',
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
+    body: payload,
+    errorMessage: 'Failed to update make.',
   })
-
-  if (!response.ok) {
-    throw new Error('Failed to update make.')
-  }
-
-  const data = (await response.json()) as CreateAdminMakeResponse
-
-  return data.data
+  return response.data
 }

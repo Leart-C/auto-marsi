@@ -1,5 +1,5 @@
-import { en } from './en'
-import { sq } from './sq'
+import { en } from '@/i18n/messages/en'
+import { sq } from '@/i18n/messages/sq'
 
 export const messages = {
   en,

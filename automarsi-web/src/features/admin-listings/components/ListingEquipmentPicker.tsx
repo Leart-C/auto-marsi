@@ -1,6 +1,6 @@
 import { Check, Plus, RefreshCw, Search, Sparkles, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/ui/button'
 import VehicleFeatureIcon, {
   suggestVehicleFeatureIcon,
 } from '@/features/admin-catalog/features/components/VehicleFeatureIcon'
@@ -9,7 +9,7 @@ import type {
   AdminVehicleFeature,
   CreateAdminVehicleFeaturePayload,
 } from '@/features/admin-catalog/features/types'
-import { cn } from '@/lib/utils'
+import { cn } from '@/shared/lib/utils'
 
 type ListingEquipmentPickerProps = {
   modelName: string | null

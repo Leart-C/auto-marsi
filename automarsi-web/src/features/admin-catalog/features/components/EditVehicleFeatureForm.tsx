@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import FormField from '@/components/admin/FormField'
-import { Button } from '@/components/ui/button'
-import type { AdminVehicleFeature } from '../types'
-import VehicleFeatureIcon, { vehicleFeatureIconOptions } from './VehicleFeatureIcon'
+import FormField from '@/shared/components/admin/FormField'
+import { Button } from '@/shared/ui/button'
+import type { AdminVehicleFeature } from '@/features/admin-catalog/features/types'
+import VehicleFeatureIcon, { vehicleFeatureIconOptions } from '@/features/admin-catalog/features/components/VehicleFeatureIcon'
 
 type EditVehicleFeatureFormProps = {
   feature: AdminVehicleFeature

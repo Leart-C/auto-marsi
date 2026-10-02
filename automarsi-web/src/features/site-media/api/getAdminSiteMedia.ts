@@ -1,5 +1,5 @@
-import { adminApi } from '@/lib/adminApi'
-import type { SiteMedia } from '../types'
+import { adminApi } from '@/shared/api/adminApi'
+import type { SiteMedia } from '@/features/site-media/types'
 
 type SiteMediaResponse = {
   data: SiteMedia[]

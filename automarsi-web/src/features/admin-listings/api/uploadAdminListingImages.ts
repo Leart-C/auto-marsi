@@ -1,12 +1,8 @@
-import type { AdminListingImage } from '../types'
+import { adminApi } from '@/shared/api/adminApi'
+import type { AdminListingImage } from '@/features/admin-listings/types'
 
 type AdminListingImageResponse = {
   data: AdminListingImage
-}
-
-type LaravelErrorResponse = {
-  message?: string
-  errors?: Record<string, string[]>
 }
 
 type UploadAdminListingImagesParams = {
@@ -15,24 +11,11 @@ type UploadAdminListingImagesParams = {
   files: File[]
 }
 
-async function getErrorMessage(response: Response): Promise<string> {
-  const data = (await response
-    .json()
-    .catch(() => null)) as LaravelErrorResponse | null
-
-  const validationMessage = data?.errors
-    ? Object.values(data.errors).flat()[0]
-    : null
-
-  return validationMessage ?? data?.message ?? 'Failed to upload listing image.'
-}
-
 export async function uploadAdminListingImages({
   token,
   listingId,
   files,
 }: UploadAdminListingImagesParams): Promise<AdminListingImage[]> {
-  const apiUrl = import.meta.env.VITE_API_URL
   const uploadedImages: AdminListingImage[] = []
 
   for (const file of files) {
@@ -40,24 +23,22 @@ export async function uploadAdminListingImages({
     formData.append('image', file)
     formData.append('alt_text', file.name.replace(/\.[^/.]+$/, ''))
 
-    const response = await fetch(
-      `${apiUrl}/admin/listings/${listingId}/images`,
-      {
+    try {
+      const response = await adminApi<AdminListingImageResponse>({
+        token,
+        path: `/admin/listings/${listingId}/images`,
         method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
         body: formData,
-      }
-    )
-
-    if (!response.ok) {
-      throw new Error(`${file.name}: ${await getErrorMessage(response)}`)
+        fallbackError: 'Failed to upload listing image.',
+        validationErrorsFirst: true,
+      })
+      uploadedImages.push(response.data)
+    } catch (error) {
+      throw new Error(
+        `${file.name}: ${error instanceof Error ? error.message : 'Failed to upload listing image.'}`,
+        { cause: error },
+      )
     }
-
-    const data = (await response.json()) as AdminListingImageResponse
-    uploadedImages.push(data.data)
   }
 
   return uploadedImages

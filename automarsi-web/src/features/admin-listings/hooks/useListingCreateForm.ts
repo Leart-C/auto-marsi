@@ -1,14 +1,14 @@
-import { invalidateInventory } from '../utils/invalidateInventory'
+import { invalidateInventory } from '@/features/admin-listings/utils/invalidateInventory'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { useAdminToken } from '@/hooks/useAdminToken'
-import { createAdminListing } from '../api/createAdminListing'
+import { useAdminToken } from '@/shared/hooks/useAdminToken'
+import { createAdminListing } from '@/features/admin-listings/api/createAdminListing'
 import {
   buildListingPayload,
   initialListingFormState,
-} from '../form/listingFormState'
-import type { AdminListing } from '../types'
-import { useListingFormFields } from './useListingFormFields'
+} from '@/features/admin-listings/form/listingFormState'
+import type { AdminListing } from '@/features/admin-listings/types'
+import { useListingFormFields } from '@/features/admin-listings/hooks/useListingFormFields'
 
 type UseListingCreateFormParams = {
   onCreated: (listing: AdminListing) => void

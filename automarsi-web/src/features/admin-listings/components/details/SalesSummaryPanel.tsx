@@ -4,10 +4,10 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { cn } from '@/lib/utils'
-import type { AdminListing } from '../../types'
-import { formatPrice } from './listingDetailsFormatters'
+} from '@/shared/ui/card'
+import { cn } from '@/shared/lib/utils'
+import type { AdminListing } from '@/features/admin-listings/types'
+import { formatPrice } from '@/features/admin-listings/utils/listingDetailsFormatters'
 
 type SalesSummaryPanelProps = {
   listing: AdminListing

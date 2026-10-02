@@ -1,12 +1,12 @@
 import { CarFront, RotateCcw } from 'lucide-react'
-import FormField from '@/components/admin/FormField'
-import { Button } from '@/components/ui/button'
-import type { ListingFormState } from '../../form/listingFormState'
+import FormField from '@/shared/components/admin/FormField'
+import { Button } from '@/shared/ui/button'
+import type { ListingFormState } from '@/features/admin-listings/form/listingFormState'
 import type {
   ListingCarModelOption,
   ListingMakeOption,
-} from '../../types'
-import ListingFormSection from './ListingFormSection'
+} from '@/features/admin-listings/types'
+import ListingFormSection from '@/features/admin-listings/components/form/ListingFormSection'
 
 type ListingVehicleFieldsProps = {
   formState: ListingFormState

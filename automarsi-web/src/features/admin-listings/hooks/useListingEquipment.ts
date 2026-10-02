@@ -1,3 +1,4 @@
+import { queryPolicy } from '@/shared/config/queryPolicy'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { createAdminVehicleFeature } from '@/features/admin-catalog/features/api/createAdminVehicleFeature'
@@ -7,7 +8,7 @@ import type {
   CreateAdminVehicleFeaturePayload,
 } from '@/features/admin-catalog/features/types'
 import { getCarModelFeatureSuggestions } from '@/features/admin-catalog/makes/api/getCarModelFeatureSuggestions'
-import { useAdminToken } from '@/hooks/useAdminToken'
+import { useAdminToken } from '@/shared/hooks/useAdminToken'
 
 type UseListingEquipmentParams = {
   carModelId: number
@@ -56,7 +57,7 @@ export function useListingEquipment({
   const featuresQuery = useQuery({
     queryKey: featuresQueryKey,
     enabled: isAuthReady,
-    staleTime: 5 * 60_000,
+    staleTime: queryPolicy.catalogStaleTime,
     queryFn: async () => {
       const token = await getAdminToken()
 
@@ -67,7 +68,7 @@ export function useListingEquipment({
   const suggestionsQuery = useQuery({
     queryKey: suggestionsQueryKey(carModelId),
     enabled: isAuthReady && carModelId > 0,
-    staleTime: 5 * 60_000,
+    staleTime: queryPolicy.catalogStaleTime,
     queryFn: async () => {
       const token = await getAdminToken()
 
@@ -126,7 +127,7 @@ export function useListingEquipment({
       const token = await getAdminToken()
       const suggestions = await queryClient.fetchQuery({
         queryKey: suggestionsQueryKey(modelId),
-        staleTime: 5 * 60_000,
+        staleTime: queryPolicy.catalogStaleTime,
         queryFn: () =>
           getCarModelFeatureSuggestions({
             token,

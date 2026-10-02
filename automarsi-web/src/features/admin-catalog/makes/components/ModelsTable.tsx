@@ -1,5 +1,5 @@
 import { ListChecks, Pencil, Trash2 } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/ui/button'
 import {
   Table,
   TableBody,
@@ -7,8 +7,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import type { AdminModel } from '../types'
+} from '@/shared/ui/table'
+import type { AdminModel } from '@/features/admin-catalog/makes/types'
 
 type ModelsTableProps = {
   models: AdminModel[]

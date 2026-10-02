@@ -1,11 +1,12 @@
+import { queryPolicy } from '@/shared/config/queryPolicy'
 import { useQuery } from '@tanstack/react-query'
-import { getPublicStats } from '../api/getPublicStats'
+import { getPublicStats } from '@/features/public-stats/api/getPublicStats'
 
 export function usePublicStats() {
   const statsQuery = useQuery({
     queryKey: ['public', 'stats'],
     queryFn: getPublicStats,
-    staleTime: 60_000,
+    staleTime: queryPolicy.publicStaleTime,
   })
 
   return {

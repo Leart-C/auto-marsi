@@ -1,9 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { useAdminToken } from '@/hooks/useAdminToken'
-import { deleteAdminSiteMedia } from '../api/deleteAdminSiteMedia'
-import { getAdminSiteMedia } from '../api/getAdminSiteMedia'
-import { updateAdminSiteMedia } from '../api/updateAdminSiteMedia'
+import { useAdminToken } from '@/shared/hooks/useAdminToken'
+import { deleteAdminSiteMedia } from '@/features/site-media/api/deleteAdminSiteMedia'
+import { getAdminSiteMedia } from '@/features/site-media/api/getAdminSiteMedia'
+import { updateAdminSiteMedia } from '@/features/site-media/api/updateAdminSiteMedia'
 
 export function useAdminSiteMedia(key: string) {
   const queryClient = useQueryClient()

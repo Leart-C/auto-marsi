@@ -1,7 +1,7 @@
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/ui/button'
 import { useI18n } from '@/i18n/useI18n'
-import type { PublicListingsResponse } from '../types'
+import type { PublicListingsResponse } from '@/features/public-listings/types'
 
 type PublicListingPaginationProps = {
   meta: PublicListingsResponse['meta']

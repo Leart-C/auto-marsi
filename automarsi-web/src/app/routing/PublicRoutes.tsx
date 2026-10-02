@@ -1,0 +1,71 @@
+import { routes } from '@/shared/config/routes'
+import { lazy, Suspense } from 'react'
+import PublicLayout from '@/app/layouts/PublicLayout'
+
+const AboutPage = lazy(() => import('@/pages/public/AboutPage'))
+const ContactPage = lazy(() => import('@/pages/public/ContactPage'))
+const HomePage = lazy(() => import('@/pages/public/HomePage'))
+const InventoryPage = lazy(() => import('@/pages/public/InventoryPage'))
+const ListingDetailsPage = lazy(
+  () => import('@/pages/public/ListingDetailsPage')
+)
+const NotFoundPage = lazy(() => import('@/pages/public/NotFoundPage'))
+const ServicesPage = lazy(() => import('@/pages/public/ServicesPage'))
+
+type PublicRoutesProps = {
+  currentPath: string
+  onNavigate: (path: string) => void
+}
+
+function getPublicPage(path: string, onNavigate: (path: string) => void) {
+  const inventoryDetailMatch = path.match(/^\/inventory\/(\d+)$/)
+
+  if (inventoryDetailMatch) {
+    return (
+      <ListingDetailsPage
+        listingId={Number(inventoryDetailMatch[1])}
+        onNavigate={onNavigate}
+      />
+    )
+  }
+
+  if (path === routes.inventory) {
+    return <InventoryPage onNavigate={onNavigate} />
+  }
+
+  if (path === routes.about) {
+    return <AboutPage />
+  }
+
+  if (path === routes.services) {
+    return <ServicesPage onNavigate={onNavigate} />
+  }
+
+  if (path === routes.contact) {
+    return <ContactPage />
+  }
+
+  if (path === routes.home) {
+    return <HomePage onNavigate={onNavigate} />
+  }
+
+  return <NotFoundPage onNavigate={onNavigate} />
+}
+
+function PublicRoutes({ currentPath, onNavigate }: PublicRoutesProps) {
+  return (
+    <PublicLayout currentPath={currentPath} onNavigate={onNavigate}>
+      <Suspense
+        fallback={
+          <main className="mx-auto min-h-[60vh] max-w-7xl px-4 py-10 text-sm text-muted-foreground sm:px-6 lg:px-8">
+            Loading page...
+          </main>
+        }
+      >
+        {getPublicPage(currentPath, onNavigate)}
+      </Suspense>
+    </PublicLayout>
+  )
+}
+
+export default PublicRoutes

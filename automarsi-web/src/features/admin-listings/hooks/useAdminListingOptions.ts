@@ -1,6 +1,7 @@
+import { queryPolicy } from '@/shared/config/queryPolicy'
 import { useQuery } from '@tanstack/react-query'
-import { useAdminToken } from '@/hooks/useAdminToken'
-import { getAdminListings } from '../api/getAdminListings'
+import { useAdminToken } from '@/shared/hooks/useAdminToken'
+import { getAdminListings } from '@/features/admin-listings/api/getAdminListings'
 
 export function useAdminListingOptions() {
   const { isAuthReady, getAdminToken } = useAdminToken()
@@ -17,7 +18,7 @@ export function useAdminListingOptions() {
         perPage: 100,
       })
     },
-    staleTime: 60_000,
+    staleTime: queryPolicy.publicStaleTime,
   })
 
   return {

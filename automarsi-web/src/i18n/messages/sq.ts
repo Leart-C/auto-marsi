@@ -1,7 +1,8 @@
-import type { en } from './en'
+import type { en } from '@/i18n/messages/en'
 
 export const sq: typeof en = {
   common: {
+    close: 'Mbyll',
     brand: 'AutoMarsi',
     browse: 'Shfleto',
     language: 'Gjuha',
@@ -22,7 +23,6 @@ export const sq: typeof en = {
     inventory: 'Vetura',
     about: 'Rreth nesh',
     services: 'Sherbimet',
-    financing: 'Financimi',
     contact: 'Kontakti',
   },
   footer: {
@@ -30,7 +30,6 @@ export const sq: typeof en = {
     company: 'Kompania',
     contact: 'Kontakti',
     allVehicles: 'Te gjitha veturat',
-    financingGuidance: 'Keshillim per financim',
     contactTeam: 'Kontakto ekipin',
     description:
       'Vetura te perzgjedhura, komunikim i qarte dhe percjellje nga salloni per shoferet ne Kosove.',
@@ -52,7 +51,7 @@ export const sq: typeof en = {
     eyebrow: 'Kontakti',
     title: 'Pyet para se te vizitosh.',
     description:
-      'Dergo pyetje per disponueshmeri, financim, nderrim veture ose vizite ne sallon. Ekipi i AutoMarsi do te te kontaktoje qarte.',
+      'Dergo pyetje per disponueshmeri, nderrim veture ose vizite ne sallon. Ekipi i AutoMarsi do te te kontaktoje qarte.',
     nextEyebrow: 'Cfare ndodh me pas',
     nextDescription:
       'Mesazhi yt kthehet ne kerkese ne panelin admin. Ekipi e shqyrton, pergjigjet dhe cakton vizite ne sallon nese nevojitet.',
@@ -69,13 +68,12 @@ export const sq: typeof en = {
       general: 'Pyetje e pergjithshme',
       availability: 'Disponueshmeria e vetures',
       visit: 'Rezervo vizite ne sallon',
-      financing: 'Pyetje per financim',
     },
   },
   home: {
+    mobileHeroDescription: 'Vetura të veçanta. Një përvojë personale, këtu në Prishtinë.',
     mobileWelcome: 'Mire se erdhe',
     mobileSearchPlaceholder: 'Kerko marke, model...',
-    mobileFinancingAction: 'Llogarit kestin',
     mobileContactAction: 'Na shkruaj',
     heroEyebrow: 'Autosallon · Prishtinë',
     heroTitle: 'Kapitulli yt i ri.',
@@ -131,6 +129,8 @@ export const sq: typeof en = {
     noVehiclesDescription:
       'Provo te ndryshosh marken, modelin, cmimin ose fjalet kyce.',
     filters: {
+      showVehicles: 'Shiko veturat',
+      description: 'Zgjidh detajet që kanë rëndësi për ty.',
       title: 'Filtrat',
       all: 'Te gjitha',
       reset: 'Pastro',
@@ -197,6 +197,9 @@ export const sq: typeof en = {
     },
   },
   listingDetails: {
+    previousImage: 'Fotoja e mëparshme',
+    nextImage: 'Fotoja tjetër',
+    aboutVehicle: 'Rreth kësaj veture',
     loading: 'Duke ngarkuar detajet e vetures...',
     couldNotLoad: 'Kjo veture nuk mund te ngarkohej.',
     notFound: 'Vetura nuk u gjet.',
@@ -235,7 +238,6 @@ export const sq: typeof en = {
       intentLabel: 'Une dua te',
       askQuestion: 'Bej nje pyetje',
       bookViewing: 'Rezervoj shikim',
-      discussFinancing: 'Diskutoj financimin',
       messagePlaceholder: 'Jam i interesuar per kete veture...',
       successToast: 'Kerkesa u dergua me sukses.',
       send: 'Dergo kerkesen',
@@ -311,7 +313,7 @@ export const sq: typeof en = {
       {
         title: 'Klienti pyet',
         description:
-          'Klienti dergon pyetje, kerkese per shikim ose interes per financim.',
+          'Klienti dergon pyetje ose kerkese per shikim.',
       },
       {
         title: 'Ekipi vazhdon',
@@ -330,7 +332,7 @@ export const sq: typeof en = {
     needHelp: 'Ke nevoje per ndihme?',
     askBeforeVisit: 'Pyet para se te vizitosh.',
     helpDescription:
-      'Dergo pyetje per disponueshmeri, financim, nderrim veture ose percjellje nga salloni.',
+      'Dergo pyetje per disponueshmeri, nderrim veture ose percjellje nga salloni.',
     sendInquiry: 'Dergo kerkese',
     items: [
       {
@@ -349,11 +351,6 @@ export const sq: typeof en = {
           'Klientet mund te pyesin ekipin per hapat e mundshem te trade-in para vizites.',
       },
       {
-        title: 'Udhezim per financim',
-        description:
-          'I ndihmojme klientet te pergatisin pyetjet e duhura para shqyrtimit te kushteve reale.',
-      },
-      {
         title: 'Mbeshtejte per blerje',
         description:
           'Ekipi ndihmon me hapat praktik te blerjes, dokumentet dhe udhezimin per regjistrim.',
@@ -364,76 +361,5 @@ export const sq: typeof en = {
           'Klientet mund te mbeten ne kontakt per pyetje dhe udhezim per servis pas blerjes.',
       },
     ],
-  },
-  financing: {
-    eyebrow: 'Financimi',
-    title: 'Planifiko hapin e radhes para vizites.',
-    description:
-      'Perdor kete faqe si udhezim para bisedes me AutoMarsi. Vleresimi te ndihmon te pergatisesh pyetje me te mira, jo aprovim te garantuar.',
-    body: 'Financimi varet nga kushtet reale, te dhenat e klientit, cmimi i vetures dhe oferta finale qe shqyrtohet nga klienti. Asgje ne kete faqe nuk ruhet ose dergohet ne banke.',
-    browseVehicles: 'Shfleto veturat',
-    askAboutFinancing: 'Pyet per financim',
-    prepareTitle: 'Pergatit pyetjet e duhura para vizites.',
-    prepareItems: [
-      'Cmimi i vetures dhe parapagimi i mundshem',
-      'Pagesa mujore qe preferon',
-      'Detajet per nderrim ose veturen aktuale',
-      'Pyetje per dokumente dhe afate',
-    ],
-    highlights: [
-      {
-        title: 'Jo premtim final',
-        description:
-          'Ky eshte vleresim planifikues para shqyrtimit te kushteve reale.',
-      },
-      {
-        title: 'Percjellje e shpejte',
-        description: 'Dergo pyetjen dhe ekipi mund ta vazhdoje biseden me ty.',
-      },
-      {
-        title: 'Pergatitje e qarte',
-        description:
-          'Shko ne vizite me buxhet, afat dhe pyetje per veturen te organizuara.',
-      },
-    ],
-    calculator: {
-      title: 'Planifikues buxheti',
-      description: 'Vlereso pagesen mujore te perafert.',
-      estimatedMonthly: 'Pagesa mujore e perafert',
-      financedAmount: 'Shuma e financuar',
-      vehiclePrice: 'Cmimi i vetures',
-      downPayment: 'Parapagimi',
-      term: 'Afati',
-      rate: 'Norma %',
-      months: 'muaj',
-      note: 'Vetem vleresim. Kushtet finale, normat, aprovimi dhe pagesat mujore shqyrtohen veqmas.',
-      askAboutEstimate: 'Pyet per vleresimin',
-    },
-    steps: {
-      eyebrow: 'Si funksionon',
-      title: 'Biseda e thjeshte, jo premtim.',
-      items: [
-        {
-          title: 'Zgjidh veturen',
-          description: 'Fillo nga inventari aktiv.',
-        },
-        {
-          title: 'Pyet qarte',
-          description: 'Dergo pyetjet permes kontaktit.',
-        },
-        {
-          title: 'Shqyrto kushtet',
-          description: 'Krahaso kushtet reale para vendimit.',
-        },
-      ],
-    },
-    cta: {
-      eyebrow: 'Pyetje per financim',
-      title: 'Fillo me veturen qe te pelqen.',
-      description:
-        'Shfleto inventarin aktiv ose kontakto ekipin e AutoMarsi per disponueshmeri, percjellje nga salloni dhe udhezim per financim.',
-      viewInventory: 'Shiko inventarin',
-      contactTeam: 'Kontakto ekipin',
-    },
   },
 }

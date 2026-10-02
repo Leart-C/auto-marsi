@@ -1,6 +1,7 @@
+import { queryPolicy } from '@/shared/config/queryPolicy'
 import { useQuery } from '@tanstack/react-query'
-import { useAdminToken } from '@/hooks/useAdminToken'
-import { getAdminDashboard } from '../api/getAdminDashboard'
+import { useAdminToken } from '@/shared/hooks/useAdminToken'
+import { getAdminDashboard } from '@/features/admin-overview/api/getAdminDashboard'
 
 export function useAdminOverview() {
   const { isAuthReady, getAdminToken } = useAdminToken()
@@ -8,7 +9,7 @@ export function useAdminOverview() {
   const overviewQuery = useQuery({
     queryKey: ['admin', 'overview'],
     enabled: isAuthReady,
-    staleTime: 30_000,
+    staleTime: queryPolicy.defaultStaleTime,
     queryFn: async () => {
       const token = await getAdminToken()
       const response = await getAdminDashboard({ token })

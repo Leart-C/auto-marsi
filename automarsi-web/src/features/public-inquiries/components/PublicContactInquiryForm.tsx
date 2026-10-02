@@ -1,11 +1,11 @@
 import { useState } from 'react'
 import { toast } from 'sonner'
 import { CheckCircle2, Send } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/ui/button'
 import { useI18n } from '@/i18n/useI18n'
-import { useCreatePublicInquiry } from '../hooks/useCreatePublicInquiry'
+import { useCreatePublicInquiry } from '@/features/public-inquiries/hooks/useCreatePublicInquiry'
 
-type ContactIntent = 'general' | 'availability' | 'visit' | 'financing'
+type ContactIntent = 'general' | 'availability' | 'visit'
 
 type ContactInquiryFormState = {
   name: string
@@ -27,7 +27,6 @@ const intentOptions: ContactIntent[] = [
   'general',
   'availability',
   'visit',
-  'financing',
 ]
 
 const inputClassName =

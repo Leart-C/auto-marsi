@@ -1,7 +1,7 @@
 import type {
   AdminListing,
   CreateAdminListingPayload,
-} from '../types'
+} from '@/features/admin-listings/types'
 
 export type ListingFormState = {
   makeId: string

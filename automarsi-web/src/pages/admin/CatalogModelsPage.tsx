@@ -1,7 +1,7 @@
-import DataTableShell from '@/components/admin/DataTableShell'
-import EmptyState from '@/components/admin/EmptyState'
-import PageHeader from '@/components/admin/PageHeader'
-import { Button } from '@/components/ui/button'
+import DataTableShell from '@/shared/components/admin/DataTableShell'
+import EmptyState from '@/shared/components/admin/EmptyState'
+import PageHeader from '@/shared/components/admin/PageHeader'
+import { Button } from '@/shared/ui/button'
 import { Plus } from 'lucide-react'
 
 function CatalogModelsPage() {

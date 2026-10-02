@@ -1,6 +1,6 @@
-import type { AdminListing } from '../types'
-import { useListingCreateForm } from '../hooks/useListingCreateForm'
-import ListingForm from './ListingForm'
+import type { AdminListing } from '@/features/admin-listings/types'
+import { useListingCreateForm } from '@/features/admin-listings/hooks/useListingCreateForm'
+import ListingForm from '@/features/admin-listings/components/ListingForm'
 
 type ListingCreatePanelProps = {
   onCancel: () => void

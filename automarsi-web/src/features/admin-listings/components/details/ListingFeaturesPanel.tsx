@@ -1,12 +1,12 @@
-import { Badge } from '@/components/ui/badge'
+import { Badge } from '@/shared/ui/badge'
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/shared/ui/card'
 import VehicleFeatureIcon from '@/features/admin-catalog/features/components/VehicleFeatureIcon'
-import type { AdminListingFeature } from '../../types'
+import type { AdminListingFeature } from '@/features/admin-listings/types'
 
 type ListingFeaturesPanelProps = {
   features: AdminListingFeature[]

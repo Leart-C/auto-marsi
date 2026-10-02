@@ -1,3 +1,4 @@
+import { listingStatuses } from '@/features/admin-listings/constants'
 export type ListingSelectOption = {
   label: string
   value: string
@@ -20,9 +21,7 @@ export const conditionOptions: ListingSelectOption[] = [
   { label: 'New', value: 'new' },
 ]
 
-export const listingStatusOptions: ListingSelectOption[] = [
-  { label: 'Draft', value: 'draft' },
-  { label: 'Active', value: 'active' },
-  { label: 'Sold', value: 'sold' },
-  { label: 'Archived', value: 'archived' },
-]
+export const listingStatusOptions: ListingSelectOption[] = listingStatuses.map((value) => ({
+  value,
+  label: value.charAt(0).toUpperCase() + value.slice(1),
+}))

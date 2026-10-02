@@ -1,4 +1,4 @@
-import type { AdminListing } from '../types'
+import type { AdminListing } from '@/features/admin-listings/types'
 
 type AdminListingSelectProps = {
   listings: AdminListing[]

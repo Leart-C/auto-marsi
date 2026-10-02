@@ -1,5 +1,6 @@
-import { usePublicMakeOptions } from '../hooks/usePublicMakeOptions'
-import type { PublicListingFilters as PublicListingFilterValues } from '../types'
+import { createListingFilters } from '@/features/public-listings/constants'
+import { usePublicMakeOptions } from '@/features/public-listings/hooks/usePublicMakeOptions'
+import type { PublicListingFilters as PublicListingFilterValues } from '@/features/public-listings/types'
 import { useI18n } from '@/i18n/useI18n'
 
 const fieldClassName =
@@ -42,18 +43,7 @@ function PublicListingFilters({
   }
 
   function clearFilters() {
-    onFiltersChange({
-      page: 1,
-      make_id: '',
-      car_model_id: '',
-      search: '',
-      year: '',
-      min_price: '',
-      max_price: '',
-      fuel_type: '',
-      transmission: '',
-      body_type: '',
-    })
+    onFiltersChange(createListingFilters())
   }
 
   return (
@@ -63,7 +53,7 @@ function PublicListingFilters({
         <button
           type="button"
           onClick={clearFilters}
-          className="text-xs font-medium text-muted-foreground transition hover:text-primary"
+          className="min-h-11 px-2 text-xs font-medium text-muted-foreground transition hover:text-primary"
         >
           {messages.inventory.filters.reset}
         </button>

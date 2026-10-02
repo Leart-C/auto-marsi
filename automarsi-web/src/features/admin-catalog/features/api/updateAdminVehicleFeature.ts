@@ -1,8 +1,9 @@
+import { adminApi } from '@/shared/api/adminApi'
 import type {
   AdminVehicleFeature,
   AdminVehicleFeatureResponse,
   UpdateAdminVehicleFeaturePayload,
-} from '../types'
+} from '@/features/admin-catalog/features/types'
 
 type UpdateAdminVehicleFeatureParams = {
   token: string
@@ -15,23 +16,12 @@ export async function updateAdminVehicleFeature({
   featureId,
   payload,
 }: UpdateAdminVehicleFeatureParams): Promise<AdminVehicleFeature> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const response = await fetch(`${apiUrl}/admin/vehicle-features/${featureId}`, {
+  const response = await adminApi<AdminVehicleFeatureResponse>({
+    path: `/admin/vehicle-features/${featureId}`,
+    token,
     method: 'PATCH',
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(payload),
+    body: payload,
+    errorMessage: 'Failed to update vehicle feature.',
   })
-
-  if (!response.ok) {
-    throw new Error('Failed to update vehicle feature.')
-  }
-
-  const data = (await response.json()) as AdminVehicleFeatureResponse
-
-  return data.data
+  return response.data
 }

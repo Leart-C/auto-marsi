@@ -1,7 +1,7 @@
 import { CalendarClock, LoaderCircle } from 'lucide-react'
 import { useState } from 'react'
-import FormField from '@/components/admin/FormField'
-import { Button } from '@/components/ui/button'
+import FormField from '@/shared/components/admin/FormField'
+import { Button } from '@/shared/ui/button'
 import {
   Dialog,
   DialogContent,
@@ -9,13 +9,13 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
+} from '@/shared/ui/dialog'
 import AdminListingSelect from '@/features/admin-listings/components/AdminListingSelect'
 import type { AdminListing } from '@/features/admin-listings/types'
 import type {
   AppointmentFormPayload,
   AppointmentStatus,
-} from '../types'
+} from '@/features/admin-appointments/types'
 
 export type AppointmentFormInitialValues = {
   listingId?: number | null

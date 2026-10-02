@@ -1,19 +1,19 @@
 import { useState } from 'react'
 import { CalendarPlus, Eye, MoreHorizontal } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/shared/ui/button'
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
+} from '@/shared/ui/dialog'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@/shared/ui/dropdown-menu'
 import {
   Table,
   TableBody,
@@ -21,10 +21,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import type { AdminInquiry, InquiryStatus } from '../types'
-import { inquiryStatuses } from '../types'
-import InquiryStatusBadge from './InquiryStatusBadge'
+} from '@/shared/ui/table'
+import type { AdminInquiry, InquiryStatus } from '@/features/admin-inquiries/types'
+import { inquiryStatuses } from '@/features/admin-inquiries/types'
+import InquiryStatusBadge from '@/features/admin-inquiries/components/InquiryStatusBadge'
 
 type InquiriesTableProps = {
   inquiries: AdminInquiry[]

@@ -1,11 +1,11 @@
-import { invalidateInventory } from '../utils/invalidateInventory'
+import { invalidateInventory } from '@/features/admin-listings/utils/invalidateInventory'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { useAdminToken } from '@/hooks/useAdminToken'
+import { useAdminToken } from '@/shared/hooks/useAdminToken'
 import {
   updateAdminListingStatus,
   type AdminListingStatusAction,
-} from '../api/updateAdminListingStatus'
+} from '@/features/admin-listings/api/updateAdminListingStatus'
 
 type UseUpdateListingStatusParams = {
   listingId: string

@@ -4,11 +4,11 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import { cn } from '@/lib/utils'
-import type { ListingQualityCheck } from '../../utils/listingQuality'
-import { getListingQuality } from '../../utils/listingQuality'
-import type { AdminListing } from '../../types'
+} from '@/shared/ui/card'
+import { cn } from '@/shared/lib/utils'
+import type { ListingQualityCheck } from '@/features/admin-listings/utils/listingQuality'
+import { getListingQuality } from '@/features/admin-listings/utils/listingQuality'
+import type { AdminListing } from '@/features/admin-listings/types'
 
 type ListingQualityPanelProps = {
   listing: AdminListing

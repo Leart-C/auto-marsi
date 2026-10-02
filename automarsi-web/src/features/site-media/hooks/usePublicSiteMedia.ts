@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getPublicSiteMedia } from '../api/getPublicSiteMedia'
+import { getPublicSiteMedia } from '@/features/site-media/api/getPublicSiteMedia'
 
 export function usePublicSiteMedia(key: string) {
   return useQuery({

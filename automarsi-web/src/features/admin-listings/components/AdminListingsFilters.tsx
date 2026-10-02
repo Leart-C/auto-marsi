@@ -1,9 +1,10 @@
+import { queryPolicy } from '@/shared/config/queryPolicy'
 import { useQuery } from '@tanstack/react-query'
 import { X } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { getListingCarModels } from '../api/getListingCarModels'
-import { getListingMakes } from '../api/getListingMakes'
-import { conditionOptions, listingStatusOptions } from '../form/listingOptions'
+import { Button } from '@/shared/ui/button'
+import { getListingCarModels } from '@/features/admin-listings/api/getListingCarModels'
+import { getListingMakes } from '@/features/admin-listings/api/getListingMakes'
+import { conditionOptions, listingStatusOptions } from '@/features/admin-listings/form/listingOptions'
 
 type AdminListingsFiltersProps = {
   search: string
@@ -41,14 +42,14 @@ function AdminListingsFilters({
   const makesQuery = useQuery({
     queryKey: ['admin-listing-filters', 'makes'],
     queryFn: getListingMakes,
-    staleTime: 60_000,
+    staleTime: queryPolicy.publicStaleTime,
   })
 
   const carModelsQuery = useQuery({
     queryKey: ['admin-listing-filters', 'car-models', selectedMakeId],
     enabled: selectedMakeId > 0,
     queryFn: () => getListingCarModels(selectedMakeId),
-    staleTime: 60_000,
+    staleTime: queryPolicy.publicStaleTime,
   })
 
   const hasActiveFilter =

@@ -1,10 +1,10 @@
 import { Pencil } from 'lucide-react'
-import AdminAvatar from '@/components/admin/AdminAvatar'
-import AdminSurface from '@/components/admin/AdminSurface'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
-import type { AdminAppointment, AppointmentStatus } from '../types'
-import AppointmentStatusBadge from './AppointmentStatusBadge'
+import AdminAvatar from '@/shared/components/admin/AdminAvatar'
+import AdminSurface from '@/shared/components/admin/AdminSurface'
+import { Button } from '@/shared/ui/button'
+import { cn } from '@/shared/lib/utils'
+import type { AdminAppointment, AppointmentStatus } from '@/features/admin-appointments/types'
+import AppointmentStatusBadge from '@/features/admin-appointments/components/AppointmentStatusBadge'
 
 type AppointmentsScheduleProps = {
   appointments: AdminAppointment[]

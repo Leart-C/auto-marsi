@@ -1,5 +1,5 @@
-import { publicApi } from '@/lib/publicApi'
-import type { PublicMakeModelsResponse } from '../types'
+import { publicApi } from '@/shared/api/publicApi'
+import type { PublicMakeModelsResponse } from '@/features/public-listings/types'
 
 export function getPublicMakeModels(makeId: string) {
   return publicApi<PublicMakeModelsResponse>({

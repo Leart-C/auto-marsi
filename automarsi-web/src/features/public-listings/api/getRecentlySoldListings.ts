@@ -1,5 +1,5 @@
-import { publicApi } from '@/lib/publicApi'
-import type { PublicListing } from '../types'
+import { publicApi } from '@/shared/api/publicApi'
+import type { PublicListing } from '@/features/public-listings/types'
 
 export type RecentlySoldListingsResponse = {
   data: PublicListing[]

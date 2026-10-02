@@ -3,7 +3,7 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
+} from '@/shared/ui/card'
 
 type ListingDescriptionPanelProps = {
   description: string | null

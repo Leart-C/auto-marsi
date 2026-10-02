@@ -1,26 +1,15 @@
+import { queryPolicy } from '@/shared/config/queryPolicy'
+import { createListingFilters, HOMEPAGE_LISTINGS_LIMIT } from '@/features/public-listings/constants'
 import { useQuery } from '@tanstack/react-query'
-import { getPublicListings } from '../api/getPublicListings'
-import type { PublicListingFilters } from '../types'
+import { getPublicListings } from '@/features/public-listings/api/getPublicListings'
 
-const homepageListingFilters: PublicListingFilters = {
-  page: 1,
-  make_id: '',
-  car_model_id: '',
-  search: '',
-  year: '',
-  min_price: '',
-  max_price: '',
-  fuel_type: '',
-  transmission: '',
-  body_type: '',
-  per_page: 6,
-}
+const homepageListingFilters = createListingFilters({ per_page: HOMEPAGE_LISTINGS_LIMIT })
 
 export function useFeaturedPublicListings() {
   const listingsQuery = useQuery({
     queryKey: ['public', 'homepage-listings'],
     queryFn: () => getPublicListings(homepageListingFilters),
-    staleTime: 60_000,
+    staleTime: queryPolicy.publicStaleTime,
   })
 
   return {

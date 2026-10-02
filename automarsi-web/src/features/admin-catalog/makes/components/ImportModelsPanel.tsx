@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react'
 import { Download, Search } from 'lucide-react'
-import EmptyState from '@/components/admin/EmptyState'
-import LoadingState from '@/components/admin/LoadingState'
-import { Button } from '@/components/ui/button'
-import type { AdminModel, CatalogModelSuggestion } from '../types'
+import EmptyState from '@/shared/components/admin/EmptyState'
+import LoadingState from '@/shared/components/admin/LoadingState'
+import { Button } from '@/shared/ui/button'
+import type { AdminModel, CatalogModelSuggestion } from '@/features/admin-catalog/makes/types'
 
 type ImportModelsPanelProps = {
   makeName: string

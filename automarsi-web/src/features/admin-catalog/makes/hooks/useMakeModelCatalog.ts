@@ -1,17 +1,18 @@
+import { queryPolicy } from '@/shared/config/queryPolicy'
 import { useAuth } from '@clerk/clerk-react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useMemo, useState } from 'react'
-import { createAdminMake } from '../api/createAdminMake'
-import { createAdminModel } from '../api/createAdminModel'
-import { deleteAdminMake } from '../api/deleteAdminMake'
-import { deleteAdminModel } from '../api/deleteAdminModel'
-import { getAdminMakes } from '../api/getAdminMakes'
-import { getAdminModels } from '../api/getAdminModels'
-import { getCatalogModelSuggestions } from '../api/getCatalogModelSuggestions'
-import { importCatalogModels } from '../api/importCatalogModels'
-import { updateAdminMake } from '../api/updateAdminMake'
-import { updateAdminModel } from '../api/updateAdminModel'
-import type { AdminMake, AdminModel } from '../types'
+import { createAdminMake } from '@/features/admin-catalog/makes/api/createAdminMake'
+import { createAdminModel } from '@/features/admin-catalog/makes/api/createAdminModel'
+import { deleteAdminMake } from '@/features/admin-catalog/makes/api/deleteAdminMake'
+import { deleteAdminModel } from '@/features/admin-catalog/makes/api/deleteAdminModel'
+import { getAdminMakes } from '@/features/admin-catalog/makes/api/getAdminMakes'
+import { getAdminModels } from '@/features/admin-catalog/makes/api/getAdminModels'
+import { getCatalogModelSuggestions } from '@/features/admin-catalog/makes/api/getCatalogModelSuggestions'
+import { importCatalogModels } from '@/features/admin-catalog/makes/api/importCatalogModels'
+import { updateAdminMake } from '@/features/admin-catalog/makes/api/updateAdminMake'
+import { updateAdminModel } from '@/features/admin-catalog/makes/api/updateAdminModel'
+import type { AdminMake, AdminModel } from '@/features/admin-catalog/makes/types'
 
 export function useMakeModelCatalog() {
   const { getToken, isLoaded, isSignedIn } = useAuth()
@@ -41,7 +42,7 @@ export function useMakeModelCatalog() {
   const makesQuery = useQuery({
     queryKey: ['admin', 'catalog', 'makes'],
     enabled: isLoaded && isSignedIn,
-    staleTime: 5 * 60_000,
+    staleTime: queryPolicy.catalogStaleTime,
     queryFn: async () => {
       const token = await getAuthToken()
 
@@ -59,7 +60,7 @@ export function useMakeModelCatalog() {
   const modelsQuery = useQuery({
     queryKey: ['admin', 'catalog', 'models', activeMakeId],
     enabled: isLoaded && isSignedIn && activeMakeId !== null,
-    staleTime: 5 * 60_000,
+    staleTime: queryPolicy.catalogStaleTime,
     queryFn: async () => {
       if (activeMakeId === null) {
         return []

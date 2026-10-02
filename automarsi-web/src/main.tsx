@@ -1,42 +1,13 @@
 import { StrictMode } from 'react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ClerkProvider } from '@clerk/clerk-react'
 import { createRoot } from 'react-dom/client'
-import { Toaster } from '@/components/ui/sonner'
-import { I18nProvider } from '@/i18n/I18nProvider'
-import './index.css'
-import App from './App.tsx'
-
-const publishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 30_000,
-      gcTime: 5 * 60_000,
-      refetchOnWindowFocus: false,
-      retry: 1,
-    },
-  },
-})
-
-const application = (
-  <QueryClientProvider client={queryClient}>
-    <I18nProvider>
-      <App />
-    </I18nProvider>
-    <Toaster position="top-right" richColors closeButton />
-  </QueryClientProvider>
-)
+import App from '@/app/App'
+import AppProviders from '@/app/providers/AppProviders'
+import '@/styles/index.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    {publishableKey ? (
-      <ClerkProvider publishableKey={publishableKey}>
-        {application}
-      </ClerkProvider>
-    ) : (
-      application
-    )}
+    <AppProviders>
+      <App />
+    </AppProviders>
   </StrictMode>,
 )

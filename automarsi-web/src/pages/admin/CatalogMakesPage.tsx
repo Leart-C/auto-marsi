@@ -1,6 +1,6 @@
 import { Plus } from 'lucide-react'
-import PageHeader from '@/components/admin/PageHeader'
-import { Button } from '@/components/ui/button'
+import PageHeader from '@/shared/components/admin/PageHeader'
+import { Button } from '@/shared/ui/button'
 import MakeModelCards from '@/features/admin-catalog/makes/components/MakeModelCards'
 import { useMakeModelCatalog } from '@/features/admin-catalog/makes/hooks/useMakeModelCatalog'
 

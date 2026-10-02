@@ -1,5 +1,5 @@
-import { publicApi } from '@/lib/publicApi'
-import type { PublicListingResponse } from '../types'
+import { publicApi } from '@/shared/api/publicApi'
+import type { PublicListingResponse } from '@/features/public-listings/types'
 
 type GetPublicListingParams = {
   listingId: number

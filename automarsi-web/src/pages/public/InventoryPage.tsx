@@ -1,7 +1,8 @@
+import { createListingFilters } from '@/features/public-listings/constants'
 import { useState, type ReactNode } from 'react'
-import PublicSection from '@/components/public/PublicSection'
-import PublicSectionHeader from '@/components/public/PublicSectionHeader'
-import { Button } from '@/components/ui/button'
+import PublicSection from '@/shared/components/public/PublicSection'
+import PublicSectionHeader from '@/shared/components/public/PublicSectionHeader'
+import { Button } from '@/shared/ui/button'
 import PublicInventoryMobileControls from '@/features/public-listings/components/PublicInventoryMobileControls'
 import PublicListingFilters from '@/features/public-listings/components/PublicListingFilters'
 import PublicListingGrid from '@/features/public-listings/components/PublicListingGrid'
@@ -14,19 +15,6 @@ type InventoryPageProps = {
   onNavigate: (path: string) => void
 }
 
-const initialFilters: PublicListingFiltersType = {
-  page: 1,
-  make_id: '',
-  car_model_id: '',
-  search: '',
-  year: '',
-  min_price: '',
-  max_price: '',
-  fuel_type: '',
-  transmission: '',
-  body_type: '',
-}
-
 function formatCount(value: number) {
   return String(Math.trunc(Number(String(value).replace(',', '.'))))
 }
@@ -35,11 +23,10 @@ function InventoryPage({ onNavigate }: InventoryPageProps) {
   const { messages } = useI18n()
   const [filters, setFilters] = useState<PublicListingFiltersType>(() => {
     const params = new URLSearchParams(window.location.search)
-    return {
-      ...initialFilters,
+    return createListingFilters({
       search: params.get('search') ?? '',
       body_type: params.get('body_type') ?? '',
-    }
+    })
   })
 
   const { listings, meta, listingsQuery, errorMessage } = usePublicListings({
@@ -112,7 +99,7 @@ function InventoryHeader({ countLabel }: InventoryHeaderProps) {
         />
       </div>
 
-      <h1 className="text-5xl font-black tracking-[-0.06em] lg:hidden">
+      <h1 className="text-4xl font-medium tracking-[-0.05em] lg:hidden">
         {messages.nav.inventory}
       </h1>
 

@@ -5,8 +5,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
-import type { AdminMake } from '../types'
+} from '@/shared/ui/table'
+import type { AdminMake } from '@/features/admin-catalog/makes/types'
 
 type MakesTableProps = {
   makes: AdminMake[]

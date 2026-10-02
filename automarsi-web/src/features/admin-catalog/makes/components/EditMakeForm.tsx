@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import FormField from '@/components/admin/FormField'
-import { Button } from '@/components/ui/button'
-import type { AdminMake } from '../types'
+import FormField from '@/shared/components/admin/FormField'
+import { Button } from '@/shared/ui/button'
+import type { AdminMake } from '@/features/admin-catalog/makes/types'
 
 type EditMakeFormProps = {
   make: AdminMake

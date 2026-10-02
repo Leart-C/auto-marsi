@@ -3,8 +3,8 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card'
-import type { AdminListing, AdminListingImage } from '../../types'
+} from '@/shared/ui/card'
+import type { AdminListing, AdminListingImage } from '@/features/admin-listings/types'
 
 type ListingGalleryPanelProps = {
   listing: AdminListing

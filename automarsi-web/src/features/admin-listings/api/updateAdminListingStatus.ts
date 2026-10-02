@@ -1,4 +1,6 @@
-export type AdminListingStatusAction = 'draft' | 'active' | 'sold' | 'archived'
+import type { ListingStatus } from '@/features/admin-listings/constants'
+import { adminApi } from '@/shared/api/adminApi'
+export type AdminListingStatusAction = ListingStatus
 
 type UpdateAdminListingStatusParams = {
   token: string
@@ -11,19 +13,12 @@ export async function updateAdminListingStatus({
   listingId,
   status,
 }: UpdateAdminListingStatusParams): Promise<void> {
-  const apiUrl = import.meta.env.VITE_API_URL
-
-  const response = await fetch(`${apiUrl}/admin/listings/${listingId}`, {
+  await adminApi<void>({
+    path: `/admin/listings/${listingId}`,
+    token,
     method: 'PATCH',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify({ status }),
+    body: { status },
+    errorMessage: 'Failed to update listing status.',
+    responseType: 'empty',
   })
-
-  if (!response.ok) {
-    throw new Error('Failed to update listing status.')
-  }
 }

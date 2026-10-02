@@ -1,9 +1,9 @@
-import EmptyState from '@/components/admin/EmptyState'
-import LoadingState from '@/components/admin/LoadingState'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import EditMakeForm from './EditMakeForm'
-import MakesList from './MakesList'
-import type { useMakeModelCatalog } from '../hooks/useMakeModelCatalog'
+import EmptyState from '@/shared/components/admin/EmptyState'
+import LoadingState from '@/shared/components/admin/LoadingState'
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card'
+import EditMakeForm from '@/features/admin-catalog/makes/components/EditMakeForm'
+import MakesList from '@/features/admin-catalog/makes/components/MakesList'
+import type { useMakeModelCatalog } from '@/features/admin-catalog/makes/hooks/useMakeModelCatalog'
 
 type MakesPanelProps = {
   catalog: ReturnType<typeof useMakeModelCatalog>
