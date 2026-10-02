@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -28,13 +29,17 @@ class VerifyClerkToken
             return response()->json(['message' => 'Unauthenticated'], 401);
         }
 
+        $stage = 'load_signing_keys';
+
         try {
             $jwks = Cache::remember('clerk_jwks', now()->addHour(), function () {
                 return Http::get(config('clerk.jwks_url'))->json();
             });
 
+            $stage = 'verify_token';
             $payload = JWT::decode($token, JWK::parseKeySet($jwks));
 
+            $stage = 'sync_user';
             $user = User::updateOrCreate(
                 ['clerk_id' => $payload->sub],
                 [
@@ -43,6 +48,7 @@ class VerifyClerkToken
                 ]
             );
 
+            $stage = 'assign_admin_role';
             $adminEmails = collect(explode(',', config('automarsi.admin_emails', '')))
                 ->map(fn ($email) => strtolower(trim($email)))
                 ->filter();
@@ -58,8 +64,16 @@ class VerifyClerkToken
                 $user->forceFill(['role' => 'admin'])->save();
             }
 
+            $stage = 'set_authenticated_user';
             Auth::setUser($user);
-        } catch (Throwable) {
+        } catch (Throwable $exception) {
+            // Exception messages and traces can contain tokens or database values.
+            Log::warning('Clerk authentication failed', [
+                'stage' => $stage,
+                'exception_type' => $exception::class,
+                'error_code' => $exception->getCode(),
+            ]);
+
             return response()->json(['message' => 'Invalid token.'], 401);
         }
 
